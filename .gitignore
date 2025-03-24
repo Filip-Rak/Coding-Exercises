@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# But not directories
+!*/
+
+# Don't ignore source & header files
+!*.h
+!*.cpp
+
+# Don't ignore  gitignore
+!.gitignore
