@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <map>
 
 // You are given N integers. Sort the integers and print the sorted order.
 // Store the N integers in a vector. Vectors are sequence containers representing arrays that can change in size.
@@ -146,6 +147,48 @@ int set_querry()
             else
                 std::cout << "Yes\n";
 
+        }
+    }
+}
+
+/*
+ * You are helping a teacher manage student marks. Each student can have multiple entries (answer sheets).
+ * The teacher will ask you to process Q queries of the following types:
+ *
+ * 1 X Y : Add marks Y to the student whose name is X.
+ *
+ * 2 X   : Erase all marks of the student whose name is X.
+ *
+ * 3 X   : Print the total marks of the student whose name is X.
+ *         - If the student has no marks, print 0.
+ */
+int map_querry()
+{
+    std::map<std::string, int> map;
+
+    int querry_number;
+    std::cin >> querry_number;
+
+    for (int i = 0; i < querry_number; i++)
+    {
+        int querry_type;
+        std::string key;
+        std::cin >> querry_type >> key;
+
+        if (querry_type == 1)
+        {
+            int mark;
+            std::cin >> mark;
+
+            map[key] += mark;
+        }
+        else if (querry_type == 2)
+        {
+            map.erase(key);
+        }
+        else
+        {
+            std::cout << map[key] << "\n";
         }
     }
 }
