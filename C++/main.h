@@ -164,8 +164,3 @@ long repeatedString(std::string s, long n)
 
     return total_count;
 }
-
-int main()
-{
-	std::cout << "Hello World!\n";
-}
