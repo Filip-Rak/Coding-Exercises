@@ -121,6 +121,50 @@ int jumpingOnClouds(std::vector<int> c)
     return jumps;
 }
 
+
+/*
+ * Problem: Repeated String
+ *
+ * There is a string, s, consisting of lowercase English letters that is
+ * repeated infinitely many times.
+ *
+ * Given an integer, n, determine the number of letter 'a's in the first
+ * n characters of the infinitely repeated string.
+ *
+ * Input:
+ * - A string 's' (to be infinitely repeated)
+ * - An integer 'n' representing the number of characters to consider
+ *
+ * Output:
+ * - The total count of letter 'a' in the first 'n' characters of the infinite string
+ */
+
+long repeatedString(std::string s, long n)
+{
+    // Find the numbers of a's in the substring
+    long sub_count = 0;
+    for (char c : s)
+    {
+        if (c == 'a')
+            sub_count += 1;
+    }
+
+    // Calculate how many times the subs string will FULLY fit in the infinite
+    long full_inserts = n / s.size(); // Integer division
+    long total_count = full_inserts * sub_count;
+    long characters_left = n - full_inserts * s.size();
+
+    // Go through the last substring that did not fully fit
+    // and count the last 'a' characters
+    for (long i = 0; i < characters_left; i++)
+    {
+        if (s[i] == 'a')
+            total_count += 1;
+    }
+
+    return total_count;
+}
+
 int main()
 {
 	std::cout << "Hello World!\n";
