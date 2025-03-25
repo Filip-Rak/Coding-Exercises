@@ -62,3 +62,46 @@ int load_and_erase()
     for (int num : arr)
         std::cout << num << " ";
 }
+
+/*
+ * You are given a sorted vector of integers.
+ *
+ * You will also receive multiple queries. For each query:
+ *   - You are given an integer.
+ *   - Determine whether this integer exists in the vector.
+ *     - If it exists, output the index at which it is found.
+ *     - If it does not exist, output the index of the smallest element that is greater than the given number.
+ *
+ * If there is no such greater element, indicate accordingly.
+ */
+
+int lower_bound()
+{
+    // Read the input array
+    int size;
+    std::cin >> size;
+
+    std::vector<int> arr(size);
+    for (int i = 0; i < size; i++)
+        std::cin >> arr[i];
+
+    // Read the querries
+    int querry_num;
+    std::cin >> querry_num;
+
+    for (int i = 0; i < querry_num; i++)
+    {
+        int querry;
+        std::cin >> querry;
+
+        auto it = std::lower_bound(arr.begin(), arr.end(), querry);
+        if (*it == querry)
+        {
+            std::cout << "Yes " << (it - arr.begin() + 1) << "\n";
+        }
+        else
+        {
+            std::cout << "No " << (it - arr.begin() + 1) << "\n";
+        }
+    }
+}
