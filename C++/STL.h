@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <set>
 
 // You are given N integers. Sort the integers and print the sorted order.
 // Store the N integers in a vector. Vectors are sequence containers representing arrays that can change in size.
@@ -102,6 +103,49 @@ int lower_bound()
         else
         {
             std::cout << "No " << (it - arr.begin() + 1) << "\n";
+        }
+    }
+}
+
+/*
+ * You are given Q queries. Each query is of one of the following three types:
+ *
+ * 1 x : Insert the element x into the set.
+ *
+ * 2 x : Delete the element x from the set.
+ *       (If x is not present in the set, do nothing.)
+ *
+ * 3 x : Check whether the element x is present in the set.
+ *       - If present, print "Yes"
+ *       - Otherwise, print "No"
+ */
+int set_querry()
+{
+    int querry_number;
+    std::cin >> querry_number;
+
+    std::set<int> set;
+    for (int i = 0; i < querry_number; i++)
+    {
+        int y, x;
+        std::cin >> y >> x;
+
+        if (y == 1)
+        {
+            set.insert(x);
+        }
+        else if (y == 2)
+        {
+            set.erase(x);
+        }
+        else
+        {
+            std::set<int>::iterator it = set.find(x);
+            if (it == set.end())
+                std::cout << "No\n";
+            else
+                std::cout << "Yes\n";
+
         }
     }
 }
