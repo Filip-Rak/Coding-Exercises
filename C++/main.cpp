@@ -83,6 +83,44 @@ int countingValleys(int steps, std::string path)
     return valleys;
 }
 
+/*
+ * Problem: Jumping on the Clouds
+ *
+ * There is a new mobile game that starts with consecutively numbered clouds.
+ * Some of the clouds are thunderheads (represented by 1), and others are
+ * cumulus clouds (represented by 0).
+ *
+ * The player can jump from the current cloud to a cloud that is either
+ * 1 or 2 positions ahead, but only if the target cloud is a cumulus cloud (0).
+ * The player must avoid thunderheads.
+ *
+ * Goal:
+ * Determine the minimum number of jumps needed to reach the last cloud
+ * starting from the first one. It is guaranteed that it is always
+ * possible to win the game.
+ *
+ * Input:
+ * - An array of integers where each element is either 0 (safe) or 1 (must be avoided)
+ */
+int jumpingOnClouds(std::vector<int> c)
+{
+    int jumps = 0;
+    int total_distance = 0;
+    int length = c.size();
+
+    while (total_distance < length - 1)
+    {
+        if (total_distance < length - 2 && c[total_distance + 2] == 0)
+            total_distance += 2;
+        else
+            total_distance += 1;
+
+        jumps += 1;
+    }
+
+    return jumps;
+}
+
 int main()
 {
 	std::cout << "Hello World!\n";
