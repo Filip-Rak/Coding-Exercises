@@ -3,13 +3,15 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <string>
 #include <set>
 #include <map>
+#include <unordered_map>
 
 // You are given N integers. Sort the integers and print the sorted order.
 // Store the N integers in a vector. Vectors are sequence containers representing arrays that can change in size.
 
-int load_and_sort()
+void load_and_sort()
 {
     // Load the amount of numbers and the numbers
     int size;
@@ -38,7 +40,7 @@ int load_and_sort()
  *
  * Note: The second query should be performed on the vector after completing the first query.
  */
-int load_and_erase()
+void load_and_erase()
 {
     int size;
     std::cin >> size;
@@ -77,7 +79,7 @@ int load_and_erase()
  * If there is no such greater element, indicate accordingly.
  */
 
-int lower_bound()
+void lower_bound()
 {
     // Read the input array
     int size;
@@ -120,7 +122,7 @@ int lower_bound()
  *       - If present, print "Yes"
  *       - Otherwise, print "No"
  */
-int set_querry()
+void set_querry()
 {
     int querry_number;
     std::cin >> querry_number;
@@ -162,7 +164,7 @@ int set_querry()
  * 3 X   : Print the total marks of the student whose name is X.
  *         - If the student has no marks, print 0.
  */
-int map_querry()
+void map_querry()
 {
     std::map<std::string, int> map;
 
@@ -190,5 +192,161 @@ int map_querry()
         {
             std::cout << map[key] << "\n";
         }
+    }
+}
+
+/*
+ * You are given a simplified markup language called HRML.
+ * Each element has a start tag and an end tag. Start tags may have attributes in the form:
+ *
+ * <tag-name attribute1 = "value1" attribute2 = "value2" ...>
+ * </tag-name>
+ *
+ * Tags can be nested. Attributes are referenced using the syntax:
+ *   tag1~attribute
+ *   tag1.tag2~attribute
+ *
+ * You are given N lines of HRML source code and Q queries.
+ *
+ * For each query, print the value of the specified attribute.
+ * If the attribute does not exist, print "Not Found!".
+ */
+
+std::vector<std::string> tokenize(std::string line)
+{
+    std::vector<std::string> tokens;
+    std::string token = "";
+
+    for (char ch : line)
+    {
+        if (std::isspace(ch))
+        {
+            if (!token.empty())
+            {
+                tokens.push_back(token);
+                token.clear();
+            }
+        }
+        else if (ch == '=' || ch == '<' || ch == '>' || ch == '"' || ch == '/')
+        {
+            if (!token.empty())
+            {
+                tokens.push_back(token);
+                token.clear();
+            }
+
+            if (ch != '"')
+                tokens.push_back(std::string(1, ch));
+        }
+        else
+        {
+            token += ch;
+        }
+    }
+
+    if (!token.empty())
+        tokens.push_back(token);
+
+    return tokens;
+}
+
+std::string to_path(std::vector<std::string> stack)
+{
+    std::string path;
+    for (std::string str : stack)
+    {
+        path += str;
+    }
+
+    return path;
+}
+
+void parse_tokens(std::unordered_map<std::string, std::string> &attribute_map, std::vector<std::string> tokens)
+{
+    static std::vector<std::string> path_stack;
+
+    int i = 0;
+    while(i < tokens.size())
+    {
+        /* Manage Path */
+        if (tokens[i] == "<")
+        {
+            // Close the tag
+            if (tokens[i + 1] == "/")
+            {
+                // Delete last of the tags
+                path_stack.erase(path_stack.end() - 1);
+
+                // Delete "." if that was not the only tag
+                if (!path_stack.empty())
+                    path_stack.erase(path_stack.end() - 1);
+
+                i += 3;
+            }
+            // Open a tag
+            else
+            {
+                // Add the "." if not empty
+                if (!path_stack.empty())
+                    path_stack.push_back(".");
+
+                // Add the tag
+                path_stack.push_back(tokens[i + 1]);
+                i += 2;
+            }
+        }
+        /* Map Keys and Values */
+        else if (tokens[i] == "=")
+        {
+            // Add key and value
+            std::string key = tokens[i - 1];
+            std::string value = tokens[i + 1];
+            std::string path = to_path(path_stack);
+
+            attribute_map[path + "~" + key] = value;
+            i += 2;
+        }
+        else
+        {
+            i += 1;
+        }
+    }
+}
+
+void parse_attributes_entry()
+{
+    // Store attributes
+    std::unordered_map<std::string, std::string> attribute_map;
+
+    // Read input amounts
+    int N, Q;
+    std::cin >> N >> Q;
+    std::cin.ignore();
+
+    // Read and parse lines
+    for (int i = 0; i < N; i++)
+    {
+        // Read the line
+        std::string line;
+        std::getline(std::cin, line);
+
+        // Parse the line
+        std::vector<std::string> tokens = tokenize(line);
+        parse_tokens(attribute_map, tokens);
+    }
+
+    // Read and answer querries
+    for (int i = 0; i < Q; i++)
+    {
+        // Read query
+        std::string querry;
+        std::getline(std::cin, querry);
+
+        // Output value of the attribute
+        auto it = attribute_map.find(querry);
+        if (it == attribute_map.end())
+            std::cout << "Not Found!\n";
+        else
+            std::cout << it->second << "\n";
     }
 }
