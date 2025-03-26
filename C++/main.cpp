@@ -2,5 +2,5 @@
 
 int main()
 {
-	parse_attributes_entry();
+	rect_area();
 }

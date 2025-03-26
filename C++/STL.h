@@ -350,3 +350,68 @@ void parse_attributes_entry()
             std::cout << it->second << "\n";
     }
 }
+
+
+/*
+ * Create two classes to compute the area of a rectangle using inheritance.
+ *
+ * Class: Rectangle
+ * - Contains two integer data members: width and height.
+ * - Has a method display() that prints width and height separated by a space.
+ *
+ * Class: RectangleArea (inherits from Rectangle)
+ * - Has a method read_input() to take input for width and height.
+ * - Overrides the display() method to print the area (width * height) of the rectangle.
+ *
+ * Input Format:
+ * - A single line of input containing two space-separated integers: width and height.
+ */
+
+class Rectangle
+{
+protected:
+    int width, height;
+
+public:
+    virtual void display()
+    {
+        std::cout << width << " " << height << "\n";
+    }
+};
+
+class RectangleArea : public Rectangle
+{
+public:
+    void read_input()
+    {
+        std::cin >> width >> height;
+    }
+
+    void display() override
+    {
+        std::cout << width * height << "\n";
+    }
+};
+
+void rect_area()
+{
+    /*
+     * Declare a RectangleArea object
+     */
+    RectangleArea r_area;
+
+    /*
+     * Read the width and height
+     */
+    r_area.read_input();
+
+    /*
+     * Print the width and height
+     */
+    r_area.Rectangle::display();
+
+    /*
+     * Print the area
+     */
+    r_area.display();
+}
