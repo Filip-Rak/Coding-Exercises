@@ -431,6 +431,11 @@ public:
     {
         return "(" + std::to_string(a) + ", " + std::to_string(b) + ")";
     }
+
+    bool operator == (const Point& other)
+    {
+        return this->a == other.a && this->b == other.b;
+    }
 };
 
 std::ostream& operator << (std::ostream &out, Point p)
@@ -441,6 +446,11 @@ std::ostream& operator << (std::ostream &out, Point p)
 
 void operators_entry()
 {
-    Point p(10, 20);
-    std::cout << p << "\n";
+    Point p1(10, 20);
+    Point p2(10, 21);
+    
+    std::cout
+        << (p1 == p2) << "\n"
+        << p1 << "\n"
+        << p2 << "\n";
 }
