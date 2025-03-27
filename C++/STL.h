@@ -583,3 +583,55 @@ void activity_selection_entry()
 
     std::cout << count << "\n";
 }
+
+template <class T>
+class AddElement
+{
+    /* Attributes */
+    T a;
+
+public:
+    /* Methods */
+    T add(const T& other)
+    {
+        return this->a + other;
+    }
+
+    /* Constructor */
+    AddElement(T value): a(value){}
+};
+
+template <>
+class AddElement<char>
+{
+    /* Attributes */
+    char a;
+public:
+    /* Methods */
+    std::string add(const char& other)
+    { 
+        return std::string { this->a, other };
+    }
+
+    /* Constructor */
+    AddElement(char str): a(str){}
+};
+
+void class_templates_entry()
+{
+    // Add floats
+    AddElement<float> float_adder(2.5);
+    std::cout << "<float> " << float_adder.add(1.2) << "\n";
+
+    // Add ints
+    AddElement<int> int_adder(5);
+    std::cout << "<int> " << int_adder.add(3) << "\n";
+
+    // Add string
+    AddElement<std::string> string_adder("1 + 1 = ");
+    std::cout << "<std::string> " << string_adder.add("2") << "\n";
+
+    // Add char
+    AddElement<char> char_adder('C');
+    std::cout << "<char> " << char_adder.add('#') << "\n";
+}

@@ -2,5 +2,5 @@
 
 int main()
 {
-	activity_selection_entry();
+	class_templates_entry();
 }
