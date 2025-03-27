@@ -420,21 +420,82 @@ class Point
 {
 private:
     /* Attributes */
-    int a, b;
+    int x, y;
 
 public:
     /* Constructor */
-    Point(int a, int b): a(a), b(b){}
+    Point(int x, int y): x(x), y(y){}
 
     /* Public Methods */
-    std::string to_string()
+    std::string to_string() const
     {
-        return "(" + std::to_string(a) + ", " + std::to_string(b) + ")";
+        return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
     }
 
-    bool operator == (const Point& other)
+    /* Operators */
+    bool operator == (const Point& other) const
     {
-        return this->a == other.a && this->b == other.b;
+        return this->x == other.x && this->y == other.y;
+    }
+
+    bool operator != (const Point &other) const
+    {
+        return !(*this == other);
+    }
+
+    Point operator + (const Point& other) const
+    {
+        int new_x = this->x + other.x;
+        int new_y = this->y + other.y;
+
+        return Point(new_x, new_y);
+    }
+
+    Point operator - (const Point& other) const
+    {
+        int new_x = this->x - other.x;
+        int new_y = this->y - other.y;
+
+        return Point(new_x, new_y);
+    }
+
+    Point& operator += (const Point& other)
+    {
+        *this = *this + other;
+        return *this;
+    }
+
+    Point& operator -= (const Point& other)
+    {
+        *this = *this - other;
+        return *this;
+    }
+
+    Point operator () (int multi) const
+    {
+        int new_x = this->x * multi;
+        int new_y = this->y * multi;
+
+        return Point(new_x, new_y);
+    }
+
+    Point& operator [] (std::string call)
+    {
+        if (call == "clear")
+        {
+            this->x = 0;
+            this->y = 0;
+        }
+
+        return *this;
+    }
+
+    Point& operator [] (int def)
+    {
+        this->x = def;
+        this->y = def;
+
+        return *this;
     }
 };
 
@@ -446,11 +507,21 @@ std::ostream& operator << (std::ostream &out, Point p)
 
 void operators_entry()
 {
-    Point p1(10, 20);
-    Point p2(10, 21);
+    const Point p1(10, 20);
+    Point p2(1, 2);
     
-    std::cout
-        << (p1 == p2) << "\n"
+    /*std::cout
+        << (p1 != p2) << "\n"
         << p1 << "\n"
-        << p2 << "\n";
+        << p2 << "\n";*/
+
+    Point p3 = p2;
+    p3 += p1;
+    // std::cout << "P3: " << p3 << "\n";
+
+    // std::cout << p3(5) << "\n";
+
+    std::cout << p3 << "\n";
+    p3[3];
+    std::cout << p3;
 }
