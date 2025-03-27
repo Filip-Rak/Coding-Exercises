@@ -525,3 +525,61 @@ void operators_entry()
     p3[3];
     std::cout << p3;
 }
+
+/**
+ * @brief Selects the maximum number of non-overlapping activities.
+ *
+ * Reads a list of activities from standard input, where each activity is defined
+ * by a start time and a duration. The function calculates the end time for each activity,
+ * sorts all activities by end time, and applies a greedy algorithm to select the
+ * maximum number of non-overlapping activities that can be scheduled.
+ *
+ * Input format:
+ *  - First line: integer n (number of activities)
+ *  - Second line: n integers (start times)
+ *  - Third line: n integers (durations)
+ *
+ * Output:
+ *  - A single integer representing the maximum number of non-overlapping activities
+ *    that can be attended.
+ *
+ * Time Complexity: O(n log n) due to sorting.
+ */
+void activity_selection_entry()
+{
+    // Querry amount of data
+    int n = 0; std::cin >> n;
+
+    // Allocate memory
+    // (end_time, start_time)
+    std::vector<std::pair<int, int>> data(n);
+
+    // Load data
+    for (int i = 0; i < n; i++)
+        std::cin >> data[i].second;
+
+    for (int i = 0; i < n; i++)
+    {
+        // Get end time from duration and save it
+        int duration; std::cin >> duration;
+        data[i].first = data[i].second + duration;
+    }
+
+    // Sort by end time
+    std::sort(data.begin(), data.end());
+
+    // Count the maximum number of available events
+    int count = 0;
+    int last_end = 0;
+
+    for (const auto& pair : data)
+    {
+        if (pair.second >= last_end)
+        {
+            count += 1;
+            last_end = pair.first;
+        }
+    }
+
+    std::cout << count << "\n";
+}

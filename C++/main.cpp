@@ -2,5 +2,5 @@
 
 int main()
 {
-	operators_entry();
+	activity_selection_entry();
 }
