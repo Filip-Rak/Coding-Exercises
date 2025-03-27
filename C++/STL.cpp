@@ -1,2 +1,475 @@
 #include "STL.h"
 
+void load_and_sort()
+{
+    // Load the amount of numbers and the numbers
+    int size;
+    std::cin >> size;
+
+    std::vector<int> numbers(size);
+    for (int i = 0; i < size; i++)
+        std::cin >> numbers[i];
+
+    // Sort the numbers    
+    std::sort(numbers.begin(), numbers.end());
+
+    // Print the numbers
+    for (int num : numbers)
+        std::cout << num << " ";
+}
+
+void load_and_erase()
+{
+    int size;
+    std::cin >> size;
+
+    std::vector<int> arr(size);
+    for (int i = 0; i < size; i++)
+        std::cin >> arr[i];
+
+    int q1;
+    std::cin >> q1;
+
+    int q2_1;
+    std::cin >> q2_1;
+
+    int q2_2;
+    std::cin >> q2_2;
+
+    arr.erase(arr.begin() + q1 - 1);
+    arr.erase(arr.begin() + q2_1 - 1, arr.begin() + q2_2 - 1);
+
+    std::cout << arr.size() << "\n";
+
+    for (int num : arr)
+        std::cout << num << " ";
+}
+
+void lower_bound()
+{
+    // Read the input array
+    int size;
+    std::cin >> size;
+
+    std::vector<int> arr(size);
+    for (int i = 0; i < size; i++)
+        std::cin >> arr[i];
+
+    // Read the querries
+    int querry_num;
+    std::cin >> querry_num;
+
+    for (int i = 0; i < querry_num; i++)
+    {
+        int querry;
+        std::cin >> querry;
+
+        auto it = std::lower_bound(arr.begin(), arr.end(), querry);
+        if (*it == querry)
+        {
+            std::cout << "Yes " << (it - arr.begin() + 1) << "\n";
+        }
+        else
+        {
+            std::cout << "No " << (it - arr.begin() + 1) << "\n";
+        }
+    }
+}
+
+void set_querry()
+{
+    int querry_number;
+    std::cin >> querry_number;
+
+    std::set<int> set;
+    for (int i = 0; i < querry_number; i++)
+    {
+        int y, x;
+        std::cin >> y >> x;
+
+        if (y == 1)
+        {
+            set.insert(x);
+        }
+        else if (y == 2)
+        {
+            set.erase(x);
+        }
+        else
+        {
+            std::set<int>::iterator it = set.find(x);
+            if (it == set.end())
+                std::cout << "No\n";
+            else
+                std::cout << "Yes\n";
+
+        }
+    }
+}
+
+void map_querry()
+{
+    std::map<std::string, int> map;
+
+    int querry_number;
+    std::cin >> querry_number;
+
+    for (int i = 0; i < querry_number; i++)
+    {
+        int querry_type;
+        std::string key;
+        std::cin >> querry_type >> key;
+
+        if (querry_type == 1)
+        {
+            int mark;
+            std::cin >> mark;
+
+            map[key] += mark;
+        }
+        else if (querry_type == 2)
+        {
+            map.erase(key);
+        }
+        else
+        {
+            std::cout << map[key] << "\n";
+        }
+    }
+}
+
+std::vector<std::string> tokenize(std::string line)
+{
+    std::vector<std::string> tokens;
+    std::string token = "";
+
+    for (char ch : line)
+    {
+        if (std::isspace(ch))
+        {
+            if (!token.empty())
+            {
+                tokens.push_back(token);
+                token.clear();
+            }
+        }
+        else if (ch == '=' || ch == '<' || ch == '>' || ch == '"' || ch == '/')
+        {
+            if (!token.empty())
+            {
+                tokens.push_back(token);
+                token.clear();
+            }
+
+            if (ch != '"')
+                tokens.push_back(std::string(1, ch));
+        }
+        else
+        {
+            token += ch;
+        }
+    }
+
+    if (!token.empty())
+        tokens.push_back(token);
+
+    return tokens;
+}
+
+std::string to_path(std::vector<std::string> stack)
+{
+    std::string path;
+    for (std::string str : stack)
+    {
+        path += str;
+    }
+
+    return path;
+}
+
+void parse_tokens(std::unordered_map<std::string, std::string>& attribute_map, std::vector<std::string> tokens)
+{
+    static std::vector<std::string> path_stack;
+
+    int i = 0;
+    while (i < tokens.size())
+    {
+        /* Manage Path */
+        if (tokens[i] == "<")
+        {
+            // Close the tag
+            if (tokens[i + 1] == "/")
+            {
+                // Delete last of the tags
+                path_stack.erase(path_stack.end() - 1);
+
+                // Delete "." if that was not the only tag
+                if (!path_stack.empty())
+                    path_stack.erase(path_stack.end() - 1);
+
+                i += 3;
+            }
+            // Open a tag
+            else
+            {
+                // Add the "." if not empty
+                if (!path_stack.empty())
+                    path_stack.push_back(".");
+
+                // Add the tag
+                path_stack.push_back(tokens[i + 1]);
+                i += 2;
+            }
+        }
+        /* Map Keys and Values */
+        else if (tokens[i] == "=")
+        {
+            // Add key and value
+            std::string key = tokens[i - 1];
+            std::string value = tokens[i + 1];
+            std::string path = to_path(path_stack);
+
+            attribute_map[path + "~" + key] = value;
+            i += 2;
+        }
+        else
+        {
+            i += 1;
+        }
+    }
+}
+
+void parse_attributes_entry()
+{
+    // Store attributes
+    std::unordered_map<std::string, std::string> attribute_map;
+
+    // Read input amounts
+    int N, Q;
+    std::cin >> N >> Q;
+    std::cin.ignore();
+
+    // Read and parse lines
+    for (int i = 0; i < N; i++)
+    {
+        // Read the line
+        std::string line;
+        std::getline(std::cin, line);
+
+        // Parse the line
+        std::vector<std::string> tokens = tokenize(line);
+        parse_tokens(attribute_map, tokens);
+    }
+
+    // Read and answer querries
+    for (int i = 0; i < Q; i++)
+    {
+        // Read query
+        std::string querry;
+        std::getline(std::cin, querry);
+
+        // Output value of the attribute
+        auto it = attribute_map.find(querry);
+        if (it == attribute_map.end())
+            std::cout << "Not Found!\n";
+        else
+            std::cout << it->second << "\n";
+    }
+}
+
+void rect_area()
+{
+    /*
+     * Declare a RectangleArea object
+     */
+    RectangleArea r_area;
+
+    /*
+     * Read the width and height
+     */
+    r_area.read_input();
+
+    /*
+     * Print the width and height
+     */
+    r_area.Rectangle::display();
+
+    /*
+     * Print the area
+     */
+    r_area.display();
+}
+
+void Rectangle::display()
+{
+    std::cout << width << " " << height << "\n";
+}
+
+void RectangleArea::read_input()
+{
+    std::cin >> width >> height;
+}
+
+void RectangleArea::display()
+{
+    std::cout << width * height << "\n";
+}
+
+Point::Point(int x, int y)
+    : x(x), y(y) {}
+
+std::string Point::to_string() const
+{
+    return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+}
+
+bool Point::operator==(const Point& other) const
+{
+    return this->x == other.x && this->y == other.y;
+}
+
+bool Point::operator!=(const Point& other) const
+{
+    return !(*this == other);
+}
+
+Point Point::operator+(const Point& other) const
+{
+    int new_x = this->x + other.x;
+    int new_y = this->y + other.y;
+
+    return Point(new_x, new_y);
+}
+
+Point Point::operator-(const Point& other) const
+{
+    int new_x = this->x - other.x;
+    int new_y = this->y - other.y;
+
+    return Point(new_x, new_y);
+}
+
+Point& Point::operator+=(const Point& other)
+{
+    *this = *this + other;
+    return *this;
+}
+
+Point& Point::operator-=(const Point& other)
+{
+    *this = *this - other;
+    return *this;
+}
+
+Point Point::operator()(int multi) const
+{
+    int new_x = this->x * multi;
+    int new_y = this->y * multi;
+
+    return Point(new_x, new_y);
+}
+
+Point& Point::operator[](std::string call)
+{
+    if (call == "clear")
+    {
+        this->x = 0;
+        this->y = 0;
+    }
+
+    return *this;
+}
+
+Point& Point::operator[](int def)
+{
+    this->x = def;
+    this->y = def;
+
+    return *this;
+}
+
+std::ostream& operator<<(std::ostream& out, Point p)
+{
+    out << p.to_string();
+    return out;
+}
+
+void operators_entry()
+{
+    const Point p1(10, 20);
+    Point p2(1, 2);
+
+    /*std::cout
+        << (p1 != p2) << "\n"
+        << p1 << "\n"
+        << p2 << "\n";*/
+
+    Point p3 = p2;
+    p3 += p1;
+    // std::cout << "P3: " << p3 << "\n";
+
+    // std::cout << p3(5) << "\n";
+
+    std::cout << p3 << "\n";
+    p3[3];
+    std::cout << p3;
+}
+
+void activity_selection_entry()
+{
+    // Querry amount of data
+    int n = 0; std::cin >> n;
+
+    // Allocate memory
+    // (end_time, start_time)
+    std::vector<std::pair<int, int>> data(n);
+
+    // Load data
+    for (int i = 0; i < n; i++)
+        std::cin >> data[i].second;
+
+    for (int i = 0; i < n; i++)
+    {
+        // Get end time from duration and save it
+        int duration; std::cin >> duration;
+        data[i].first = data[i].second + duration;
+    }
+
+    // Sort by end time
+    std::sort(data.begin(), data.end());
+
+    // Count the maximum number of available events
+    int count = 0;
+    int last_end = 0;
+
+    for (const auto& pair : data)
+    {
+        if (pair.second >= last_end)
+        {
+            count += 1;
+            last_end = pair.first;
+        }
+    }
+
+    std::cout << count << "\n";
+}
+
+void class_templates_entry()
+{
+    // Add floats
+    AddElement<float> float_adder(2.5);
+    std::cout << "<float> " << float_adder.add(1.2) << "\n";
+
+    // Add ints
+    AddElement<int> int_adder(5);
+    std::cout << "<int> " << int_adder.add(3) << "\n";
+
+    // Add string
+    AddElement<std::string> string_adder("1 + 1 = ");
+    std::cout << "<std::string> " << string_adder.add("2") << "\n";
+
+    // Add char
+    AddElement<char> char_adder('C');
+    std::cout << "<char> " << char_adder.add('#') << "\n";
+}
+
