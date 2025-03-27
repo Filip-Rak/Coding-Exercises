@@ -219,3 +219,9 @@ public:
 };
 
 void class_templates_entry();
+
+#define increment(base, addition) base + addition
+#define TOTAL 100
+#define foreach(container) for(int i = 0; i < container.size(); i++)
+
+void preprocessor_entry();

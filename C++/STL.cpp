@@ -473,3 +473,17 @@ void class_templates_entry()
     std::cout << "<char> " << char_adder.add('#') << "\n";
 }
 
+void preprocessor_entry()
+{
+    std::vector<int> arr(TOTAL);
+    for (int i = 0; i < TOTAL; i = increment(i, 1))
+    {
+        arr[i] = i;
+    }
+
+    foreach(arr)
+    {
+        std::cout << arr[i] << "\n";
+    }
+}
+

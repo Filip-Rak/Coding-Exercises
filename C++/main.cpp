@@ -2,5 +2,5 @@
 
 int main()
 {
-	class_templates_entry();
+	preprocessor_entry();
 }
