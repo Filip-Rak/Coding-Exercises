@@ -415,3 +415,32 @@ void rect_area()
      */
     r_area.display();
 }
+
+class Point
+{
+private:
+    /* Attributes */
+    int a, b;
+
+public:
+    /* Constructor */
+    Point(int a, int b): a(a), b(b){}
+
+    /* Public Methods */
+    std::string to_string()
+    {
+        return "(" + std::to_string(a) + ", " + std::to_string(b) + ")";
+    }
+};
+
+std::ostream& operator << (std::ostream &out, Point p)
+{
+    out << p.to_string();
+    return out;
+}
+
+void operators_entry()
+{
+    Point p(10, 20);
+    std::cout << p << "\n";
+}

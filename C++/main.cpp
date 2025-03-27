@@ -2,5 +2,5 @@
 
 int main()
 {
-	rect_area();
+	operators_entry();
 }
