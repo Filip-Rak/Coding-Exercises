@@ -2,5 +2,5 @@
 
 int main()
 {
-	virtual_entry();
+	static_entry_2();
 }

@@ -334,3 +334,60 @@ public:
 };
 
 void virtual_entry();
+
+class A
+{
+public:
+    A();
+private:
+    int callA;
+    void inc();
+
+protected:
+    void func(int& a);
+public:
+    int getA();
+};
+
+class B
+{
+public:
+    B();
+private:
+    int callB;
+    void inc();
+protected:
+    void func(int& a);
+public:
+    int getB();
+};
+
+class C
+{
+public:
+    C();
+private:
+    int callC;
+    void inc();
+protected:
+    void func(int& a);
+public:
+    int getC();
+};
+
+class D : A, B, C
+{
+
+    int val;
+public:
+    //Initially val is 1
+    D();
+
+    //Implement this function
+    void update_val(int new_val);
+
+    //For Checking Purpose
+    void check(int new_val);
+};
+
+void static_entry_2();

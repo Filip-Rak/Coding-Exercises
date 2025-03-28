@@ -599,6 +599,14 @@ void virtual_entry()
     std::cout << r2.get_price() << "\n";
 }
 
+void static_entry_2()
+{
+    D d;
+    int new_val;
+    cin >> new_val;
+    d.check(new_val);
+}
+
 Matrix Matrix::operator+(const Matrix& other) const
 {
     Matrix new_matrix;
@@ -635,4 +643,109 @@ int HotelApartment::get_price()
 int HotelRoom::get_price()
 {
     return beds * 50 + bathrooms * 100;
+}
+
+A::A()
+{
+    callA = 0;
+}
+
+void A::inc()
+{
+    callA++;
+}
+
+void A::func(int& a)
+{
+    a = a * 2;
+    inc();
+}
+
+int A::getA()
+{
+    return callA;
+}
+
+B::B()
+{
+    callB = 0;
+}
+
+void B::inc()
+{
+    callB++;
+}
+
+void B::func(int& a)
+{
+    a = a * 3;
+    inc();
+}
+
+int B::getB()
+{
+    return callB;
+}
+
+C::C()
+{
+    callC = 0;
+}
+
+void C::inc()
+{
+    callC++;
+}
+
+void C::func(int& a)
+{
+    a = a * 5;
+    inc();
+}
+
+int C::getC()
+{
+    return callC;
+}
+
+D::D()
+{
+    val = 1;
+}
+
+void D::update_val(int new_val)
+{
+    int x2 = 0, x3 = 0, x5 = 0;
+
+    while (new_val > 1)
+    {
+        if (new_val % 2 == 0)
+        {
+            x2 += 1;
+            new_val /= 2;
+        }
+        else if (new_val % 3 == 0)
+        {
+            x3 += 1;
+            new_val /= 3;
+        }
+        else
+        {
+            x5 += 1;
+            new_val /= 5;
+        }
+    }
+
+    for (int i = 0; i < x2; i++)
+        A::func(val); // * 2
+    for (int i = 0; i < x3; i++)
+        B::func(val); // * 3
+    for (int i = 0; i < x5; i++)
+        C::func(val); // * 5
+}
+
+void D::check(int new_val)
+{
+    update_val(new_val);
+    cout << "Value = " << val << endl << "A's func called " << getA() << " times " << endl << "B's func called " << getB() << " times" << endl << "C's func called " << getC() << " times" << endl;
 }
