@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <string>
 #include <set>
@@ -225,3 +226,5 @@ void class_templates_entry();
 #define foreach(container) for(int i = 0; i < container.size(); i++)
 
 void preprocessor_entry();
+
+void iomanip_entry();

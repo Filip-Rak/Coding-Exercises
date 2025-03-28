@@ -487,3 +487,36 @@ void preprocessor_entry()
     }
 }
 
+void iomanip_entry()
+{
+    std::cout << std::setiosflags(std::ios::uppercase);
+    std::cout << std::setw(0xf) << std::internal;
+
+    float A = 100.345;
+    float B = 2006.008;
+    float C = 2331.41592653498;
+
+        std::cout
+            << std::setw(3)
+            << std::hex
+            << std::showbase
+            << std::nouppercase;
+        std::cout << (long)A << "\n";
+
+        std::cout
+            << std::setprecision(2)
+            << std::fixed
+            << std::setw(15)
+            << std::showpos
+            << std::right
+            << std::setfill('_')
+            << B << "\n";
+
+        std::cout
+            << std::setprecision(9)
+            << std::scientific
+            << std::noshowpos
+            << std::uppercase
+            << C << "\n";
+
+    }

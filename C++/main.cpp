@@ -2,5 +2,5 @@
 
 int main()
 {
-	preprocessor_entry();
+	iomanip_entry();
 }
