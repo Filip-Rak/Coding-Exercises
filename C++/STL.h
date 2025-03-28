@@ -375,6 +375,14 @@ public:
     int getC();
 };
 
+/*
+    You need to modify the class D and implement the function update_val,
+    which sets D's val to new_val by manipulating the value only by calling
+    the functions defined in classes A, B, and C.
+
+    It is guaranteed that new_val has only 2, 3, and 5 as its prime factors.
+*/
+
 class D : A, B, C
 {
 
