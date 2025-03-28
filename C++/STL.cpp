@@ -715,33 +715,24 @@ D::D()
 
 void D::update_val(int new_val)
 {
-    int x2 = 0, x3 = 0, x5 = 0;
-
     while (new_val > 1)
     {
         if (new_val % 2 == 0)
         {
-            x2 += 1;
+            A::func(val); // * 2
             new_val /= 2;
         }
         else if (new_val % 3 == 0)
         {
-            x3 += 1;
+            B::func(val); // * 3
             new_val /= 3;
         }
         else
         {
-            x5 += 1;
+            C::func(val); // * 5
             new_val /= 5;
         }
-    }
-
-    for (int i = 0; i < x2; i++)
-        A::func(val); // * 2
-    for (int i = 0; i < x3; i++)
-        B::func(val); // * 3
-    for (int i = 0; i < x5; i++)
-        C::func(val); // * 5
+    }        
 }
 
 void D::check(int new_val)
