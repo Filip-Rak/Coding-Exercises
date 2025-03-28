@@ -305,3 +305,32 @@ int largest_proper_divisor(int n);
 void process_input(int n);
 
 int simple_exception_entry();
+
+class HotelRoom
+{
+private:
+    /* Attributes */
+    int beds;
+    int bathrooms;
+
+public:
+    /* Constructor & Destructor */
+    HotelRoom(int beds, int bathrooms): beds(beds), bathrooms(bathrooms){}
+    virtual ~HotelRoom(){}
+
+    /* Methods */
+    virtual int get_price();
+};
+
+class HotelApartment : HotelRoom
+{
+public:
+    /* Constructor & Destructor */
+    HotelApartment(int beds, int bathrooms): HotelRoom(beds, bathrooms){}
+    ~HotelApartment() override {}
+    
+    /* Methods */
+    int get_price() override;
+};
+
+void virtual_entry();

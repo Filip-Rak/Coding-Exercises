@@ -590,6 +590,15 @@ int simple_exception_entry()
     return 0;
 }
 
+void virtual_entry()
+{
+    HotelRoom r1(1, 2);
+    HotelApartment r2(1, 2);
+
+    std::cout << r1.get_price() << "\n";
+    std::cout << r2.get_price() << "\n";
+}
+
 Matrix Matrix::operator+(const Matrix& other) const
 {
     Matrix new_matrix;
@@ -616,4 +625,14 @@ std::string Person::get_name() const
 std::string Person::get_surname() const
 {
     return this->last_name;
+}
+
+int HotelApartment::get_price()
+{
+    return HotelRoom::get_price() + 100;
+}
+
+int HotelRoom::get_price()
+{
+    return beds * 50 + bathrooms * 100;
 }

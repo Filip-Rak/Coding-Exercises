@@ -2,5 +2,5 @@
 
 int main()
 {
-	simple_exception_entry();
+	virtual_entry();
 }
