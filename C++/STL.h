@@ -233,8 +233,29 @@ class Matrix
 {
 public:
     /* Attributes */
-    const std::vector<std::vector<int>> values;
+    std::vector<std::vector<int>> values;
 
     /* Operators */
     Matrix operator+(const Matrix& other) const;
 };
+
+class Person
+{
+private:
+    /* Attributes */
+    std::string first_name;
+    std::string last_name;
+
+public:
+    /* Constructor */
+    Person(std::string name, std::string surname) : first_name(name), last_name(surname){}
+
+    /* Getters */
+    std::string get_name() const;
+
+    std::string get_surname() const;
+};
+
+std::ostream& operator<<(std::ostream& out, const Person& p);
+
+void person_entry();

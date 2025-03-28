@@ -521,6 +521,18 @@ void iomanip_entry()
 
     }
 
+std::ostream& operator<<(std::ostream& out, const Person& p)
+{
+    out << "name = " << p.get_name() << ", surname = " << p.get_surname();
+    return out;
+}
+
+void person_entry()
+{
+    Person p1("Rafaelo", "Zoblotni");
+    std::cout << p1 << "\n";
+}
+
 Matrix Matrix::operator+(const Matrix& other) const
 {
     Matrix new_matrix;
@@ -537,4 +549,14 @@ Matrix Matrix::operator+(const Matrix& other) const
     }
 
     return new_matrix;
+}
+
+std::string Person::get_name() const
+{
+    return this->first_name;
+}
+
+std::string Person::get_surname() const
+{
+    return this->last_name;
 }

@@ -2,5 +2,5 @@
 
 int main()
 {
-	iomanip_entry();
+	person_entry();
 }
