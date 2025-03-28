@@ -2,5 +2,5 @@
 
 int main()
 {
-	fruits_and_colors_entry();
+	simple_exception_entry();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <stdexcept>
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -296,3 +297,11 @@ public:
 };
 
 void fruits_and_colors_entry();
+
+using namespace std;
+
+int largest_proper_divisor(int n);
+
+void process_input(int n);
+
+int simple_exception_entry();
