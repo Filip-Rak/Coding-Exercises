@@ -233,7 +233,7 @@ class Matrix
 {
 public:
     /* Attributes */
-    std::vector<std::vector<int>> values;
+    const std::vector<std::vector<int>> values;
 
     /* Operators */
     Matrix operator+(const Matrix& other) const;
