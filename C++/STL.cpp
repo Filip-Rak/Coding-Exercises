@@ -520,3 +520,21 @@ void iomanip_entry()
             << C << "\n";
 
     }
+
+Matrix Matrix::operator+(const Matrix& other) const
+{
+    Matrix new_matrix;
+    for (int i = 0; i < values.size(); i++)
+    {
+        std::vector<int> inner;
+        for (int j = 0; j < values[i].size(); j++)
+        {
+            float val = this->values[i][j] + other.values[i][j];
+            inner.push_back(val);
+        }
+
+        new_matrix.values.push_back(inner);
+    }
+
+    return new_matrix;
+}

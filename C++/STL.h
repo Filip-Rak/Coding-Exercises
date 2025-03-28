@@ -228,3 +228,13 @@ void class_templates_entry();
 void preprocessor_entry();
 
 void iomanip_entry();
+
+class Matrix
+{
+public:
+    /* Attributes */
+    std::vector<std::vector<int>> values;
+
+    /* Operators */
+    Matrix operator+(const Matrix& other) const;
+};
