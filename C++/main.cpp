@@ -2,5 +2,5 @@
 
 int main()
 {
-	person_entry();
+	fruits_and_colors_entry();
 }

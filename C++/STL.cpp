@@ -533,6 +533,20 @@ void person_entry()
     std::cout << p1 << "\n";
 }
 
+void fruits_and_colors_entry()
+{
+    int t = 0; std::cin >> t;
+
+    for (int i = 0; i != t; ++i)
+    {
+        int index1; std::cin >> index1;
+        int index2; std::cin >> index2;
+        std::cout << Traits<Color>::name(index1) << " ";
+        std::cout << Traits<Fruit>::name(index2) << "\n";
+    }
+}
+
+
 Matrix Matrix::operator+(const Matrix& other) const
 {
     Matrix new_matrix;

@@ -259,3 +259,40 @@ public:
 std::ostream& operator<<(std::ostream& out, const Person& p);
 
 void person_entry();
+
+enum class Fruit { apple, orange, pear };
+enum class Color { red, green, orange };
+
+template <typename T> class Traits;
+
+template <> class Traits<Color>
+{
+public:
+    static std::string name(int color)
+    {
+        switch (color)
+        {
+            case 0: return "red"; break;
+            case 1: return "green"; break;
+            case 2: return "orange"; break;
+            default: return "unknown";
+        }
+    }
+};
+
+template<> class Traits<Fruit>
+{
+public:
+    static std::string name(int fruit)
+    {
+        switch (fruit)
+        {
+            case 0: return "apple"; break;
+            case 1: return "orange"; break;
+            case 2: return "pear"; break;
+            default: return "unknown";
+        }
+    }
+};
+
+void fruits_and_colors_entry();
