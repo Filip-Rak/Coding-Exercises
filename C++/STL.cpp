@@ -750,10 +750,9 @@ int Computer::compute(int a, int b)
         throw std::invalid_argument("a is below zero");
 
     if (a % 7 == 0)
-        throw std::exception("a is divisable by 7");
+        throw std::exception("7");
 
     std::vector<int> arr(a * b);
-
     return arr.size();
 }
 
@@ -820,4 +819,9 @@ void virtual_sound_entry()
     {
         std::cout << a->sound() << "\n";
     }
+}
+
+void variadic_templates_entry()
+{
+    print_all("string ", 5.5 , " ", 4, " ", true, " oh god");
 }

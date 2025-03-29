@@ -2,5 +2,5 @@
 
 int main()
 {
-	virtual_sound_entry();
+	variadic_templates_entry();
 }

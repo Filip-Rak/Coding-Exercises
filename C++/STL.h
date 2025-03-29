@@ -433,3 +433,24 @@ public:
 };
 
 void virtual_sound_entry();
+
+template<typename T>
+void print(T value) 
+{
+    std::cout << value << "\n";
+}
+
+template<typename T, typename... Rest>
+void print(T first, Rest... rest) 
+{
+    std::cout << first << " ";
+    print(rest...);  // recursive unpacking
+}
+
+template<typename... Args>
+void print_all(Args... args) 
+{
+    (std::cout << ... << args);
+}
+
+void variadic_templates_entry();
