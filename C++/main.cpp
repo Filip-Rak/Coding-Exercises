@@ -2,5 +2,5 @@
 
 int main()
 {
-	static_entry_2();
+	exception_entry();
 }

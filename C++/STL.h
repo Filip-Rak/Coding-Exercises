@@ -399,3 +399,11 @@ public:
 };
 
 void static_entry_2();
+
+class Computer 
+{
+public:
+    static int compute(int a, int b);
+};
+
+void exception_entry();

@@ -607,6 +607,40 @@ void static_entry_2()
     d.check(new_val);
 }
 
+void exception_entry()
+{
+    std::vector<std::pair<int, int>> args = {
+        {0, 2},
+        {1, -1},
+        {10e3, 10e15}
+    };
+
+    for (auto pair : args)
+    {
+        try
+        {
+            std::cout << Computer::compute(pair.first, pair.second);
+        }
+        catch (std::invalid_argument& e)
+        {
+            std::cout << "EXCEPTION: Invalid arg -> " << e.what() << "\n";
+        }
+        catch (std::bad_alloc& e)
+        {
+            std::cout << "EXCEPTION: Bad alloc -> " << e.what() << "\n";
+        }
+        catch (exception& e)
+        {
+            std::cout << "Excpetion: " << e.what() << "\n";
+        }
+        catch (...)
+        {
+            std::cout << "Other exception\n";
+        }
+
+    }
+}
+
 Matrix Matrix::operator+(const Matrix& other) const
 {
     Matrix new_matrix;
@@ -739,4 +773,17 @@ void D::check(int new_val)
 {
     update_val(new_val);
     cout << "Value = " << val << endl << "A's func called " << getA() << " times " << endl << "B's func called " << getB() << " times" << endl << "C's func called " << getC() << " times" << endl;
+}
+
+int Computer::compute(int a, int b)
+{
+    if (a == 0 || b == 0)
+        throw std::invalid_argument("one or both of the arguments is equal to 0");
+
+    if (a < 0)
+        throw std::invalid_argument("a is below zero");
+
+    std::vector<int> arr(a * b);
+
+    return a / b;
 }
