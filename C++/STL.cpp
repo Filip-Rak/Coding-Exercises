@@ -792,3 +792,32 @@ void exception_entry()
 
     }
 }
+
+std::string Dog::sound()
+{
+    return "woof";
+}
+
+std::string Cat::sound()
+{
+    return "meow";
+}
+
+std::string Fish::sound()
+{
+    return "(...)";
+}
+
+void virtual_sound_entry()
+{
+    Dog a1;
+    Cat a2;
+    Fish a3;
+
+    std::vector<Animal*> animals = {&a1, &a2, &a3 };
+
+    for (Animal* a : animals)
+    {
+        std::cout << a->sound() << "\n";
+    }
+}

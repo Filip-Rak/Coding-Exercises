@@ -2,5 +2,5 @@
 
 int main()
 {
-	exception_entry();
+	virtual_sound_entry();
 }

@@ -407,3 +407,29 @@ public:
 };
 
 void exception_entry();
+
+class Animal
+{
+public:
+    virtual std::string sound() = 0;
+};
+
+class Dog : public Animal
+{
+public:
+    std::string sound() override;
+};
+
+class Cat : public Animal
+{
+public:
+    std::string sound() override;
+};
+
+class Fish : public Animal
+{
+public:
+    std::string sound() override;
+};
+
+void virtual_sound_entry();
