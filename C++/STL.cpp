@@ -840,7 +840,7 @@ void set_usage()
     cin >> N >> S >> P >> Q;
 
     // Get the first value
-    const long long MOD = 1 << 31;
+    const long long MOD = 1LL << 31;
     long long recent = S % MOD;
 
     // Count unique values
