@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <memory>
 #include <set>
 #include <map>
 
@@ -513,3 +514,21 @@ void set_usage1();
 void set_usage2();
 
 void count_random_nums();
+
+class Object
+{
+private:
+    /* Attributes */
+    static int active;
+    const int obj_id;
+
+public:
+    /* Constructor & Destructor */
+    Object(const int id);
+
+    ~Object();
+
+    void Print(int call_id);
+};
+
+void smart_pointers1();

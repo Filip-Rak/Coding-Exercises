@@ -920,3 +920,47 @@ void count_random_nums()
             std::cout << i << ": 0\n";
     }
 }
+
+Object::Object(const int id) : obj_id(id)
+{
+    active += 1;
+    std::cout << "Constructor->obj:\t" << obj_id << "\tActive: " << active << "\n";
+}
+
+Object::~Object()
+{
+    active -= 1;
+    std::cout << "Destructor->obj:\t" << obj_id << "\tActive: " << active << "\n";
+}
+
+void Object::Print(int call_id)
+{
+    std::cout << "Print->obj:\t" << obj_id << "\tActive: " << active << "\tCall_id: " << call_id << "\n";
+}
+
+int Object::active = 0;
+
+void smart_pointers1()
+{
+    // Allocate some memory for an array of objects
+    int N = 4;
+    std::vector<std::unique_ptr<Object>> arr(N);
+
+    // Create pointers and objects
+    for (int i = 0; i < N; i++)
+    {
+        arr[i] = std::make_unique<Object>(i);
+    }
+
+    // Shared pointers
+    std::shared_ptr<Object> s_ptr = std::make_shared<Object>(20);
+    std::shared_ptr<Object> s_ptr2 = s_ptr;
+    s_ptr->Print(30);
+
+    {
+        std::shared_ptr<Object> s_ptr3 = s_ptr;
+        std::cout << "s_ptr.use_count(): " << s_ptr.use_count() << "\n";
+    }
+    
+    std::cout << "s_ptr.use_count(): " << s_ptr.use_count() << "\n";
+}

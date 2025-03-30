@@ -2,5 +2,5 @@
 
 int main()
 {
-	count_random_nums();
+	smart_pointers1();
 }
