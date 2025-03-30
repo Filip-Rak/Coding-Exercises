@@ -2,5 +2,5 @@
 
 int main()
 {
-	set_usage();
+	set_usage2();
 }

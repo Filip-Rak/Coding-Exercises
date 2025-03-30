@@ -833,7 +833,7 @@ void variadic_bits_entry()
     std::cout << sum(5, 3, 2, 10) << "\n";
 }
 
-void set_usage()
+void set_usage1()
 {
     // Load input
     int N, S, P, Q;
@@ -851,4 +851,24 @@ void set_usage()
         recent = (recent * P + Q) % MOD;
 
     std::cout << unique.size() << "\n";
+}
+
+void set_usage2()
+{
+    // Rand N random numbers
+    int N = 10;
+
+    std::unordered_set<int> unique;
+
+    srand(time(NULL));
+    for (int i = 0; i < N; i++)
+    {
+        // Print only non-unique numbers
+        int random = (rand() % 10) + 1; // <1, 10>
+        
+        if (!unique.insert(random).second)
+            std::cout << random << " ";
+    }
+
+    std::cout << "\n";
 }

@@ -508,4 +508,6 @@ int sum(Nums... nums)
 
 void variadic_bits_entry();
 
-void set_usage();
+void set_usage1();
+
+void set_usage2();
