@@ -828,5 +828,6 @@ void variadic_templates_entry()
 
 void variadic_bits_entry()
 {
-    std::cout << reversed_binary_value<false, false, true>();
+    std::cout << reversed_binary_value1<false, false, true>() << "\n";
+    std::cout << reversed_binary_value2(false, false, true) << "\n";
 }

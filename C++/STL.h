@@ -456,7 +456,7 @@ void print_all(Args... args)
 void variadic_templates_entry();
 
 template <bool... bits>
-int reversed_binary_value()
+int reversed_binary_value1()
 {
     int value = 0;
     int multiplier = 1;
@@ -467,6 +467,22 @@ int reversed_binary_value()
         if (bit)
             value += multiplier;
 
+        multiplier *= 2;
+    }
+
+    return value;
+}
+
+template <typename... Bits>
+int reversed_binary_value2(Bits... bits)
+{
+    int value = 0;
+    int multiplier = 1;
+    bool arr[] = { bits... };
+
+    for (bool bit : arr)
+    {
+        if (bit) value += multiplier;
         multiplier *= 2;
     }
 
