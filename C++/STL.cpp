@@ -830,4 +830,5 @@ void variadic_bits_entry()
 {
     std::cout << reversed_binary_value1<false, false, true>() << "\n";
     std::cout << reversed_binary_value2(false, false, true) << "\n";
+    std::cout << sum(5, 3, 2, 10) << "\n";
 }

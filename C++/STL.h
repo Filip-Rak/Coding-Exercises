@@ -489,4 +489,20 @@ int reversed_binary_value2(Bits... bits)
     return value;
 }
 
+template <typename... Nums>
+int sum(Nums... nums)
+{
+    // Unpack the numbers
+    std::vector<int> arr = { nums... };
+
+    // Sum up
+    int total_sum = 0;
+    for (int number : arr)
+    {
+        total_sum += number;
+    }
+
+    return total_sum;
+}
+
 void variadic_bits_entry();
