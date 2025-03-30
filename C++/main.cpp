@@ -2,5 +2,5 @@
 
 int main()
 {
-	variadic_templates_entry();
+	variadic_bits_entry();
 }

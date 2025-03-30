@@ -454,3 +454,23 @@ void print_all(Args... args)
 }
 
 void variadic_templates_entry();
+
+template <bool... bits>
+int reversed_binary_value()
+{
+    int value = 0;
+    int multiplier = 1;
+    bool values[] = { bits... };
+
+    for (bool bit : values)
+    {
+        if (bit)
+            value += multiplier;
+
+        multiplier *= 2;
+    }
+
+    return value;
+}
+
+void variadic_bits_entry();

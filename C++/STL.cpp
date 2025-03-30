@@ -825,3 +825,8 @@ void variadic_templates_entry()
 {
     print_all("string ", 5.5 , " ", 4, " ", true, " oh god");
 }
+
+void variadic_bits_entry()
+{
+    std::cout << reversed_binary_value<false, false, true>();
+}
