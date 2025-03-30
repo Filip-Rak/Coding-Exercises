@@ -832,3 +832,23 @@ void variadic_bits_entry()
     std::cout << reversed_binary_value2(false, false, true) << "\n";
     std::cout << sum(5, 3, 2, 10) << "\n";
 }
+
+void set_usage()
+{
+    // Load input
+    int N, S, P, Q;
+    cin >> N >> S >> P >> Q;
+
+    // Get the first value
+    const long long MOD = 1 << 31;
+    long long recent = S % MOD;
+
+    // Count unique values
+    std::unordered_set<long long> unique;
+    unique.insert(recent);
+
+    for (int i = 0; i < N; i++)
+        recent = (recent * P + Q) % MOD;
+
+    std::cout << unique.size() << "\n";
+}

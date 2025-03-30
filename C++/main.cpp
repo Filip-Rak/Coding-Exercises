@@ -2,5 +2,5 @@
 
 int main()
 {
-	variadic_bits_entry();
+	set_usage();
 }

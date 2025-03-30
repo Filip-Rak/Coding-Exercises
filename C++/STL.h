@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+#include <unordered_set>
 #include <algorithm>
 #include <stdexcept>
 #include <iostream>
@@ -8,7 +10,6 @@
 #include <string>
 #include <set>
 #include <map>
-#include <unordered_map>
 
 // You are given N integers. Sort the integers and print the sorted order.
 // Store the N integers in a vector. Vectors are sequence containers representing arrays that can change in size.
@@ -506,3 +507,5 @@ int sum(Nums... nums)
 }
 
 void variadic_bits_entry();
+
+void set_usage();
