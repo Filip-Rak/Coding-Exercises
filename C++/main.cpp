@@ -2,5 +2,5 @@
 
 int main()
 {
-	set_usage2();
+	count_random_nums();
 }

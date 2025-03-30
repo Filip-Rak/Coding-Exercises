@@ -833,6 +833,23 @@ void variadic_bits_entry()
     std::cout << sum(5, 3, 2, 10) << "\n";
 }
 
+/*
+You are given four integers: N, S, P, Q. You will use them in order to create
+the sequence a with the following pseudo-code:
+
+    a[0] = S (modulo 2^31)
+    for i = 1 to N - 1
+        a[i] = a[i - 1] * P + Q (modulo 2^31)
+
+Your task is to calculate the number of distinct integers in the sequence a.
+
+Input Format:
+Four space-separated integers on a single line: N, S, P, and Q respectively.
+
+Output Format:
+A single integer that denotes the number of distinct integers in the sequence a.
+*/
+
 void set_usage1()
 {
     // Load input
@@ -871,4 +888,35 @@ void set_usage2()
     }
 
     std::cout << "\n";
+}
+
+void count_random_nums()
+{
+    srand(time(NULL));
+
+    // Rand N random numbers
+    int N = 30;
+    int min = 1;
+    int max = 11; // Not inclusive
+
+    // Rand and save frequency
+    std::unordered_map<int, int> frequency;
+    for (int i = 0; i < N; i++)
+    {
+        // Print only non-unique numbers
+        int random = (rand() % max) + min;
+        frequency[random] += 1;
+    }
+
+    for (int i = min; i < max; i++)
+    {
+        // This will initialize non existent data as 0
+        // std::cout << i << ": " << frequency[i] << "\n";
+
+        // This will not
+        if (frequency.contains(i))  // .count(i) instead for C++ below 20
+            std::cout << i << ": " << frequency[i] << "\n";
+        else 
+            std::cout << i << ": 0\n";
+    }
 }

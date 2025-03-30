@@ -511,3 +511,5 @@ void variadic_bits_entry();
 void set_usage1();
 
 void set_usage2();
+
+void count_random_nums();
