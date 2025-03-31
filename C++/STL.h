@@ -526,9 +526,101 @@ public:
     /* Constructor & Destructor */
     Object(const int id);
 
+    Object();
+
     ~Object();
 
     void Print(int call_id);
+    int get_id();
 };
 
 void smart_pointers1();
+
+class CustomObj
+{
+private:
+    int id;
+public:
+    CustomObj(const int id);
+
+    int get_id() const;
+};
+
+template <class T>
+class CustomList
+{
+private:
+    /* Definitions */
+    struct Node 
+    {
+        T data;
+        Node* next = nullptr;
+
+        /* Constructor */
+        Node(T data): data(data){}
+    };
+
+    /* Attributes */
+    Node* head = nullptr;
+
+public:
+    /* Constructors */
+    CustomList(){}
+
+    /* Destructors */
+    ~CustomList()
+    {
+        Node* tgt = this->head;
+
+        while (tgt)
+        {
+            Node* buffer = tgt;
+            tgt = tgt->next;
+
+            delete buffer;
+        }
+    }
+
+    /* Public Methods */
+    void insert(const T data)
+    {
+        Node* new_node = new Node(data);
+
+        if (!head)
+        {
+            this->head = new_node;
+            return;
+        }
+
+        Node* tgt = this->head;
+        while (tgt->next)
+        {
+            tgt = tgt->next; 
+        }
+
+        tgt->next = new_node;
+    }
+
+    /* Operators */
+    std::pair<bool, T> operator [] (int tgt_index) const
+    {
+        int offset = 0;
+        Node* tgt = this->head;
+        while (tgt)
+        {
+            offset += 1;
+
+            if (offset == tgt_index)
+                return std::make_pair<bool, T>(true, tgt->data);
+            
+            tgt = tgt->next;
+        }
+
+        return std::make_pair<bool, T>(false, T{});
+    }
+
+private:
+    /* Private Methods */
+};
+
+void custom_list_entry();

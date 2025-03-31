@@ -2,5 +2,5 @@
 
 int main()
 {
-	smart_pointers1();
+	custom_list_entry();
 }

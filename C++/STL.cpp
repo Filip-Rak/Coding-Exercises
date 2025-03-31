@@ -927,6 +927,8 @@ Object::Object(const int id) : obj_id(id)
     std::cout << "Constructor->obj:\t" << obj_id << "\tActive: " << active << "\n";
 }
 
+Object::Object(): obj_id(-1) {}
+
 Object::~Object()
 {
     active -= 1;
@@ -936,6 +938,11 @@ Object::~Object()
 void Object::Print(int call_id)
 {
     std::cout << "Print->obj:\t" << obj_id << "\tActive: " << active << "\tCall_id: " << call_id << "\n";
+}
+
+int Object::get_id()
+{
+    return this->obj_id;
 }
 
 int Object::active = 0;
@@ -963,4 +970,30 @@ void smart_pointers1()
     }
     
     std::cout << "s_ptr.use_count(): " << s_ptr.use_count() << "\n";
+}
+
+void custom_list_entry()
+{
+    CustomList<Object> obj_list;
+
+    obj_list.insert(Object(0));
+    obj_list.insert(Object(1));
+    obj_list.insert(Object(2));
+
+    for (int i = 0; i < 3; i++)
+    {
+        auto res = obj_list[i];
+        if (res.first)
+            std::cout << "ID: " << res.second.get_id() << "\n";
+        else 
+            std::cout << "ID: NULL\n";
+    }
+}
+
+CustomObj::CustomObj(const int id)
+    : id(id) {}
+
+int CustomObj::get_id() const
+{
+    return this->id;
 }
