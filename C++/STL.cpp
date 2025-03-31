@@ -996,6 +996,7 @@ void custom_list_entry()
         obj_list.insert(CustomObj(i));
 
     // Read the elements from the list
+    std::cout << "------ Operator[] ------\n";
     for (int i = 0; i < obj_list.get_number_of_elements(); i++)
     {
         auto res = obj_list[i];
@@ -1004,4 +1005,10 @@ void custom_list_entry()
         else 
             std::cout << "ID: NULL\n";
     }
+
+    std::cout << "------ get_as_vector() ------\n";
+    std::vector<CustomObj> obj_vector = obj_list.get_as_vector();
+    
+    for (const CustomObj& obj : obj_vector)
+        std::cout << "ID: " << obj.get_id() << "\n";
 }

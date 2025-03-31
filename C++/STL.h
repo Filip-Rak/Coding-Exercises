@@ -627,6 +627,21 @@ public:
         return this->element_number;
     }
 
+    std::vector<T> get_as_vector() const
+    {
+        std::vector<T> result(this->element_number);
+
+        Node* tgt = this->head;
+        int i = 0;
+        while (tgt)
+        {
+            result[i++] = tgt->data;
+            tgt = tgt->next;
+        }
+
+        return result;
+    }
+
 private:
     /* Private Methods */
 };
