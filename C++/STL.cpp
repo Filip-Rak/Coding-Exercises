@@ -987,12 +987,15 @@ int CustomObj::get_id() const
 
 void custom_list_entry()
 {
+    // Declare the list
     CustomList<CustomObj> obj_list;
 
-    obj_list.insert(CustomObj(0));
-    obj_list.insert(CustomObj(1));
-    obj_list.insert(CustomObj(2));
+    // Populate the list
+    int N = 5;
+    for (int i = 0; i < N; i++)
+        obj_list.insert(CustomObj(i));
 
+    // Read the elements from the list
     for (int i = 0; i < obj_list.get_number_of_elements(); i++)
     {
         auto res = obj_list[i];
