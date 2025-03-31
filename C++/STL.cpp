@@ -972,15 +972,28 @@ void smart_pointers1()
     std::cout << "s_ptr.use_count(): " << s_ptr.use_count() << "\n";
 }
 
+CustomObj::CustomObj(const int id)
+    : id(id) {}
+
+CustomObj::CustomObj()
+{
+    this->id = -1;
+}
+
+int CustomObj::get_id() const
+{
+    return this->id;
+}
+
 void custom_list_entry()
 {
-    CustomList<Object> obj_list;
+    CustomList<CustomObj> obj_list;
 
-    obj_list.insert(Object(0));
-    obj_list.insert(Object(1));
-    obj_list.insert(Object(2));
+    obj_list.insert(CustomObj(0));
+    obj_list.insert(CustomObj(1));
+    obj_list.insert(CustomObj(2));
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < obj_list.get_number_of_elements(); i++)
     {
         auto res = obj_list[i];
         if (res.first)
@@ -988,12 +1001,4 @@ void custom_list_entry()
         else 
             std::cout << "ID: NULL\n";
     }
-}
-
-CustomObj::CustomObj(const int id)
-    : id(id) {}
-
-int CustomObj::get_id() const
-{
-    return this->id;
 }

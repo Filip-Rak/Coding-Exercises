@@ -542,6 +542,7 @@ private:
     int id;
 public:
     CustomObj(const int id);
+    CustomObj();
 
     int get_id() const;
 };
@@ -562,6 +563,7 @@ private:
 
     /* Attributes */
     Node* head = nullptr;
+    int element_number = 0;
 
 public:
     /* Constructors */
@@ -585,6 +587,7 @@ public:
     void insert(const T data)
     {
         Node* new_node = new Node(data);
+        this->element_number += 1;
 
         if (!head)
         {
@@ -608,15 +611,20 @@ public:
         Node* tgt = this->head;
         while (tgt)
         {
-            offset += 1;
-
             if (offset == tgt_index)
-                return std::make_pair<bool, T>(true, tgt->data);
-            
+                return std::make_pair(true, tgt->data);
+         
+            offset += 1;
             tgt = tgt->next;
         }
 
-        return std::make_pair<bool, T>(false, T{});
+        return std::make_pair(false, T{});
+    }
+
+    /* Getters & Setters */
+    int get_number_of_elements() const
+    {
+        return this->element_number;
     }
 
 private:
