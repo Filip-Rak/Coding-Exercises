@@ -985,6 +985,11 @@ int CustomObj::get_id() const
     return this->id;
 }
 
+bool CustomObj::operator==(const CustomObj& other) const
+{
+    return this->id == other.get_id();
+}
+
 void custom_list_entry()
 {
     // Declare the list
@@ -1005,6 +1010,10 @@ void custom_list_entry()
         else 
             std::cout << "ID: NULL\n";
     }
+
+    std::cout << "------ remove() ------\n";
+    int id_to_remove = 0;
+    std::cout << "remove(" << id_to_remove << "): " << obj_list.remove(CustomObj(id_to_remove)) << "\n";
 
     std::cout << "------ get_as_vector() ------\n";
     std::vector<CustomObj> obj_vector = obj_list.get_as_vector();

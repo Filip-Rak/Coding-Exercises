@@ -545,6 +545,8 @@ public:
     CustomObj();
 
     int get_id() const;
+
+    bool operator == (const CustomObj& other) const;
 };
 
 template <class T>
@@ -584,7 +586,7 @@ public:
     }
 
     /* Public Methods */
-    void insert(const T data)
+    void insert(const T& data)
     {
         Node* new_node = new Node(data);
         this->element_number += 1;
@@ -602,6 +604,44 @@ public:
         }
 
         tgt->next = new_node;
+    }
+
+    bool remove(const T& data)
+    {
+        bool found = false;
+
+        Node* node_to_remove = nullptr;
+        if (this->head->data == data)
+        {
+            node_to_remove = this->head;
+            this->head = this->head->next;
+            found = true;
+        }
+
+        if (!found)
+        {
+            Node* tgt = this->head;
+            while (tgt->next)
+            {
+                if (tgt->next->data == data)
+                {
+                    node_to_remove = tgt->next;
+                    tgt->next = node_to_remove->next;
+                    found = true;
+                    break;
+                }
+
+                tgt = tgt->next;
+            }
+        }
+        
+        if (found)
+        {
+            delete node_to_remove;
+            this->element_number -= 1;
+        }
+        
+        return found;
     }
 
     /* Operators */
