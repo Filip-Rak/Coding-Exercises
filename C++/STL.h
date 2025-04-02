@@ -698,6 +698,40 @@ public:
         this->head = prev;
     }
 
+    void reverse_between(int begin, int end)
+    {
+        if (begin >= end || !head)
+            return;
+
+        Node dummy(-1);
+        dummy.next = head;
+        Node* pre = &dummy;
+
+        // Move pre to node before 'begin'
+        for (int i = 0; i < begin; ++i)
+        {
+            if (!pre) return;
+            pre = pre->next;
+        }
+
+        Node* start = pre->next;
+        Node* curr = start->next;
+
+        // Reverse sublist
+        for (int i = 0; i < end - begin; ++i)
+        {
+            if (!curr) break;
+
+            start->next = curr->next;
+            curr->next = pre->next;
+            pre->next = curr;
+            curr = start->next;
+        }
+
+        head = dummy.next;
+    }
+
+
 private:
     /* Private Methods */
 };

@@ -1015,8 +1015,8 @@ void custom_list_entry()
     // int id_to_remove = 0;
     // std::cout << "remove(" << id_to_remove << "): " << obj_list.remove(CustomObj(id_to_remove)) << "\n";
 
-    std::cout << "------ reverse_order() ------\n";
-    obj_list.reverse_order();
+    std::cout << "------ reverse_between() ------\n";
+    obj_list.reverse_between(0, obj_list.get_number_of_elements());
 
     std::cout << "------ get_as_vector() ------\n";
     std::vector<CustomObj> obj_vector = obj_list.get_as_vector();
