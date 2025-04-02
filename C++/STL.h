@@ -682,6 +682,22 @@ public:
         return result;
     }
 
+    void reverse_order()
+    {
+        Node* prev = nullptr;
+        Node* curr = this->head;
+
+        while (curr)
+        {
+            Node* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        this->head = prev;
+    }
+
 private:
     /* Private Methods */
 };

@@ -1011,9 +1011,12 @@ void custom_list_entry()
             std::cout << "ID: NULL\n";
     }
 
-    std::cout << "------ remove() ------\n";
-    int id_to_remove = 0;
-    std::cout << "remove(" << id_to_remove << "): " << obj_list.remove(CustomObj(id_to_remove)) << "\n";
+    // std::cout << "------ remove() ------\n";
+    // int id_to_remove = 0;
+    // std::cout << "remove(" << id_to_remove << "): " << obj_list.remove(CustomObj(id_to_remove)) << "\n";
+
+    std::cout << "------ reverse_order() ------\n";
+    obj_list.reverse_order();
 
     std::cout << "------ get_as_vector() ------\n";
     std::vector<CustomObj> obj_vector = obj_list.get_as_vector();
