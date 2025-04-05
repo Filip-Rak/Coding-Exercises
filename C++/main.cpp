@@ -2,5 +2,5 @@
 
 int main()
 {
-	custom_list_entry();
+	hourglass_entry();
 }

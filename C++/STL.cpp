@@ -1024,3 +1024,69 @@ void custom_list_entry()
     for (const CustomObj& obj : obj_vector)
         std::cout << "ID: " << obj.get_id() << "\n";
 }
+
+class PointyObj
+{
+    int id;
+
+public:
+    PointyObj(int id): id(id)
+    {
+        std::cout << "Object created. ID: " << id << "\n";
+    }
+
+    ~PointyObj()
+    {
+        std::cout << "Object deleted. ID: " << id << "\n";
+    }
+};
+
+void smart_pointers2()
+{
+    PointyObj* obj = new PointyObj(1);
+    std::shared_ptr<PointyObj> ptr(obj);
+}
+
+int hourglass_sum(std::vector<std::vector<int>> arr)
+{
+    int max = std::numeric_limits<int>::min();
+
+    // The index defines the 'd' portion of the hourglass
+    for (int i = 1; i < arr.size() - 1; i++)
+    {
+        for (int j = 1; j < arr[i].size() - 1; j++)
+        {
+            int a = arr[i - 1][j - 1];
+            int b = arr[i - 1][j];
+            int c = arr[i - 1][j + 1];
+
+            int d = arr[i][j];
+
+            int e = arr[i + 1][j - 1];
+            int f = arr[i + 1][j];
+            int g = arr[i + 1][j + 1];
+
+            int sum = a + b + c + d + e + f + g;
+            if (sum > max)
+                max = sum;
+        }
+    }
+
+    return max;
+}
+
+void hourglass_entry()
+{
+    int n;
+    std::cin >> n;
+
+    std::vector<std::vector<int>> arr(n, std::vector<int>(n));
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            std::cin >> arr[i][j];
+    }
+
+    std::cout << hourglass_sum(arr);
+}
+

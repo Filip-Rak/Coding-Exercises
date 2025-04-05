@@ -737,3 +737,9 @@ private:
 };
 
 void custom_list_entry();
+
+void smart_pointers2();
+
+int hourglass_sum(std::vector<std::vector<int>> arr);
+
+void hourglass_entry();
