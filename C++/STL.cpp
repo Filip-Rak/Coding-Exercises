@@ -1090,3 +1090,39 @@ void hourglass_entry()
     std::cout << hourglass_sum(arr);
 }
 
+std::vector<int> rot_left(std::vector<int> arr, int shift)
+{
+    // Create new vector and normalize shift
+    int n = arr.size();
+    std::vector<int> new_arr(n);
+    int shift_normalized = ((shift % n) + n) % n;  // [0, n-1]
+
+    // Go through each element of the vector
+    for (int i = 0; i < n; i++)
+    {
+        int new_pos = (i - shift_normalized + n) % n;
+        new_arr[new_pos] = arr[i];
+    }
+
+    return new_arr;
+}
+
+void array_rot_entry()
+{
+    // Load element num and shift
+    int element_num, shift;
+    std::cin >> element_num >> shift;
+
+    // Load array
+    std::vector<int> arr(element_num);
+    for (int i = 0; i < element_num; i++)
+        std::cin >> arr[i];
+
+    // Rotate array
+    arr = rot_left(arr, shift);
+    
+    // Print result
+    for (int element : arr)
+        std::cout << element << " ";
+}
+

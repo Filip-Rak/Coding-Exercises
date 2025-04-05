@@ -743,3 +743,7 @@ void smart_pointers2();
 int hourglass_sum(std::vector<std::vector<int>> arr);
 
 void hourglass_entry();
+
+std::vector<int> rot_left(std::vector<int> a, int d);
+
+void array_rot_entry();

@@ -2,5 +2,5 @@
 
 int main()
 {
-	hourglass_entry();
+	array_rot_entry();
 }
