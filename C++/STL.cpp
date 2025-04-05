@@ -1126,3 +1126,42 @@ void array_rot_entry()
         std::cout << element << " ";
 }
 
+bool is_permutation(std::string str1, std::string str2)
+{
+    // Discard strings of different lengths
+    if (str1.length() != str2.length())
+        return false;
+
+    // Create a frequency map
+    std::unordered_map<char, int> frequency;
+
+    // Characters within one stirng add frequency, the other reduces
+    for (char c : str1)
+        frequency[c] += 1;
+
+    for (char c : str2)
+        frequency[c] -= 1;
+
+    // If every letter's frequency is at 0 then string are permutable
+    for (auto& [character, count] : frequency)
+    {
+        if (count != 0)
+            return false;
+    }
+
+    return true;
+}
+
+void permutable_entry()
+{
+    std::string str1, str2;
+
+    std::getline(std::cin, str1);
+    std::getline(std::cin, str2);
+
+    str1.erase(std::remove(str1.begin(), str1.end(), ' '), str1.end());
+    str2.erase(std::remove(str2.begin(), str2.end(), ' '), str2.end());
+
+    std::cout << is_permutation(str1, str2);
+}
+

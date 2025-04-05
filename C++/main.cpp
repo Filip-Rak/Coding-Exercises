@@ -2,5 +2,5 @@
 
 int main()
 {
-	array_rot_entry();
+	permutable_entry();
 }

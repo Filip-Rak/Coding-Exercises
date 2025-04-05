@@ -747,3 +747,7 @@ void hourglass_entry();
 std::vector<int> rot_left(std::vector<int> a, int d);
 
 void array_rot_entry();
+
+bool is_permutation(std::string str1, std::string str2);
+
+void permutable_entry();
