@@ -1165,3 +1165,26 @@ void permutable_entry()
     std::cout << is_permutation(str1, str2);
 }
 
+bool is_rot(std::string str1, std::string str2)
+{
+    if (str1.length() != str2.length())
+        return false;
+
+    std::string str_conc = str1 + str1;
+    int index = str_conc.find(str2);
+
+    return index != std::string::npos;
+}
+
+void is_rot_entry()
+{
+    std::string str1, str2;
+
+    std::getline(std::cin, str1);
+    std::getline(std::cin, str2);
+
+    str1.erase(std::remove(str1.begin(), str1.end(), ' '), str1.end());
+    str2.erase(std::remove(str2.begin(), str2.end(), ' '), str2.end());
+
+    std::cout << is_rot(str1, str2);
+}

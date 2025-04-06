@@ -751,3 +751,7 @@ void array_rot_entry();
 bool is_permutation(std::string str1, std::string str2);
 
 void permutable_entry();
+
+bool is_rot(std::string str1, std::string str2);
+
+void is_rot_entry();

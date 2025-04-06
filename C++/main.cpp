@@ -2,5 +2,5 @@
 
 int main()
 {
-	permutable_entry();
+	is_rot_entry();
 }
