@@ -1188,3 +1188,37 @@ void is_rot_entry()
 
     std::cout << is_rot(str1, str2);
 }
+
+int longest_substr_length(std::string str)
+{
+    // Offset all index related calculaitons by 1 in order to avoid
+    // correlaction with map's initialization of 0
+    const int INDEX_OFFSET = 1;
+
+    std::unordered_map<char, int> last_seen;
+    int max_length = 0;
+    int start = 0;
+
+    for (int i = 0; i < str.size(); i += 1)
+    {
+        char character = str[i];
+
+        if (last_seen[character] >= start + INDEX_OFFSET)
+            start = last_seen[character] + 1;
+        
+        last_seen[character] = i + INDEX_OFFSET;
+        max_length = std::max(max_length, i - start + 1);
+    }
+
+    return max_length;
+}
+
+void substr_entry()
+{
+    std::string str;
+    std::getline(std::cin, str);
+
+    str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+
+    std::cout << longest_substr_length(str) << "\n";
+}

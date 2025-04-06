@@ -2,5 +2,5 @@
 
 int main()
 {
-	is_rot_entry();
+	substr_entry();
 }

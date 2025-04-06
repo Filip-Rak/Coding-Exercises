@@ -755,3 +755,7 @@ void permutable_entry();
 bool is_rot(std::string str1, std::string str2);
 
 void is_rot_entry();
+
+int longest_substr_length(std::string str);
+
+void substr_entry();
