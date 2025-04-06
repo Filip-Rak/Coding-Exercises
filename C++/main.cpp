@@ -2,5 +2,5 @@
 
 int main()
 {
-	substr_entry();
+	twosum_entry();
 }

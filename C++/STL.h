@@ -775,3 +775,7 @@ void is_rot_entry();
 int longest_substr_length(std::string str);
 
 void substr_entry();
+
+std::pair<int, int> find_two_elements_to_sum(std::vector<int> arr, int tgt);
+
+void twosum_entry();

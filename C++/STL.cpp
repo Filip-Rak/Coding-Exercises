@@ -1205,3 +1205,37 @@ void substr_entry()
 
     std::cout << longest_substr_length(str) << "\n";
 }
+
+std::pair<int, int> find_two_elements_to_sum(std::vector<int> arr, int tgt)
+{
+    std::unordered_map<int, int> seen;
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        int diff = tgt - arr[i];
+        if (seen.contains(diff))
+            return std::make_pair(seen[diff], i);
+
+        seen[arr[i]] = i;
+    }
+
+    return std::make_pair(-1, -1);
+}
+
+std::ostream& operator << (std::ostream& out, const std::pair<int, int>& pair)
+{
+    out << pair.first << " " << pair.second;
+    return out;
+}
+
+void twosum_entry()
+{
+    int n, tgt;
+    std::cin >> n >> tgt;
+
+    std::vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+        std::cin >> arr[i];
+
+    std::cout << find_two_elements_to_sum(arr, tgt) << "\n";
+}
