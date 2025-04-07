@@ -1441,3 +1441,29 @@ void longest_substr_entry2()
 
     std::cout << longest_substr_of_unique_characters(str);
 }
+
+std::vector<int> rot_arr_left(std::vector<int> arr, int shift)
+{
+    int size = arr.size();
+    int n_shift = ((shift % size) + size) % size;   // Normalize to: [0, size - 1]
+
+    std::vector<int> new_arr(size);
+
+    for (int i = 0; i < size; i++)
+    {
+        int new_pos = (i - n_shift + size) % size;
+        new_arr[new_pos] = arr[i];
+    }
+
+    return new_arr;
+}
+
+void rot_arr_entry2()
+{
+    std::vector<int> arr = { 1, 2, 3, 4, 5 };
+    auto rotated = rot_arr_left(arr, -3);
+
+    for (int num : rotated)
+        std::cout << num << " ";
+
+}

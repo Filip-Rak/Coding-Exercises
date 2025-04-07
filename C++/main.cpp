@@ -2,5 +2,5 @@
 
 int main()
 {
-	longest_substr_entry2();
+	rot_arr_entry2();
 }

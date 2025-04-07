@@ -811,3 +811,7 @@ void tuple_entry();
 int longest_substr_of_unique_characters(std::string arr);
 
 void longest_substr_entry2();
+
+std::vector<int> rot_arr_left(std::vector<int> arr, int shift);
+
+void rot_arr_entry2();
