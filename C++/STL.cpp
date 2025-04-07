@@ -1291,10 +1291,8 @@ std::unordered_map<char, int> get_character_frequency(std::string str)
 
 std::ostream& operator << (std::ostream& out, const std::unordered_map<char, int>& map)
 {
-    for (auto it = map.begin(); it != map.end(); it++)
-    {
-        out << it->first << " " << it->second << "\n";
-    }
+    for (const auto& [key, value] : map)
+        out << key << " " << value << "\n";
 
     return out;
 }
