@@ -2,5 +2,5 @@
 
 int main()
 {
-	twosum_entry();
+	duplicate_entry();
 }

@@ -1239,3 +1239,25 @@ void twosum_entry()
 
     std::cout << find_two_elements_to_sum(arr, tgt) << "\n";
 }
+
+bool has_duplicates(std::vector<int> arr)
+{
+    std::unordered_set<int> unique;
+
+    for (int num : arr)
+    {
+        // Add num to arr and check if it was present
+        bool is_unique = unique.insert(num).second;
+
+        if (!is_unique)
+            return true;
+    }
+
+    return false;
+}
+
+void duplicate_entry()
+{
+    std::vector<int> arr = { 1, 2, 3, 4 };
+    std::cout << has_duplicates(arr) << "\n";
+}

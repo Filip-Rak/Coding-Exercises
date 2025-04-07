@@ -779,3 +779,7 @@ void substr_entry();
 std::pair<int, int> find_two_elements_to_sum(std::vector<int> arr, int tgt);
 
 void twosum_entry();
+
+bool has_duplicates(std::vector<int> arr);
+
+void duplicate_entry();
