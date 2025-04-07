@@ -1265,11 +1265,7 @@ void duplicate_entry()
 void reverse_in_place(std::string& str)
 {
     for (int i = 0; i < str.size() / 2; i++)
-    {
-        char buffer = str[i];
-        str[i] = str[str.size() - 1 - i];
-        str[str.size() - 1 - i] = buffer;
-    }
+        std::swap(str[i], str[str.size() - 1 - i]);
 }
 
 void reverse_entry()
