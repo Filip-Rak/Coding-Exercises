@@ -1320,6 +1320,7 @@ std::unordered_map<std::string, std::vector<std::string>> group_anagrams(std::ve
     return groups;
 }
 
+// Example input: eat tea tan ate nat bat
 void anagrams_entry()
 {
     // Load line
@@ -1341,7 +1342,7 @@ void anagrams_entry()
     auto groups = group_anagrams(strs);
     for (const auto& [key, arr] : groups)
     {
-        for (std::string str : arr)
+        for (const std::string& str : arr)
         {
             std::cout << str << " ";
         }
