@@ -2,5 +2,5 @@
 
 int main()
 {
-	reverse_entry();
+	freq_entry();
 }

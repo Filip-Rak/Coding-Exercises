@@ -787,3 +787,7 @@ void duplicate_entry();
 void reverse_in_place(std::string& str);
 
 void reverse_entry();
+
+std::unordered_map<char, int> get_character_frequency(std::string str);
+
+void freq_entry();

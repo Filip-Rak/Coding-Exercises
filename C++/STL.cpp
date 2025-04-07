@@ -1278,3 +1278,31 @@ void reverse_entry()
 
     std::cout << str << "\n";
 }
+
+std::unordered_map<char, int> get_character_frequency(std::string str)
+{
+    std::unordered_map<char, int> frequency;
+
+    for (char c : str)
+        frequency[c] += 1;
+
+    return frequency;
+}
+
+std::ostream& operator << (std::ostream& out, const std::unordered_map<char, int>& map)
+{
+    for (auto it = map.begin(); it != map.end(); it++)
+    {
+        out << it->first << " " << it->second << "\n";
+    }
+
+    return out;
+}
+
+void freq_entry()
+{
+    std::string str;
+    std::getline(std::cin, str);
+
+    std::cout << get_character_frequency(str) << "\n";
+}
