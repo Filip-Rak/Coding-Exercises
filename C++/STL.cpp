@@ -1350,3 +1350,24 @@ void anagrams_entry()
         std::cout << "\n";
     }
 }
+
+bool custom_comparator(const std::pair<int, int>& a, const std::pair<int, int>& b)
+{
+    if (a.first == b.first)
+    {
+        return a.second > b.second;
+    }
+
+    return a.first < b.first;
+}
+
+void custom_sort_entry()
+{
+    std::vector<std::pair<int, int>> arr = { {1, 47}, {5, 2}, {3, 2}, {3, 50}, {6, 70} };
+    std::sort(arr.begin(), arr.end(), custom_comparator);
+
+    for (const auto& [first, second] : arr)
+    {
+        std::cout << first << " " << second << "\n";
+    }
+}

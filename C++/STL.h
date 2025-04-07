@@ -794,3 +794,7 @@ void freq_entry();
 std::unordered_map<std::string, std::vector<std::string>> group_anagrams(std::vector<std::string> arr);
 
 void anagrams_entry();
+
+bool custom_comparator(const std::pair<int, int>& a, const std::pair<int, int>& b);
+
+void custom_sort_entry();

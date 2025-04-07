@@ -2,5 +2,5 @@
 
 int main()
 {
-	anagrams_entry();
+	custom_sort_entry();
 }
