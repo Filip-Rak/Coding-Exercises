@@ -550,11 +550,11 @@ int largest_proper_divisor(int n)
 {
     if (n == 0)
     {
-        throw invalid_argument("largest proper divisor is not defined for n=0");
+        throw std::invalid_argument("largest proper divisor is not defined for n=0");
     }
     if (n == 1)
     {
-        throw invalid_argument("largest proper divisor is not defined for n=1");
+        throw std::invalid_argument("largest proper divisor is not defined for n=1");
     }
     for (int i = n / 2; i >= 1; --i)
     {
@@ -570,7 +570,7 @@ void process_input(int n)
     try
     {
         int d = largest_proper_divisor(n);
-        cout << "result=" << d << endl;
+        std::cout << "result=" << d << std::endl;
     }
     catch (std::invalid_argument exc)
     {
@@ -583,7 +583,7 @@ void process_input(int n)
 int simple_exception_entry()
 {
     int n;
-    cin >> n;
+    std::cin >> n;
 
     process_input(n);
 
@@ -603,7 +603,7 @@ void static_entry_2()
 {
     D d;
     int new_val;
-    cin >> new_val;
+    std::cin >> new_val;
     d.check(new_val);
 }
 
@@ -738,7 +738,7 @@ void D::update_val(int new_val)
 void D::check(int new_val)
 {
     update_val(new_val);
-    cout << "Value = " << val << endl << "A's func called " << getA() << " times " << endl << "B's func called " << getB() << " times" << endl << "C's func called " << getC() << " times" << endl;
+    std::cout << "Value = " << val << std::endl << "A's func called " << getA() << " times " << std::endl << "B's func called " << getB() << " times" << std::endl << "C's func called " << getC() << " times" << std::endl;
 }
 
 int Computer::compute(int a, int b)
@@ -780,7 +780,7 @@ void exception_entry()
         {
             std::cout << "EXCEPTION: Length error -> " << e.what() << "\n";
         }
-        catch (const exception& e)
+        catch (const std::exception& e)
         {
             std::cout << "EXCEPTION: " << e.what() << "\n";
         }
@@ -837,7 +837,7 @@ void set_usage1()
 {
     // Load input
     int N, S, P, Q;
-    cin >> N >> S >> P >> Q;
+    std::cin >> N >> S >> P >> Q;
 
     // Get the first value
     const long long MOD = 1LL << 31;
@@ -1303,4 +1303,49 @@ void freq_entry()
     std::getline(std::cin, str);
 
     std::cout << get_character_frequency(str) << "\n";
+}
+
+std::unordered_map<std::string, std::vector<std::string>> group_anagrams(std::vector<std::string> arr)
+{
+    std::unordered_map<std::string, std::vector<std::string>> groups;
+
+    for (const std::string& str : arr)
+    {
+        std::string sorted = str;
+        std::sort(sorted.begin(), sorted.end());
+
+        groups[sorted].push_back(str);
+    }
+
+    return groups;
+}
+
+void anagrams_entry()
+{
+    // Load line
+    std::vector<std::string> strs;
+
+    std::string line;
+    std::getline(std::cin, line);
+
+    // Tokenize
+    std::stringstream ss(line);
+    std::string token;
+
+    while (ss >> token)
+    {
+        strs.push_back(token);
+    }
+
+    // Group & Print
+    auto groups = group_anagrams(strs);
+    for (const auto& [key, arr] : groups)
+    {
+        for (std::string str : arr)
+        {
+            std::cout << str << " ";
+        }
+
+        std::cout << "\n";
+    }
 }

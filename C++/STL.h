@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <memory>
@@ -299,8 +300,6 @@ public:
 };
 
 void fruits_and_colors_entry();
-
-using namespace std;
 
 int largest_proper_divisor(int n);
 
@@ -791,3 +790,7 @@ void reverse_entry();
 std::unordered_map<char, int> get_character_frequency(std::string str);
 
 void freq_entry();
+
+std::unordered_map<std::string, std::vector<std::string>> group_anagrams(std::vector<std::string> arr);
+
+void anagrams_entry();

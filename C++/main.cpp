@@ -2,5 +2,5 @@
 
 int main()
 {
-	freq_entry();
+	anagrams_entry();
 }
