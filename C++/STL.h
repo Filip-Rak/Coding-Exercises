@@ -807,3 +807,7 @@ void custom_sort_entry();
 std::tuple<char, int, int> get_frequency(std::string str);
 
 void tuple_entry();
+
+int longest_substr_of_unique_characters(std::string arr);
+
+void longest_substr_entry2();

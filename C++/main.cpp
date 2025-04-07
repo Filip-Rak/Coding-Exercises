@@ -2,5 +2,5 @@
 
 int main()
 {
-	tuple_entry();
+	longest_substr_entry2();
 }

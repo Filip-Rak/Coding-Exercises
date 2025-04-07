@@ -1406,3 +1406,38 @@ void tuple_entry()
     std::cout << "It's frequency: " << count << "\n";
     std::cout << "Total number of distinct characters: " << unique << "\n";
 }
+
+int longest_substr_of_unique_characters(std::string str)
+{
+    std::unordered_map<char, int> last_seen;
+    int start = 0;
+    int max_length = 0;
+
+    for (int i = 0; i < str.size(); i++)
+    {
+        char ch = str[i];
+
+        // Check if the character ch, of index higher than start is present in the macp
+        if (last_seen.count(ch) && last_seen[ch] >= start)
+        {
+            start = last_seen[ch] + 1;
+        }
+
+        // Add the character to the map / update it's index
+        last_seen[ch] = i;
+
+        // Update max_length
+        max_length = std::max(max_length, i - start + 1);
+    }
+
+    return max_length;
+}
+
+void longest_substr_entry2()
+{
+    std::string str;
+    std::getline(std::cin, str);
+    str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+
+    std::cout << longest_substr_of_unique_characters(str);
+}
