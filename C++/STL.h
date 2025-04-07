@@ -798,3 +798,12 @@ void anagrams_entry();
 bool custom_comparator(const std::pair<int, int>& a, const std::pair<int, int>& b);
 
 void custom_sort_entry();
+
+/* 
+* Returns frequency data about string's characters
+* @param std::string
+* @returns std::tuple<char, int, int> = (most frequent char, it's frequency, number of distinct characters)
+*/
+std::tuple<char, int, int> get_frequency(std::string str);
+
+void tuple_entry();

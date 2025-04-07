@@ -1371,3 +1371,38 @@ void custom_sort_entry()
         std::cout << first << " " << second << "\n";
     }
 }
+
+std::tuple<char, int, int> get_frequency(std::string str)
+{
+    // Map characters to their frequency
+    std::unordered_map<char, int> frequency;
+
+    // Find most frequent character
+    int max_freq = 0;
+    char max_freq_char = '\0';
+
+    for (char c : str)
+    {
+        frequency[c] += 1;
+
+        if (frequency[c] > max_freq)
+        {
+            max_freq = frequency[c];
+            max_freq_char = c;
+        }
+    }
+
+    return std::tuple<char, int, int>(max_freq_char, max_freq, frequency.size());
+}
+
+void tuple_entry()
+{
+    std::string str;
+    std::getline(std::cin, str);
+    str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+
+    auto [ch, count, unique] = get_frequency(str);
+    std::cout << "Most common character: " << ch << "\n";
+    std::cout << "It's frequency: " << count << "\n";
+    std::cout << "Total number of distinct characters: " << unique << "\n";
+}
