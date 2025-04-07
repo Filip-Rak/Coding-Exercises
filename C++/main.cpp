@@ -2,5 +2,5 @@
 
 int main()
 {
-	duplicate_entry();
+	reverse_entry();
 }

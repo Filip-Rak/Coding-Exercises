@@ -1261,3 +1261,24 @@ void duplicate_entry()
     std::vector<int> arr = { 1, 2, 3, 4 };
     std::cout << has_duplicates(arr) << "\n";
 }
+
+void reverse_in_place(std::string& str)
+{
+    for (int i = 0; i < str.size() / 2; i++)
+    {
+        char buffer = str[i];
+        str[i] = str[str.size() - 1 - i];
+        str[str.size() - 1 - i] = buffer;
+    }
+}
+
+void reverse_entry()
+{
+    std::string str;
+    std::getline(std::cin, str);
+    str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+
+    reverse_in_place(str);
+
+    std::cout << str << "\n";
+}

@@ -783,3 +783,7 @@ void twosum_entry();
 bool has_duplicates(std::vector<int> arr);
 
 void duplicate_entry();
+
+void reverse_in_place(std::string& str);
+
+void reverse_entry();
