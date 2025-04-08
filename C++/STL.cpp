@@ -1495,3 +1495,24 @@ void check_magazine_entry()
 
     std::cout << check_magazine(magazine, note) << "\n";
 }
+
+bool two_strings(std::string str1, std::string str2)
+{
+    std::unordered_set<char> chars(str1.begin(), str1.end());
+
+    for (char ch : str2)
+    {
+        if (chars.contains(ch))
+            return true;
+    }
+
+    return false;
+}
+
+void subs_entry()
+{
+    std::string str1 = "abc";
+    std::string str2 = "bfg";
+
+    std::cout << two_strings(str1, str2);
+}

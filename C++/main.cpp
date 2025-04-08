@@ -2,5 +2,5 @@
 
 int main()
 {
-	check_magazine_entry();
+	subs_entry();
 }

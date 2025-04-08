@@ -819,3 +819,10 @@ void rot_arr_entry2();
 bool check_magazine(std::vector<std::string> magazine, std::vector<std::string> note);
 
 void check_magazine_entry();
+
+/*
+* Check if two strings have a common substring.
+*/
+bool two_strings(std::string str1, std::string str2);
+
+void subs_entry();
