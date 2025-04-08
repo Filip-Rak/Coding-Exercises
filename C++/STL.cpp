@@ -1476,18 +1476,13 @@ bool check_magazine(std::vector<std::string> magazine, std::vector<std::string> 
 {
     std::unordered_map<std::string, int> words;
 
-    for (const std::string& word : note)
+    for (const std::string& word : magazine)
         words[word] += 1;
 
-    for (const std::string& word : magazine)
-        words[word] -= 1;
-
-    for (const auto& [word, freq] : words)
+    for (const std::string& word : note)
     {
-        if (freq > 0)
-        {
+        if (--words[word] < 0)
             return false;
-        }
     }
 
     return true;
