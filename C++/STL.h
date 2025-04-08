@@ -815,3 +815,7 @@ void longest_substr_entry2();
 std::vector<int> rot_arr_left(std::vector<int> arr, int shift);
 
 void rot_arr_entry2();
+
+bool check_magazine(std::vector<std::string> magazine, std::vector<std::string> note);
+
+void check_magazine_entry();

@@ -1467,3 +1467,36 @@ void rot_arr_entry2()
         std::cout << num << " ";
 
 }
+
+// Problem: Given a list of words from a magazine and a list of words in a ransom note,
+// determine if the note can be constructed using whole words from the magazine.
+// Each word in the magazine can only be used once.
+// The function returns true if the note can be formed, false otherwise.
+bool check_magazine(std::vector<std::string> magazine, std::vector<std::string> note)
+{
+    std::unordered_map<std::string, int> words;
+
+    for (const std::string& word : note)
+        words[word] += 1;
+
+    for (const std::string& word : magazine)
+        words[word] -= 1;
+
+    for (const auto& [word, freq] : words)
+    {
+        if (freq > 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void check_magazine_entry()
+{
+    std::vector<std::string> magazine = { "give", "me", "one", "grand", "today", "night" };
+    std::vector<std::string> note = { "give", "one", "grand", "today" };
+
+    std::cout << check_magazine(magazine, note) << "\n";
+}

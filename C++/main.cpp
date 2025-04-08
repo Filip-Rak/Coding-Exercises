@@ -2,5 +2,5 @@
 
 int main()
 {
-	rot_arr_entry2();
+	check_magazine_entry();
 }
