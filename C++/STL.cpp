@@ -1551,3 +1551,67 @@ void sherlock_entry()
     std::string str("mom");
     std::cout << sherlock_anagrams(str) << "\n";
 }
+
+std::vector<int> freq_query(std::vector<std::pair<int, int>> queries)
+{
+    // Map number to it's frequency & frequencyy to the count of these frequencies
+    std::unordered_map<int, int> num_to_freq;
+    std::unordered_map<int, int> freq_to_count;
+    
+    // Store the answers
+    std::vector<int> answers;
+
+    // Go through queries
+    for (auto [op, data] : queries)
+    {
+        // Add data to maps
+        if (op == 1)
+        {
+            // Update num_to_freq
+            int last_freq = num_to_freq[data];
+            int new_freq = last_freq + 1;
+            num_to_freq[data] += 1;
+
+            // Update freq_to_count
+            freq_to_count[last_freq] -= 1;
+            freq_to_count[new_freq] += 1;
+        }
+        else if (op == 2)
+        {
+            // Update num_to_freq
+            int last_freq = num_to_freq[data];
+            int new_freq = std::max(last_freq - 1, 0);
+            num_to_freq[data] += 1;
+
+            // Update freq_to_count
+            freq_to_count[last_freq] -= 1;
+            freq_to_count[new_freq] += 1;
+        }
+        else
+        {
+            if (freq_to_count[data] > 0)
+                answers.push_back(1);
+            else
+                answers.push_back(0);
+        }
+    }
+
+    return answers;
+}
+
+void query_entry()
+{
+    std::vector<std::pair<int, int>> queries =
+    {
+        {1, 1},
+        {2, 2},
+        {3, 2},
+        {1, 1},
+        {1, 1},
+        {2, 1},
+        {3, 2},
+    };
+
+    for (int answer : freq_query(queries))
+        std::cout << answer << "\n";
+}

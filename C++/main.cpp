@@ -2,5 +2,5 @@
 
 int main()
 {
-	sherlock_entry();
+	query_entry();
 }

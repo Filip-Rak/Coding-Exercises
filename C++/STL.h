@@ -847,3 +847,7 @@ void subs_entry();
 int sherlock_anagrams(std::string str);
 
 void sherlock_entry();
+
+std::vector<int> freq_query(std::vector<std::pair<int, int>> queries);
+
+void query_entry();
