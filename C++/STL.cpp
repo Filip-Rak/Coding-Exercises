@@ -1516,3 +1516,38 @@ void subs_entry()
 
     std::cout << two_strings(str1, str2);
 }
+
+int sherlock_anagrams(std::string str)
+{
+    // Sum the total number of pairs
+    int total_pairs = 0;
+
+    // Go through all substring lengths [1, s.size()] outside of last.
+    for (int w_length = 1; w_length < str.length(); w_length += 1)
+    {
+        // Create substrings
+        std::unordered_map<std::string, int> freq;
+        for (int i = 0; i < str.length() - w_length + 1; i++)
+        {
+            // Create, sort & count up the substring
+            std::string sub = str.substr(i, w_length);
+            std::sort(sub.begin(), sub.end());
+            freq[sub] += 1;
+        }
+
+        // Find the number of pairs
+        for (const auto& [_, count] : freq)
+        {
+            if (count > 1)
+                total_pairs += (count * (count - 1)) / 2;
+        }
+    }
+
+    return total_pairs;
+}
+
+void sherlock_entry()
+{
+    std::string str("mom");
+    std::cout << sherlock_anagrams(str) << "\n";
+}

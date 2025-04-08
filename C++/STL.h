@@ -826,3 +826,24 @@ void check_magazine_entry();
 bool two_strings(std::string str1, std::string str2);
 
 void subs_entry();
+
+/**
+ * Given a string, this function counts the number of unordered pairs of
+ * substrings that are anagrams of each other.
+ *
+ * Two substrings are considered anagrammatic pairs if they contain the
+ * same characters in any order. Substrings must be of the same length
+ * and can overlap. The function counts all such unordered pairs.
+ *
+ * Example:
+ * Input: "mom"
+ * Substrings: "m", "o", "m", "mo", "om", "mom"
+ * Anagrammatic pairs: ["m", "m"], ["mo", "om"]
+ * Output: 2
+ *
+ * @param str The input string to analyze.
+ * @return The number of unordered anagrammatic pairs of substrings in s.
+ */
+int sherlock_anagrams(std::string str);
+
+void sherlock_entry();

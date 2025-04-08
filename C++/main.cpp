@@ -2,5 +2,5 @@
 
 int main()
 {
-	subs_entry();
+	sherlock_entry();
 }
