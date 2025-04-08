@@ -848,6 +848,22 @@ int sherlock_anagrams(std::string str);
 
 void sherlock_entry();
 
+/**
+ * Processes a list of frequency-related queries on a multiset of integers.
+ *
+ * There are three types of queries:
+ * 1 x — Insert integer x into the data structure.
+ * 2 y — Delete one occurrence of integer y, if present.
+ * 3 z — Check if any integer is present whose frequency is exactly z.
+ *       Append 1 to the result if found, else 0.
+ *
+ * The function uses two hash maps:
+ * - One to track the frequency of each integer.
+ * - One to track how many integers have a given frequency.
+ *
+ * @param queries A vector of (operation, value) pairs representing the queries.
+ * @return A vector of results for type 3 queries (0 or 1).
+ */
 std::vector<int> freq_query(std::vector<std::pair<int, int>> queries);
 
 void query_entry();

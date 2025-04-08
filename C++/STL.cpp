@@ -1581,7 +1581,7 @@ std::vector<int> freq_query(std::vector<std::pair<int, int>> queries)
             // Update num_to_freq
             int last_freq = num_to_freq[data];
             int new_freq = std::max(last_freq - 1, 0);
-            num_to_freq[data] += 1;
+            num_to_freq[data] -= 1;
 
             // Update freq_to_count
             freq_to_count[last_freq] -= 1;
