@@ -867,3 +867,41 @@ void sherlock_entry();
 std::vector<int> freq_query(std::vector<std::pair<int, int>> queries);
 
 void query_entry();
+
+class PriorityQueue
+{
+    /* Structs */
+    struct Item
+    {
+        /* Attributes */
+        int data;
+        int priority;
+        int insertion_order;
+
+        /* Consatructor */
+        Item(int data, int priority, int insertion_order);
+
+        /* Operators */
+        bool operator<(const Item& other);
+
+        static bool comp_items(const Item& a, const Item& b);
+    };
+
+    /* Attributes */
+    std::vector<Item> queue;
+    int capacity;
+    int order_counter = 0;
+    bool is_sorted = true;
+
+public:
+    /* Constructor & Destructor */
+    PriorityQueue(int capacity);
+    ~PriorityQueue(){}
+    
+    /* Public Methods */
+    void enqueue(int data, int priority);
+    void dequeue();
+    void print();
+};
+
+void pq_entry();

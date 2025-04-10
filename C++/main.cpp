@@ -2,5 +2,5 @@
 
 int main()
 {
-	query_entry();
+	pq_entry();
 }

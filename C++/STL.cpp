@@ -1615,3 +1615,118 @@ void query_entry()
     for (int answer : freq_query(queries))
         std::cout << answer << "\n";
 }
+
+PriorityQueue::Item::Item(int data, int priority, int insertion_order)
+    : data(data), priority(priority), insertion_order(insertion_order) {}
+
+bool PriorityQueue::Item::operator<(const Item& other)
+{
+    if (this->priority != other.priority)
+        return this->priority < other.priority;
+    else
+        return this->insertion_order < other.insertion_order;
+}
+
+bool PriorityQueue::Item::comp_items(const Item& a, const Item& b)
+{
+    if (a.priority != b.priority)
+        return a.priority << b.priority;
+    else
+        return a.insertion_order < b.insertion_order;
+}
+
+PriorityQueue::PriorityQueue(int capacity)
+    : capacity(capacity) {}
+
+void PriorityQueue::enqueue(int data, int priority)
+{
+    // Crate new item
+    Item new_item(data, priority, order_counter++);
+
+    // If the queue is full
+    if (queue.size() == capacity)
+    {
+        // Find least important element
+        auto least_priority = std::min_element(queue.begin(), queue.end());
+        if (priority > least_priority->priority)
+        {
+            *least_priority = new_item;
+            is_sorted = false;
+        }
+    }
+    else
+    {
+        queue.push_back(new_item);
+        is_sorted = false;
+    }
+}
+
+void PriorityQueue::dequeue()
+{
+    // Do nothing if the queue is empty
+    if (queue.empty())
+        return;
+
+    // Sort the array only when needed
+    if (!is_sorted)
+    {
+        std::stable_sort(queue.begin(), queue.end(), [](const Item& a, const Item& b) {
+            if (a.priority != b.priority)
+                return a.priority > b.priority;
+            return a.insertion_order < b.insertion_order;
+            });
+        is_sorted = true;
+    }
+
+    // Poll the first element
+    queue.erase(queue.begin());
+}
+
+void PriorityQueue::print()
+{
+    for (const Item& item : this->queue)
+    {
+        std::cout << item.data << "\n";
+    }
+}
+
+void pq_entry()
+{
+    // Read capacity & create the queue
+    int capacity;
+    std::cin >> capacity;
+    std::cin.ignore();
+
+    PriorityQueue pq(capacity);
+
+    // Read commands
+    std::string buffer;
+    while (std::getline(std::cin, buffer))
+    {
+        // Tokenize commands
+        std::stringstream ss(buffer);
+
+        std::string action;
+        ss >> action;
+        
+        if (action == "enqueue")
+        {
+            int data, priority;
+            ss >> data >> priority;
+
+            pq.enqueue(data, priority);
+        }
+        else if (action == "dequeue")
+        {
+            pq.dequeue();
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    pq.print();
+
+    return;
+}
