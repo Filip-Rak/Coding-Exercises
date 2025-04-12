@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SimpleExercises
 {
@@ -89,5 +86,22 @@ public class SimpleExercises
         }
 
         return freq;
+    }
+
+    public static void print_unique()
+    {
+        Scanner scan = new Scanner(System.in);
+        String str = scan.nextLine();
+        scan.close();
+
+        Set<Character> unique = new HashSet<>();
+        for (char c : str.toCharArray())
+        {
+            boolean added = unique.add(c);
+            if (added)
+            {
+                System.out.println(c + " ");
+            }
+        }
     }
 }
