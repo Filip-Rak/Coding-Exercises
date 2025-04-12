@@ -1,4 +1,7 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class SimpleExercises
 {
@@ -57,5 +60,34 @@ public class SimpleExercises
             sum += (int)(Math.pow(2, i) * b);
             System.out.print(sum + " ");
         }
+    }
+
+    public static void frequency_entry()
+    {
+        Scanner scan = new Scanner(System.in);
+        String str = scan.nextLine();
+
+        Map<Character, Integer> res = get_char_frequency(str);
+        for (Map.Entry<Character, Integer> entry : res.entrySet())
+        {
+            String key = entry.getKey().toString().toUpperCase();
+            int value = entry.getValue();
+
+            System.out.println(key + "\t" + value);
+        }
+    }
+
+    private static Map<Character, Integer> get_char_frequency(String str)
+    {
+        str = str.toLowerCase();
+
+        Map<Character, Integer> freq = new TreeMap<>();
+        for (char c : str.toCharArray())
+        {
+            if (Character.isLetter(c))
+                freq.put(c, freq.getOrDefault(c, 0) + 1);
+        }
+
+        return freq;
     }
 }
