@@ -1730,3 +1730,100 @@ void pq_entry()
 
     return;
 }
+
+PriorityQueue2::Item::Item(int data, int priority)
+    : data(data), priority(priority) {}
+
+PriorityQueue2::Item::Item(const Item& item)
+    : data(item.data), priority(item.priority) {}
+
+bool PriorityQueue2::Item::comp(const Item& a, const Item& b)
+{
+    return a.priority < b.priority;
+}
+
+PriorityQueue2::PriorityQueue2(int capacity)
+    : CAPACITY(capacity) {}
+
+bool PriorityQueue2::enqueue(int data, int priority)
+{
+    if (queue.size() >= this->CAPACITY)
+        return false;
+
+    Item new_item(data, priority);
+    queue.push_back(new_item);
+    is_sorted = false;
+
+    return true;
+}
+
+std::pair<bool, PriorityQueue2::Item> PriorityQueue2::dequeue()
+{
+    if (queue.empty())
+        return { false, Item(-1, -1) };
+
+    if (!is_sorted)
+    {
+        std::sort(queue.begin(), queue.end(), Item::comp);
+        is_sorted = true;
+    }
+
+    Item popped_item = queue.back();
+    queue.pop_back();
+
+    return { true, std::move(popped_item)};
+}
+
+void pq2_entry()
+{
+    // Prepare input data
+    std::vector<std::pair<int, int>> inputs = 
+    { 
+        {1, 1},
+        {4, 4},
+        {8, 3},
+        {-15, 8},
+    };
+
+    // Fill the queue
+    PriorityQueue2 pq2(3);
+    for (const auto& [data, priority] : inputs)
+    {
+        bool success = pq2.enqueue(data, priority);
+        if (!success)
+        {
+            std::cout << "Failed to enqueue!\n";
+        }
+    }
+
+    // Pop some elements
+    for (int i = 0; i < 2; i++)
+    {
+        auto pop = pq2.dequeue();
+        if (pop.first)
+            std::cout << "Pop: " << pop.second.data << " " << pop.second.priority << "\n";
+        else
+            std::cout << "Failed to pop!\n";
+    }
+
+    // Queue some elements
+    pq2.enqueue(3, 20);
+    pq2.enqueue(8, 14);
+    pq2.enqueue(8, 83);
+
+    // Dequeue the remaining elements
+    bool has_elements = true;
+    while (has_elements)
+    {
+        auto pop = pq2.dequeue();
+        if (pop.first)
+        {
+            std::cout << "Pop: " << pop.second.data << " " << pop.second.priority << "\n";
+        }
+        else
+        {
+            std::cout << "The queue is empty.\n";
+            has_elements = false;
+        }
+    }
+}

@@ -2,5 +2,5 @@
 
 int main()
 {
-	pq_entry();
+	pq2_entry();
 }

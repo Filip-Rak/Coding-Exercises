@@ -5,7 +5,7 @@ import java.util.List;
 public class CustomPriorityQueue
 {
     /* Types */
-    public class Item implements Comparable<Item>
+    public static class Item implements Comparable<Item>
     {
         /* Attributes */
         int data;
@@ -27,7 +27,7 @@ public class CustomPriorityQueue
     }
 
     /* Attributes */
-    private ArrayList<Item> queue = new ArrayList<>();
+    private final ArrayList<Item> queue = new ArrayList<>();
     private boolean is_sorted = false;
     private final int CAPACITY;
 

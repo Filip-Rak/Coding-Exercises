@@ -905,3 +905,37 @@ public:
 };
 
 void pq_entry();
+
+class PriorityQueue2
+{
+    /* Types */
+    struct Item
+    {
+        /* Attributes */
+        int data;
+        int priority;
+
+        /* Csontructors */
+        Item(int data, int priority);
+
+        Item(const Item& item);
+
+        /* Static Methods */
+        static bool comp(const Item& a, const Item& b);
+    };
+
+    /* Attributes */
+    std::vector<Item> queue;
+    const int CAPACITY;
+    bool is_sorted = true;
+
+public:
+    /* Constructor */
+    PriorityQueue2(int capacity);
+
+    /* Public Methods */
+    bool enqueue(int data, int priority);
+    std::pair<bool, Item> dequeue();
+};
+
+void pq2_entry();
