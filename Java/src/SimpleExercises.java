@@ -1,3 +1,4 @@
+import java.net.URI;
 import java.util.*;
 
 public class SimpleExercises
@@ -103,5 +104,48 @@ public class SimpleExercises
                 System.out.println(c + " ");
             }
         }
+    }
+
+    private static boolean isAnagram(String str1, String str2)
+    {
+        if (str1.length() != str2.length())
+            return false;
+
+        char[] chars1 = str1
+                .toLowerCase()
+                .toCharArray();
+
+        char[] chars2 = str2
+                .toLowerCase()
+                .toCharArray();
+
+
+        Map<Character, Integer> freq = new HashMap<>();
+        for (int i = 0; i < str1.length(); i++)
+        {
+            freq.put(chars1[i], freq.getOrDefault(chars1[i], 0) + 1);
+            freq.put(chars2[i], freq.getOrDefault(chars2[i], 0) - 1);
+        }
+
+        for (Map.Entry<Character, Integer> entry : freq.entrySet())
+        {
+            if (entry.getValue() != 0)
+                return false;
+        }
+
+        return true;
+    }
+
+    public static void anagrams_entry()
+    {
+        Scanner scanner = new Scanner(System.in);
+        String str1 = scanner.nextLine();
+        String str2 = scanner.nextLine();
+        scanner.close();
+
+        if (isAnagram(str1, str2))
+            System.out.println("Anagrams");
+        else
+            System.out.println("Not Anagrams");
     }
 }
