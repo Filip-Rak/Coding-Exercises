@@ -260,7 +260,7 @@ public class SimpleExercises
 
     private static boolean has_duplicates(List<Integer> arr)
     {
-        Set<Integer> set = new TreeSet<>();
+        Set<Integer> set = new HashSet<>();
         for (int num : arr)
         {
             boolean added = set.add(num);
