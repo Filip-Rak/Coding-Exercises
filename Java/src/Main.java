@@ -2,7 +2,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        SimpleExercises.substr_entry();
+        SimpleExercises.duplicates_entry();
         // ExerciseEntry.priority_queue_entry();
     }
 }

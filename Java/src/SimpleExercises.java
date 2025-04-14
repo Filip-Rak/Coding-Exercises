@@ -257,4 +257,23 @@ public class SimpleExercises
         Pair<String, Integer> res = find_longest_unique_substring(str);
         System.out.println(res.second + ": " + res.first);
     }
+
+    private static boolean has_duplicates(List<Integer> arr)
+    {
+        Set<Integer> set = new TreeSet<>();
+        for (int num : arr)
+        {
+            boolean added = set.add(num);
+            if (!added)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static void duplicates_entry()
+    {
+        List<Integer> arr = List.of(1, 2, 3, 4);
+        System.out.println(has_duplicates(arr));
+    }
 }
