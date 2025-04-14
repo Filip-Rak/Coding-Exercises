@@ -1,4 +1,3 @@
-import java.net.URI;
 import java.util.*;
 
 public class SimpleExercises
@@ -213,5 +212,49 @@ public class SimpleExercises
 
         System.out.println("Index: " + res.first + ", " + res.second);
         System.out.println("Values: " + arr.get(res.first) + ", " + arr.get(res.second));
+    }
+
+    private static Pair<String, Integer> find_longest_unique_substring(String str)
+    {
+        char[] chars = str.toLowerCase().toCharArray();
+        Map<Character, Integer> last_seen_map = new HashMap<>();  // [Character, index]
+        int start = 0;
+        int max_length = 0;
+        int best_start = 0;
+
+        for (int i = 0; i < chars.length; i++)
+        {
+            // Pick the character
+            char c = chars[i];
+
+            // Look if the character is already in the map
+            Integer last_seen = last_seen_map.get(c);
+
+            // The character is within the current substring
+            if (last_seen != null && last_seen >= start)
+            {
+                start = last_seen + 1;
+            }
+
+            // Add / Update character's position
+            last_seen_map.put(c, i);
+
+            // Update maximum length
+            if (i - start + 1 > max_length)
+            {
+                max_length = i - start + 1;
+                best_start = start;
+            }
+        }
+
+        String longest_str = str.substring(best_start, best_start + max_length);
+        return new Pair<>(longest_str, max_length);
+    }
+
+    public static void substr_entry()
+    {
+        String str = "abccdefghh";
+        Pair<String, Integer> res = find_longest_unique_substring(str);
+        System.out.println(res.second + ": " + res.first);
     }
 }
