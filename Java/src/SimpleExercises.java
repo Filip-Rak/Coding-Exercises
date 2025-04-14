@@ -276,4 +276,34 @@ public class SimpleExercises
         List<Integer> arr = List.of(1, 2, 3, 4);
         System.out.println(has_duplicates(arr));
     }
+
+    private static int get_most_frequent(List<Integer> arr)
+    {
+        if (arr.isEmpty())
+            return -1;
+
+        Map<Integer, Integer> freq = new HashMap<>(); // [data, freq]
+        Integer most_frequent = arr.getFirst();
+        int max = 1;
+
+        for (int num : arr)
+        {
+            int new_val = freq.getOrDefault(num, 0) + 1;
+            freq.put(num, new_val);
+
+            if (new_val > max)
+            {
+                max = new_val;
+                most_frequent = num;
+            }
+        }
+
+        return most_frequent;
+    }
+
+    public static void most_freq_entry()
+    {
+        List<Integer> arr = List.of(1, 2, 2, 3, 3, 2);
+        System.out.println(get_most_frequent(arr));
+    }
 }
