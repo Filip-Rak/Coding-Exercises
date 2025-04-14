@@ -180,4 +180,38 @@ public class SimpleExercises
             System.out.print(num + " ");
         }
     }
+
+    private static Pair<Integer, Integer> two_sum(List<Integer> arr, int target)
+    {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.size(); i++)
+        {
+            int offset = target - arr.get(i);
+
+            Integer query = map.get(offset);
+            if (query != null)
+            {
+                return new Pair<>(i, query);
+            }
+
+            map.put(arr.get(i), i);
+        }
+
+        return new Pair<>(-1, -1);
+    }
+
+    public static void two_sum_entry()
+    {
+        List<Integer> arr = List.of(1, 4, 2, 6, 7, 3);
+        Pair<Integer, Integer> res = two_sum(arr, 9);
+
+        if (res.first == -1)
+        {
+            System.out.println("Failed two find indices!");
+            return;
+        }
+
+        System.out.println("Index: " + res.first + ", " + res.second);
+        System.out.println("Values: " + arr.get(res.first) + ", " + arr.get(res.second));
+    }
 }
