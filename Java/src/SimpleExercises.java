@@ -148,4 +148,36 @@ public class SimpleExercises
         else
             System.out.println("Not Anagrams");
     }
+
+    private static List<Integer> rot_left(List<Integer> arr, int offset)
+    {
+        // Normalize the offset
+        int n = arr.size();
+        offset = ((offset % n) + n) % n;
+
+        // Create new array
+        List<Integer> new_arr = new ArrayList<>(n);
+
+        // Offset the old array into new array
+        for (int i = 0; i < arr.size(); i++)
+        {
+            int old_index = (i + offset) % n;
+            new_arr.add(arr.get(old_index)); // left-rotate
+        }
+
+        return new_arr;
+    }
+
+    public static void rotation_entry()
+    {
+        List<Integer> arr = List.of(1, 2, 3, 4);
+        arr = rot_left(arr, 2);
+
+        Iterator<Integer> ite = arr.iterator();
+        while(ite.hasNext())
+        {
+            int num = ite.next();
+            System.out.print(num + " ");
+        }
+    }
 }
