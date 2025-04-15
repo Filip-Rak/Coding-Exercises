@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.*;
 
 public class SimpleExercises
@@ -390,6 +391,48 @@ public class SimpleExercises
             }
 
             System.out.print("\n");
+        }
+    }
+
+    private static List<Integer> most_frequent(List<Integer> arr, int k)
+    {
+        // Frequency map: [element, count]
+        Map<Integer, Integer> freq = new HashMap<>();
+
+        // Go through all entries
+        for (int num : arr)
+        {
+            // Add to the map
+            int new_freq = freq.getOrDefault(num, 0) + 1;
+            freq.put(num, new_freq);
+        }
+
+        Queue<Map.Entry<Integer, Integer>> heap = new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
+        for (Map.Entry<Integer, Integer> entry : freq.entrySet())
+        {
+            heap.offer(entry);
+
+            if (heap.size() > k)
+                heap.poll();
+        }
+
+        List<Integer> res = new ArrayList<>(heap.size());
+        while(!heap.isEmpty())
+        {
+            res.add(heap.poll().getKey());
+        }
+
+        return res;
+    }
+
+    public static void freq_k_entry()
+    {
+        List<Integer> arr = List.of(1, 2, 2, 3, 3, 3);
+        List<Integer> res = most_frequent(arr, 2);
+
+        for(int num : res)
+        {
+            System.out.print(num + " ");
         }
     }
 }
