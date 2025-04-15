@@ -306,4 +306,13 @@ public class SimpleExercises
         List<Integer> arr = List.of(1, 2, 2, 3, 3, 2);
         System.out.println(get_most_frequent(arr));
     }
+
+    public static void tokenize_string_entry()
+    {
+        String str = "one 4 12 eight";
+        String[] tokens = str.split(" ");
+
+        for (String token : tokens)
+            System.out.print(token + " ");
+    }
 }

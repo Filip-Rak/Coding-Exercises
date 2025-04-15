@@ -2,7 +2,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        SimpleExercises.most_freq_entry();
+        SimpleExercises.tokenize_string_entry();
         // ExerciseEntry.priority_queue_entry();
     }
 }
