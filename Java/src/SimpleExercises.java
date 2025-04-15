@@ -437,13 +437,17 @@ public class SimpleExercises
 
     public static void comp_test_entry()
     {
-        List<Integer> arr = new ArrayList<>(List.of(1, 4, 5, 2, 3, 6));
-        Comparator<Integer> asc = (a, b) -> a - b;
+        List<Pair<String, Integer>> arr = new ArrayList<>(List.of(
+                new Pair<>("C.C.", 3),
+                new Pair<>("Lelouch", 1),
+                new Pair<>("Kallen", 2),
+                new Pair<>("Suzaku", 4),
+                new Pair<>("Shirley", 5)
+        ));
+        Comparator<Pair<String, Integer>> asc = (a, b) -> a.second - b.second;
         arr.sort(asc);
 
-        for (int num : arr)
-        {
-            System.out.print(num + " ");
-        }
+        for (Pair<String, Integer> pair : arr)
+            System.out.println(pair.first + " " + pair.second);
     }
 }
