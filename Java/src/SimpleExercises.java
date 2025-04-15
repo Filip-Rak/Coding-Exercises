@@ -427,7 +427,7 @@ public class SimpleExercises
     public static void freq_k_entry()
     {
         List<Integer> arr = List.of(1, 2, 2, 3, 3, 3);
-        List<Integer> res = most_frequent(arr, 3);
+        List<Integer> res = most_frequent(arr, 2);
 
         for(int num : res)
         {

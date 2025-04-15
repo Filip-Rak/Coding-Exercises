@@ -1838,11 +1838,20 @@ std::vector<int> most_frequent_elements(std::vector<int> arr, int k)
     }
 
     /* Pick Highest Frequencies */
-    std::priority_queue<std::pair<int, int>> pq;
+    auto cmp = [](const std::pair<int, int>& a, const std::pair<int, int>& b)
+        { return a.first > b.first; };
+
+    std::priority_queue<
+        std::pair<int, int>,
+        std::vector<std::pair<int, int>>,
+        decltype(cmp)
+    > pq(cmp);
+
+    // std::priority_queue<std::pair<int, int>> pq;
     for (const auto& [key, value] : freq)
     {
         // Insert value as key for sorting
-        pq.emplace(std::make_pair(-value, key));
+        pq.emplace(std::make_pair(value, key));
 
         if (pq.size() > k)
             pq.pop();
@@ -1864,7 +1873,7 @@ void most_frequent_elements_entry()
 {
     std::vector<int> arr = { 1, 2, 2, 3, 3, 3 };
 
-    for (int num : most_frequent_elements(arr, 3))
+    for (int num : most_frequent_elements(arr, 2))
     {
         std::cout << num << " ";
     }
