@@ -438,13 +438,20 @@ public class SimpleExercises
     public static void comp_test_entry()
     {
         List<Pair<String, Integer>> arr = new ArrayList<>(List.of(
-                new Pair<>("C.C.", 3),
-                new Pair<>("Lelouch", 1),
-                new Pair<>("Kallen", 2),
-                new Pair<>("Suzaku", 4),
-                new Pair<>("Shirley", 5)
+                new Pair<>("Lena", 3),
+                new Pair<>("Shin", 1),
+                new Pair<>("Theo", 2),
+                new Pair<>("Anju", 5),
+                new Pair<>("Raiden", 5),
+                new Pair<>("Kukumila", 4)
         ));
-        Comparator<Pair<String, Integer>> asc = (a, b) -> a.second - b.second;
+        Comparator<Pair<String, Integer>> asc = (a, b) ->
+        {
+            if (a.first.length() == b.first.length())
+                return a.second - b.second;
+
+            return a.first.length() - b.first.length();
+        };
         arr.sort(asc);
 
         for (Pair<String, Integer> pair : arr)
