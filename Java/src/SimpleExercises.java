@@ -307,12 +307,28 @@ public class SimpleExercises
         System.out.println(get_most_frequent(arr));
     }
 
-    public static void tokenize_string_entry()
+    public static void tokenize_split_entry()
     {
         String str = "one 4 12 eight";
         String[] tokens = str.split(" ");
 
         for (String token : tokens)
+            System.out.print(token + " ");
+    }
+
+    public static void tokenize_scanner_entry()
+    {
+        String str = "one 4 12 eight";
+        Scanner sc = new Scanner(str);
+
+        List<String> tokens = new ArrayList<>();
+        while (sc.hasNext())
+        {
+            String buffer = sc.next();
+            tokens.add(buffer);
+        }
+
+        for(String token : tokens)
             System.out.print(token + " ");
     }
 }
