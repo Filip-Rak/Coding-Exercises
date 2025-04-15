@@ -396,33 +396,32 @@ public class SimpleExercises
 
     private static List<Integer> most_frequent(List<Integer> arr, int k)
     {
-        // Frequency map: [element, count]
+        /* Get Frequency */
+        // Frequency map [data, count]
         Map<Integer, Integer> freq = new HashMap<>();
 
-        // Go through all entries
-        for (int num : arr)
+        // Count data frequency
+        for (int key : arr)
         {
-            // Add to the map
-            int new_freq = freq.getOrDefault(num, 0) + 1;
-            freq.put(num, new_freq);
+            int new_val = freq.getOrDefault(key, 0) + 1;
+            freq.put(key, new_val);
         }
 
+        /* Pick Most Frequent */
         Queue<Map.Entry<Integer, Integer>> heap = new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
         for (Map.Entry<Integer, Integer> entry : freq.entrySet())
         {
-            heap.offer(entry);
-
+            heap.add(entry);
             if (heap.size() > k)
                 heap.poll();
         }
 
-        List<Integer> res = new ArrayList<>(heap.size());
+        /* Pack Most Frequent Data */
+        List<Integer> res_arr = new ArrayList<>(heap.size());
         while(!heap.isEmpty())
-        {
-            res.add(heap.poll().getKey());
-        }
+            res_arr.add(heap.poll().getKey());
 
-        return res;
+        return res_arr;
     }
 
     public static void freq_k_entry()
