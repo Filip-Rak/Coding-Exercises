@@ -457,4 +457,27 @@ public class SimpleExercises
         for (Pair<String, Integer> pair : arr)
             System.out.println(pair.first + " " + pair.second);
     }
+
+    private static List<Integer> get_biggest_elements(List<Integer> arr, int k)
+    {
+        Comparator<Integer> desc = (a, b) -> b - a;
+        Set<Integer> set = new TreeSet<>(desc);
+        set.addAll(arr);
+
+        List<Integer> results = new ArrayList<>(k);
+        for (int num : set)
+        {
+            results.add(num);
+            if (results.size() >= k)
+                break;
+        }
+
+        return results;
+    }
+
+    public static void k_biggest()
+    {
+        List<Integer> arr = List.of(1, 2, 3, 4);
+        System.out.println(get_biggest_elements(arr, 2));
+    }
 }
