@@ -1947,11 +1947,24 @@ void k_biggest_el_entry()
 
 void comp_test_entry()
 {
-    std::vector<int> arr = { 1, 4, 5, 2, 3, 6 };
+    std::vector<std::pair<std::string, int>> arr = {
+        {"Andy", 1},
+        {"Leyley", 3},
+        {"Ashley", 2},
+        {"Andrew", 4},
+        {"Pipkin", 6},
+        {"Pippa", 5},
+    };
     
-    auto comp = [](int a, int b) { return a > b; };
-    std::sort(arr.begin(), arr.end(), comp);
+    auto comp = [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b)
+        { 
+            if (a.first.length() == b.first.length())
+                return a.second < b.second;
 
-    for (int num : arr)
-        std::cout << num << " ";
+            return a.first.length() < b.first.length();
+        };
+
+    std::sort(arr.begin(), arr.end(), comp);
+    for (const auto& [first, second] : arr)
+        std::cout << first << " " << second << "\n";
 }
