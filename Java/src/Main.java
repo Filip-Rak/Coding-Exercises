@@ -2,7 +2,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        SimpleExercises.k_biggest();
+        SimpleExercises.freq_k_entry();
         // ExerciseEntry.priority_queue_entry();
     }
 }

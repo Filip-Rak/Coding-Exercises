@@ -408,7 +408,9 @@ public class SimpleExercises
         }
 
         /* Pick Most Frequent */
-        Queue<Map.Entry<Integer, Integer>> heap = new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
+        Comparator<Map.Entry<Integer, Integer>> asc_val = (a, b) -> a.getValue() - b.getValue();
+        Queue<Map.Entry<Integer, Integer>> heap = new PriorityQueue<>(asc_val);
+
         for (Map.Entry<Integer, Integer> entry : freq.entrySet())
         {
             heap.add(entry);
