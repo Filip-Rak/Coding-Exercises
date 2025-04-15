@@ -2,5 +2,5 @@
 
 int main()
 {
-	pq2_entry();
+	most_frequent_elements_entry();
 }

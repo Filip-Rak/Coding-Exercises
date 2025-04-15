@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include <queue>
 #include <algorithm>
 #include <stdexcept>
 #include <iostream>
@@ -939,3 +940,6 @@ public:
 };
 
 void pq2_entry();
+
+std::vector<int> most_frequent_elements(std::vector<int> arr, int k);
+void most_frequent_elements_entry();

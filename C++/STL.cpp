@@ -1827,3 +1827,47 @@ void pq2_entry()
         }
     }
 }
+
+std::vector<int> most_frequent_elements(std::vector<int> arr, int k)
+{
+    /* Get The Frequency */
+    std::unordered_map<int, int> freq;
+    for (int key : arr)
+    {
+        freq[key] += 1;
+    }
+
+    /* Pick Highest Frequencies */
+    std::priority_queue<std::pair<int, int>> pq;
+    for (const auto& [key, value] : freq)
+    {
+        // Insert value as key for sorting
+        pq.emplace(std::make_pair(-value, key));
+
+        if (pq.size() > k)
+            pq.pop();
+    }
+
+    /* Gather Results */
+    std::vector<int> results(pq.size());
+    int i = 0;
+    while (!pq.empty())
+    {
+        results[i++] = pq.top().second;
+        pq.pop();
+    }
+
+    return results;
+}
+
+void most_frequent_elements_entry()
+{
+    std::vector<int> arr = { 1, 2, 2, 3, 3, 3 };
+
+    for (int num : most_frequent_elements(arr, 3))
+    {
+        std::cout << num << " ";
+    }
+
+    std::cout << "\n";
+}
