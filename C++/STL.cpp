@@ -1944,3 +1944,14 @@ void k_biggest_el_entry()
         std::cout << num << " ";
     }
 }
+
+void comp_test_entry()
+{
+    std::vector<int> arr = { 1, 4, 5, 2, 3, 6 };
+    
+    auto comp = [](int a, int b) { return a > b; };
+    std::sort(arr.begin(), arr.end(), comp);
+
+    for (int num : arr)
+        std::cout << num << " ";
+}

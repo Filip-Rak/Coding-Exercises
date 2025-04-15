@@ -947,3 +947,5 @@ void most_frequent_elements_entry();
 std::vector<int> biggest_elements1(std::vector<int> arr, int k);
 std::vector<int> biggest_elements2(std::vector<int> arr, int k);
 void k_biggest_el_entry();
+
+void comp_test_entry();

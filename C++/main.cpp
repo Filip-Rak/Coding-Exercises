@@ -2,5 +2,5 @@
 
 int main()
 {
-	k_biggest_el_entry();
+	comp_test_entry();
 }
