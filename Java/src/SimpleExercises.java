@@ -331,4 +331,26 @@ public class SimpleExercises
         for(String token : tokens)
             System.out.print(token + " ");
     }
+
+    private static boolean is_a_permutation(String str1, String str2)
+    {
+        if (str1.length() != str2.length())
+            return false;
+
+        char[] str1_norm = str1.toLowerCase().toCharArray();
+        Arrays.sort(str1_norm);
+
+        char[] str2_norm = str2.toLowerCase().toCharArray();
+        Arrays.sort(str2_norm);
+
+        return Arrays.toString(str1_norm).equals(Arrays.toString(str2_norm));
+    }
+
+    public static void permutation_entry()
+    {
+        String str1 = "abbccd";
+        String str2 = "bcdabc";
+
+        System.out.println(is_a_permutation(str1, str2));
+    }
 }
