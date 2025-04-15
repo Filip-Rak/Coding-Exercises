@@ -2,7 +2,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        SimpleExercises.permutation_entry();
+        SimpleExercises.anagram_groups_entry();
         // ExerciseEntry.priority_queue_entry();
     }
 }
