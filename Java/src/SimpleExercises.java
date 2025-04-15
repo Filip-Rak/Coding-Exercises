@@ -364,34 +364,23 @@ public class SimpleExercises
             // Normalize the string to key
             char[] norm = str.toLowerCase().toCharArray();
             Arrays.sort(norm);
-            String key = Arrays.toString(norm);
+            String key = new String(norm);
 
-            // Find the key, if does not exist create an arr
-            List<String> value = groups.get(key);
-            if (value == null)
-            {
-                value = new ArrayList<>();
-            }
-
-            // Add the str to they arr & put it in the map
-            value.add(str);
-            groups.put(key, value);
+            // Find the key, if it does not exist create an arr
+            List<String> list = groups.computeIfAbsent(key, _ -> new ArrayList<>());
+            list.add(str);
         }
 
         // Query the array for all results
-        List<List<String>> result = new ArrayList<>();
-        for(Map.Entry<String, List<String>> entry : groups.entrySet())
-        {
-            result.add(entry.getValue());
-        }
-
-        return result;
+        return new ArrayList<>(groups.values());
     }
 
     public static void anagram_groups_entry()
     {
         List<String> arr = List.of("eat", "tea", "tan", "ate", "nat", "bat");
+
         List<List<String>> groups = group_anagrams(arr);
+        groups.sort((a, b) -> b.size() - a.size());
 
         for (List<String> group : groups)
         {
