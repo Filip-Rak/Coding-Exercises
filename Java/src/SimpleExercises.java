@@ -435,5 +435,15 @@ public class SimpleExercises
         }
     }
 
-    
+    public static void comp_test_entry()
+    {
+        List<Integer> arr = new ArrayList<>(List.of(1, 4, 5, 2, 3, 6));
+        Comparator<Integer> asc = (a, b) -> a - b;
+        arr.sort(asc);
+
+        for (int num : arr)
+        {
+            System.out.print(num + " ");
+        }
+    }
 }
