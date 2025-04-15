@@ -943,3 +943,7 @@ void pq2_entry();
 
 std::vector<int> most_frequent_elements(std::vector<int> arr, int k);
 void most_frequent_elements_entry();
+
+std::vector<int> biggest_elements1(std::vector<int> arr, int k);
+std::vector<int> biggest_elements2(std::vector<int> arr, int k);
+void k_biggest_el_entry();

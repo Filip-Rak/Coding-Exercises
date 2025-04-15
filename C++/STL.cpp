@@ -1871,12 +1871,76 @@ std::vector<int> most_frequent_elements(std::vector<int> arr, int k)
 
 void most_frequent_elements_entry()
 {
-    std::vector<int> arr = { 1, 2, 2, 3, 3, 3 };
-
-    for (int num : most_frequent_elements(arr, 2))
+    std::vector<int> arr = { 1, 2, 2, 3, 3, 3 , 4, 4};
+    auto result = biggest_elements1(arr, 3);
+    for (int num : result)
     {
         std::cout << num << " ";
     }
 
     std::cout << "\n";
+}
+
+std::vector<int> biggest_elements1(std::vector<int> arr, int k)
+{
+    if (arr.empty() || k <= 0)
+        return std::vector<int>();
+
+    auto comp = [](int a, int b) { return a > b; };
+    std::sort(arr.begin(), arr.end(), comp);
+
+    std::vector<int> results;
+    results.push_back(arr[0]);
+
+    if (results.size() == k)
+        return results;
+
+    for (int i = 1; i < arr.size(); i++)
+    {
+        int num = arr[i];
+        int last = results[results.size() - 1];
+
+        if (num != last)
+        {
+            results.push_back(num);
+            if (results.size() == k)
+                return results;
+        }
+    }
+
+    return results;
+}
+
+std::vector<int> biggest_elements2(std::vector<int> arr, int k)
+{
+    if (k <= 0)
+        return std::vector<int>();
+
+    auto comp = [](int a, int b) { return a > b; };
+    std::set<int, decltype(comp)> set(comp);
+
+    for (int num : arr)
+        set.insert(num);
+
+    std::vector<int> result;
+    for (int num : set)
+    {
+        result.push_back(num);
+
+        if (result.size() == k)
+            break;
+    }
+
+    return result;
+}
+
+void k_biggest_el_entry()
+{
+    std::vector<int> arr = {3, 3, 2, 3, 5, 6, 1, 1};
+    auto result = biggest_elements2(arr, 4);
+
+    for (int num : result)
+    {
+        std::cout << num << " ";
+    }
 }

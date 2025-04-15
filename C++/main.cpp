@@ -2,5 +2,5 @@
 
 int main()
 {
-	most_frequent_elements_entry();
+	k_biggest_el_entry();
 }
