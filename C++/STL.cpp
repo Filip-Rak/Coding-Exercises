@@ -1968,3 +1968,23 @@ void comp_test_entry()
     for (const auto& [first, second] : arr)
         std::cout << first << " " << second << "\n";
 }
+
+void custom_list2_entry()
+{
+    CustomList2<int> list;
+    std::vector<int> inputs = { 1, 2, 3, 4, 5, 6 };
+
+    for (int input : inputs)
+        list.push_back(input);
+
+    while (list.get_size() > 0)
+    {
+        auto res = list.pop_back();
+        if (res.first)
+            std::cout << res.second << " ";
+        else
+            std::cout << "\nOut of elements!";
+    }
+
+    std::cout << "\n";
+}

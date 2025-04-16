@@ -2,5 +2,5 @@
 
 int main()
 {
-	comp_test_entry();
+	custom_list2_entry();
 }

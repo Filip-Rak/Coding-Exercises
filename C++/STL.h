@@ -949,3 +949,72 @@ std::vector<int> biggest_elements2(std::vector<int> arr, int k);
 void k_biggest_el_entry();
 
 void comp_test_entry();
+
+template <typename T>
+class CustomList2
+{
+    /* Types */
+    struct Node
+    {
+        T data;
+        Node* next;
+
+        Node(T data, Node* next = nullptr) : data(data), next(next) {}
+    };
+
+    /* Attributes */
+    Node* head = nullptr;
+    int size = 0;
+
+public:
+    /* Constructor */
+    CustomList2() {}
+
+    /* Public Methods */
+    void push_back(T data)
+    {
+        this->size += 1;
+        Node* new_node = new Node(data);
+
+        if (!this->head)
+        {
+            this->head = new_node;
+            return;
+        }
+
+        Node* tgt = this->head;
+        while (tgt->next)
+        {
+            tgt = tgt->next;
+        }
+
+        tgt->next = new_node;
+    }
+
+    std::pair<bool, T> pop_back()
+    {
+        if (!this->head)
+            return std::make_pair(false, T());
+
+        Node* tgt = this->head;
+        Node* prev = tgt;
+        while (tgt->next)
+        {
+            prev = tgt;
+            tgt = tgt->next;
+        }
+
+        Node* to_return = tgt;
+        prev->next = nullptr;
+        this->size -= 1;
+
+        return std::make_pair(true, to_return->data);
+    }
+
+    int get_size()
+    {
+        return this->size;
+    }
+};
+
+void custom_list2_entry();
