@@ -996,18 +996,28 @@ public:
         if (!this->head)
             return std::make_pair(false, T());
 
-        Node* tgt = this->head;
-        Node* prev = tgt;
-        while (tgt->next)
+        Node* to_return = nullptr;
+        if (!this->head->next)
         {
-            prev = tgt;
-            tgt = tgt->next;
+            to_return = this->head;
+            this->head = nullptr;
+        }
+        else
+        {
+            Node* tgt = this->head;
+            Node* prev = tgt;
+
+            while (tgt->next)
+            {
+                prev = tgt;
+                tgt = tgt->next;
+            }
+
+            to_return = tgt;
+            prev->next = nullptr;
         }
 
-        Node* to_return = tgt;
-        prev->next = nullptr;
         this->size -= 1;
-
         return std::make_pair(true, to_return->data);
     }
 
