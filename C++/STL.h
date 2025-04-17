@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <unordered_map>
 #include <unordered_set>
@@ -853,9 +853,9 @@ void sherlock_entry();
  * Processes a list of frequency-related queries on a multiset of integers.
  *
  * There are three types of queries:
- * 1 x — Insert integer x into the data structure.
- * 2 y — Delete one occurrence of integer y, if present.
- * 3 z — Check if any integer is present whose frequency is exactly z.
+ * 1 x â€” Insert integer x into the data structure.
+ * 2 y â€” Delete one occurrence of integer y, if present.
+ * 3 z â€” Check if any integer is present whose frequency is exactly z.
  *       Append 1 to the result if found, else 0.
  *
  * The function uses two hash maps:
@@ -959,21 +959,35 @@ class CustomList2
         T data;
         Node* next;
 
-        Node(T data, Node* next = nullptr) : data(data), next(next) {}
+        Node(T data, Node* next = nullptr) : data(data), next(next) 
+        {
+            // this->active_nodes += 1;
+        }
+
+        ~Node()
+        {
+            // this->active_nodes -= 1;
+        }
+        
     };
 
     /* Attributes */
     Node* head = nullptr;
-    int size = 0;
+    int list_size = 0;
 
 public:
-    /* Constructor */
+    /* Constructor & Destructor */
     CustomList2() {}
+
+    ~CustomList2()
+    {
+        this->clear();
+    }
 
     /* Public Methods */
     void push_back(T data)
     {
-        this->size += 1;
+        this->list_size += 1;
         Node* new_node = new Node(data);
 
         if (!this->head)
@@ -989,6 +1003,14 @@ public:
         }
 
         tgt->next = new_node;
+    }
+
+    void push_front(T data)
+    {
+        Node* new_node = new Node(data, this->head);
+        this->head = new_node;
+
+        this->list_size += 1;
     }
 
     std::pair<bool, T> pop_back()
@@ -1017,13 +1039,43 @@ public:
             prev->next = nullptr;
         }
 
-        this->size -= 1;
+        this->list_size -= 1;
         return std::make_pair(true, to_return->data);
     }
 
+    std::pair<bool, T> pop_front()
+    {
+        if (!this->head)
+            return std::make_pair(false, T());
+
+        Node* to_pop = this->head;
+        this->head = this->head->next;
+
+        std::pair return_val = std::make_pair(true, to_pop->data);
+        this->list_size -= 1;
+        delete to_pop;
+
+        return return_val;
+    }
+
+    void clear()
+    {
+        Node* tgt = this->head;
+        while (tgt)
+        {
+            Node* to_delete = tgt;
+            tgt = tgt->next;
+            delete to_delete;
+        }
+
+        this->head = nullptr;
+        this->list_size = 0;
+    }
+
+    /* Getters */
     int get_size()
     {
-        return this->size;
+        return this->list_size;
     }
 };
 
