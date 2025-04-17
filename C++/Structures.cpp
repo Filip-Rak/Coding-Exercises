@@ -8,6 +8,8 @@ void custom_list2_entry()
     for (int input : inputs)
         list.push_front(input);
 
+    list.reverse();
+
     // while(list.get_size() > 0)
     while (true)
     {

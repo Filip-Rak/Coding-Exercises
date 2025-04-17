@@ -130,6 +130,23 @@ public:
         this->list_size = 0;
     }
 
+    void reverse()
+    {
+        Node* tgt = this->head;
+        Node* prev = nullptr;
+
+        while (tgt)
+        {
+            Node* next = tgt->next;
+            tgt->next = prev;
+            prev = tgt;
+
+            tgt = next;
+        }
+
+        this->head = prev;
+    }
+
     /* Getters */
     int get_size()
     {
