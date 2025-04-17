@@ -146,6 +146,54 @@ public:
 
         this->head = prev;
     }
+    
+    bool contains(T data)
+    {
+        Node* tgt = this->head;
+        while (tgt)
+        {
+            if (tgt->data == data)
+                return true;
+
+            tgt = tgt->next;
+        }
+
+        return false;
+    }
+
+    bool insert_at(T data, int target_index)
+    {
+        if (target_index < 0)
+            return false;
+
+        if (target_index == 0)
+        {
+            push_front(data);
+            return true;
+        }
+
+        if (!this->head)
+            return false;
+
+        Node* tgt = this->head;
+        int index = 1;
+
+        while (tgt && index < target_index)
+        {
+            index += 1;
+            tgt = tgt->next;
+        }
+
+        if (!tgt)
+            return false;
+
+        Node* new_node = new Node(data, tgt->next);
+        tgt->next = new_node;
+        list_size += 1;
+        
+        return true;
+
+    }
 
     /* Getters */
     int get_size()

@@ -9,11 +9,13 @@ void custom_list2_entry()
         list.push_front(input);
 
     list.reverse();
+    std::cout << "list.contains(6): " << list.contains(6) << "\n";
+    std::cout << "list.insert_at(): " << list.insert_at(20, 6) << "\n";
 
     // while(list.get_size() > 0)
     while (true)
     {
-        auto res = list.pop_back();
+        auto res = list.pop_front();
         if (res.first)
             std::cout << res.second << " ";
         else
@@ -23,5 +25,6 @@ void custom_list2_entry()
         }
     }
 
+    std::cout << "\nlist.contains(6): " << list.contains(6);
     std::cout << "\nActive nodes debug: " << list.get_debug_active_nodes() << "\n";
 }
