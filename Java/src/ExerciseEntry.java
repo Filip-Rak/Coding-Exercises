@@ -30,14 +30,14 @@ public class ExerciseEntry
         List<Integer> inputs = List.of(1, 2, 3, 4, 5, 6);
 
         for (int input : inputs)
-            list.push_back(input);
+            list.push_front(input);
 
         list.reverse();
 
         System.out.print("list.pop_back(): ");
         while(true)
         {
-            Pair<Boolean, Integer> res = list.pop_back();
+            Pair<Boolean, Integer> res = list.pop_front();
             if (res.first)
             {
                 System.out.print(res.second + " ");
@@ -50,6 +50,5 @@ public class ExerciseEntry
         }
 
         System.out.println("\nDebug:\nlist.get_list_size(): " + list.get_list_size());
-        System.out.println("list.get_active(): " + list.get_active());
     }
 }

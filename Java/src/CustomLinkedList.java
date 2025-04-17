@@ -22,11 +22,6 @@ public class CustomLinkedList<T>
 
             Node.active += 1;
         }
-
-        public void destruct()
-        {
-            Node.active -= 1;
-        }
     }
 
     /* Attributes */
@@ -58,6 +53,12 @@ public class CustomLinkedList<T>
         this.list_size += 1;
     }
 
+    public void push_front(T data)
+    {
+        this.head = new Node(data, this.head);
+        this.list_size += 1;
+    }
+
     public Pair<Boolean, T> pop_back()
     {
         if (this.head == null)
@@ -66,7 +67,6 @@ public class CustomLinkedList<T>
         if (this.head.next == null)
         {
             T data = head.data;
-            head.destruct();
             head = null;
             this.list_size -= 1;
             return new Pair<>(true, data);
@@ -81,11 +81,22 @@ public class CustomLinkedList<T>
         }
 
         T data = tgt.data;
-        head.destruct();
         prev.next = null;
         this.list_size -= 1;
 
         return new Pair<>(true, data);
+    }
+
+    public Pair<Boolean, T> pop_front()
+    {
+        if (this.head == null)
+            return new Pair<>(false, null);
+
+        Node to_pop = this.head;
+        this.head = this.head.next;
+        this.list_size -= 1;
+
+        return new Pair<>(true, to_pop.data);
     }
 
     public void reverse()
@@ -106,11 +117,6 @@ public class CustomLinkedList<T>
     }
 
     /* Getters */
-    public int get_active()
-    {
-        return Node.active;
-    }
-
     public int get_list_size()
     {
         return this.list_size;
