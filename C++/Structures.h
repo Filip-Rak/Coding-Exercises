@@ -319,7 +319,7 @@ public:
 
     bool insert_at(T data, size_t target_index)
     {
-        if (target_index < 0 || target_index > this->size)
+        if (target_index > this->size)
             return false;
 
         this->resize(this->size + 1);
@@ -336,7 +336,7 @@ public:
 
     bool put(T data, size_t index)
     {
-        if (index < 0 || index >= this->size)
+        if (index >= this->size)
             return false;
 
         this->arr[index] = data;
@@ -345,7 +345,7 @@ public:
 
     std::pair<bool, T> get(size_t index)
     {
-        if (index < 0 || index >= size)
+        if (index >= size)
             return std::make_pair(false, T());
 
         return std::make_pair(true, arr[index]);
@@ -379,9 +379,9 @@ public:
     }
 
     /* Opertators */
-    T& operator [](size_t index) const
+    T& operator [](size_t index)
     {
-        if (index < 0 || index >= this->size)
+        if (index >= this->size)
             throw std::out_of_range("Index out of range");
         
         return this->arr[index];
