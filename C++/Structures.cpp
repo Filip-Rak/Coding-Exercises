@@ -59,6 +59,22 @@ void custom_vector_entry()
     CustomVector<int> arr;
     std::vector<int> inputs = { 1, 2, 3, 4, 5, 6 };
 
+    arr.push_back(-10);
+    arr.push_back(-20);
+
+    try 
+    {
+        arr[1] = 35;
+    }
+    catch (std::out_of_range exception)
+    {
+        std::cout << "Exception: " << exception.what() << "\n";
+    }
+
+    std::cout << "arr.contains(): " << arr.contains(35) << "\n";
+
+    // arr.clear();
+
     for (int input : inputs)
         arr.push_back(input);
 

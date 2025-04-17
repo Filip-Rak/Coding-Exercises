@@ -360,7 +360,35 @@ public:
             this->arr[i] = T();
     }
 
+    void clear()
+    {
+        delete[] this->arr;
+        this->arr = new T[0];
+        this->size = 0;
+    }
+
+    bool contains(T data)
+    {
+        for (size_t i = 0; i < this->size; i++)
+        {
+            if (data == this->arr[i])
+                return true;
+        }
+
+        return false;
+    }
+
+    /* Opertators */
+    T& operator [](size_t index) const
+    {
+        if (index < 0 || index >= this->size)
+            throw std::out_of_range("Index out of range");
+        
+        return this->arr[index];
+    }
+
 private:
+    /* Private Methods */
     void resize_raw(size_t new_size)
     {
         T* new_arr = new T[new_size];
