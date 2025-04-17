@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Set;
 
 public class ExerciseEntry
 {
@@ -30,9 +31,11 @@ public class ExerciseEntry
         List<Integer> inputs = List.of(1, 2, 3, 4, 5, 6);
 
         for (int input : inputs)
-            list.push_front(input);
+            list.push_back(input);
 
-        list.reverse();
+        // list.reverse();
+        Pair<Boolean, Integer> ret_val = list.pop_at(1);
+        System.out.println("list.pop_at(): " + ret_val.first + " " + ret_val.second);
 
         System.out.print("list.pop_back(): ");
         while(true)

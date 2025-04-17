@@ -99,6 +99,38 @@ public class CustomLinkedList<T>
         return new Pair<>(true, to_pop.data);
     }
 
+    public Pair<Boolean, T> pop_at(int target_index)
+    {
+        if (this.head == null || target_index < 0)
+            return new Pair<>(false, null);
+
+        if (target_index == 0)
+        {
+            Node popped_node = this.head;
+            this.head = this.head.next;
+
+            this.list_size -= 1;
+            return new Pair<>(true, popped_node.data);
+        }
+
+        Node tgt = this.head;
+        int index = 1;
+
+        while(tgt != null && index < target_index)
+        {
+            tgt = tgt.next;
+            index += 1;
+        }
+
+        if (tgt == null || tgt.next == null)
+            return new Pair<>(false, null);
+
+        T data = tgt.next.data;
+        tgt.next = tgt.next.next;
+
+        return new Pair<>(true, data);
+    }
+
     public void reverse()
     {
         Node tgt = this.head;
