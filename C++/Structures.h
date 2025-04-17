@@ -9,17 +9,19 @@ class CustomList2
     /* Types */
     struct Node
     {
+        static int active_nodes;
+
         T data;
         Node* next;
 
         Node(T data, Node* next = nullptr) : data(data), next(next)
         {
-            // this->active_nodes += 1;
+            this->active_nodes += 1;
         }
 
         ~Node()
         {
-            // this->active_nodes -= 1;
+            this->active_nodes -= 1;
         }
 
     };
@@ -93,7 +95,10 @@ public:
         }
 
         this->list_size -= 1;
-        return std::make_pair(true, to_return->data);
+        std::pair return_pair = std::make_pair(true, to_return->data);
+        delete to_return;
+
+        return return_pair;
     }
 
     std::pair<bool, T> pop_front()
@@ -130,6 +135,14 @@ public:
     {
         return this->list_size;
     }
+
+    int get_debug_active_nodes()
+    {
+        return Node::active_nodes;
+    }
 };
+
+template <typename T>
+int CustomList2<T>::Node::active_nodes = 0;
 
 void custom_list2_entry();

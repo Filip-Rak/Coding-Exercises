@@ -11,7 +11,7 @@ void custom_list2_entry()
     // while(list.get_size() > 0)
     while (true)
     {
-        auto res = list.pop_front();
+        auto res = list.pop_back();
         if (res.first)
             std::cout << res.second << " ";
         else
@@ -21,5 +21,5 @@ void custom_list2_entry()
         }
     }
 
-    std::cout << "\n";
+    std::cout << "\nActive nodes debug: " << list.get_debug_active_nodes() << "\n";
 }
