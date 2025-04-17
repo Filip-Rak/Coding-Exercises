@@ -53,3 +53,24 @@ void custom_list2_entry()
     std::cout << "\nlist.contains(6): " << list.contains(6);
     std::cout << "\n\nActive nodes debug: " << list.get_debug_active_nodes() << "\n";
 }
+
+void custom_vector_entry()
+{
+    CustomVector<int> arr;
+
+    arr.push_back(1);
+    arr.push_back(2);
+    arr.push_back(3);
+
+    arr.resize(5);
+
+    int index = 0;
+    while(true)
+    {
+        auto ret = arr.get(index++);
+        if (ret.first)
+            std::cout << "arr[" << index << "] = " << ret.second << "\n";
+        else
+            break;
+    }
+}

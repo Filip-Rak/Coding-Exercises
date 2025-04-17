@@ -286,3 +286,65 @@ template <typename T>
 int CustomList2<T>::Node::active_nodes = 0;
 
 void custom_list2_entry();
+
+template <typename T>
+class CustomVector
+{
+    /* Attributes */
+    T* arr;
+    size_t size;
+
+public:
+    /* Constructor & Destructor */
+    CustomVector(size_t size = 0)
+        : size(size), arr(new T[size])
+    {
+        for (int i = 0; i < size; i++)
+        {
+            this->arr[i] = T();
+        }
+    }
+
+    ~CustomVector()
+    {
+        delete[] arr;
+    }
+
+    /* Public Methods */
+    void push_back(T data)
+    {
+        resize_raw(this->size + 1);
+        this->arr[this->size - 1] = data;
+    }
+
+    std::pair<bool, T> get(size_t index)
+    {
+        if (index < 0 || index >= size)
+            return std::make_pair(false, T());
+
+        return std::make_pair(true, arr[index]);
+    }
+
+    void resize(size_t new_size)
+    {
+        size_t old_size = this->size;
+        this->resize_raw(new_size);
+
+        for (size_t i = old_size; i < new_size; i++)
+            this->arr[i] = T();
+    }
+
+private:
+    void resize_raw(size_t new_size)
+    {
+        T* new_arr = new T[new_size];
+        for (size_t i = 0; i < this->size && i < new_size; i++)
+            new_arr[i] = std::move(this->arr[i]);
+
+        delete[] this->arr;
+        this->arr = new_arr;
+        this->size = new_size;
+    }
+};
+
+void custom_vector_entry();

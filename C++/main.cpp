@@ -3,5 +3,5 @@
 
 int main()
 {
-	custom_list2_entry();
+	custom_vector_entry();
 }
