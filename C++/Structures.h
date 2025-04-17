@@ -192,7 +192,36 @@ public:
         list_size += 1;
         
         return true;
+    }
 
+    std::pair<bool, T> pop_at(int target_index)
+    {
+        if (target_index < 0)
+            return std::make_pair(false, T());
+
+        if (target_index == 0)
+            return this->pop_front();
+
+        Node* tgt = this->head;
+        int index = 1;
+
+        while (tgt && index < target_index)
+        {
+            index += 1;
+            tgt = tgt->next;
+        }
+
+        if (!tgt || !tgt->next)
+            return std::make_pair(false, T());
+
+        Node* next = tgt->next->next;
+        std::pair<bool, T> return_pair = std::make_pair(true, tgt->next->data);
+
+        delete tgt->next;
+        tgt->next = next;
+        this->list_size -= 1;
+
+        return return_pair;
     }
 
     /* Getters */

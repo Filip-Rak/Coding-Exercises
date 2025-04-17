@@ -10,7 +10,10 @@ void custom_list2_entry()
 
     list.reverse();
     std::cout << "list.contains(6): " << list.contains(6) << "\n";
-    std::cout << "list.insert_at(): " << list.insert_at(20, 6) << "\n";
+    std::cout << "list.insert_at(20, x): " << list.insert_at(20, 6) << "\n";
+    
+    const auto& [success, data] = list.pop_at(0);
+    std::cout << "list.pop_at(x) -> Success: " << success << ", Data: " << data << "\n";
 
     // while(list.get_size() > 0)
     while (true)
