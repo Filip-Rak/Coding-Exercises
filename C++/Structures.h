@@ -317,7 +317,7 @@ public:
         this->arr[this->size - 1] = data;
     }
 
-    bool insert_at(T data, int target_index)
+    bool insert_at(T data, size_t target_index)
     {
         if (target_index < 0 || target_index > this->size)
             return false;
@@ -325,12 +325,21 @@ public:
         this->resize(this->size + 1);
 
         // Shift all values back
-        for (int i = this->size - 1; i > target_index; i--)
+        for (size_t i = this->size - 1; i > target_index; i--)
         {
             this->arr[i] = std::move(this->arr[i - 1]);
         }
 
         this->arr[target_index] = data;
+        return true;
+    }
+
+    bool put(T data, size_t index)
+    {
+        if (index < 0 || index >= this->size)
+            return false;
+
+        this->arr[index] = data;
         return true;
     }
 

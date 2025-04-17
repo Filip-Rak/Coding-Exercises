@@ -64,6 +64,7 @@ void custom_vector_entry()
 
     arr.resize(5);
     std::cout << "arr.nsert_at(): " << arr.insert_at(10, 5) << "\n";
+    std::cout << "arr.put(): " << arr.put(5, 6) << "\n";
 
     int index = 0;
     while(true)
