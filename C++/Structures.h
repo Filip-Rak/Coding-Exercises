@@ -224,6 +224,24 @@ public:
         return return_pair;
     }
 
+    std::vector<T> to_vector()
+    {
+        std::vector<T> arr(this->list_size);
+
+        Node* tgt = this->head;
+        int index = 0;
+
+        while (tgt)
+        {
+            arr[index] = tgt->data;
+
+            tgt = tgt->next;
+            index += 1;
+        }
+
+        return arr;
+    }
+
     /* Getters */
     int get_size()
     {
