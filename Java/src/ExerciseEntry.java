@@ -24,4 +24,31 @@ public class ExerciseEntry
         pq.dequeue();
         pq.dequeue();
     }
+
+    public static void linked_list_entry()
+    {
+        CustomLinkedList<Integer> list = new CustomLinkedList<>();
+        List<Integer> inputs = List.of(1, 2, 3, 4, 5, 6);
+
+        for (int input : inputs)
+            list.push_back(input);
+
+        System.out.print("list.pop_back(): ");
+        while(true)
+        {
+            Pair<Boolean, Integer> res = list.pop_back();
+            if (res.first)
+            {
+                System.out.print(res.second + " ");
+            }
+            else
+            {
+                System.out.println("\nlist.pop_back(): False on return - stopped");
+                break;
+            }
+        }
+
+        System.out.println("\nDebug:\nlist.get_list_size(): " + list.get_list_size());
+        System.out.println("list.get_active(): " + list.get_active());
+    }
 }

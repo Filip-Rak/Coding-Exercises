@@ -1,4 +1,4 @@
-class Pair<T, U>
+public class Pair<T, U>
 {
     /* Attributes */
     T first;
