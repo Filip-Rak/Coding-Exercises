@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseEntry
@@ -32,6 +31,8 @@ public class ExerciseEntry
 
         for (int input : inputs)
             list.push_back(input);
+
+        list.reverse();
 
         System.out.print("list.pop_back(): ");
         while(true)

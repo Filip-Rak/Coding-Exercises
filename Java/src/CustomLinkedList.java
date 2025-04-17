@@ -88,6 +88,23 @@ public class CustomLinkedList<T>
         return new Pair<>(true, data);
     }
 
+    public void reverse()
+    {
+        Node tgt = this.head;
+        Node prev = null;
+
+        while(tgt != null)
+        {
+            Node next = tgt.next;
+            tgt.next = prev;
+
+            prev = tgt;
+            tgt = next;
+        }
+
+        this.head = prev;
+    }
+
     /* Getters */
     public int get_active()
     {
