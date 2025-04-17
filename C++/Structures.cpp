@@ -21,11 +21,26 @@ void custom_list2_entry()
         std::cout << num << " ";
     }
 
+    CustomList2<int> list2 = list;
+
     std::cout << "\nlist.pop_front()/list.pop_back(): ";
     // while(list.get_size() > 0)
     while (true)
     {
         auto res = list.pop_front();
+        if (res.first)
+            std::cout << res.second << ", ";
+        else
+        {
+            std::cout << "Out of elements!";
+            break;
+        }
+    }
+
+    std::cout << "\nlist2.pop_front()/list2.pop_back(): ";
+    while (true)
+    {
+        auto res = list2.pop_front();
         if (res.first)
             std::cout << res.second << ", ";
         else

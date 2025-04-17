@@ -34,6 +34,16 @@ public:
     /* Constructor & Destructor */
     CustomList2() {}
 
+    CustomList2(const CustomList2<T>& other)
+    {
+        Node* tgt = other.head;
+        while (tgt)
+        {
+            this->push_back(tgt->data);
+            tgt = tgt->next;
+        }
+    }
+
     ~CustomList2()
     {
         this->clear();
@@ -251,6 +261,24 @@ public:
     int get_debug_active_nodes()
     {
         return Node::active_nodes;
+    }
+
+    /* Operators */
+    CustomList2<T>& operator = (const CustomList2<T>& other)
+    {
+        if (this == &other)
+            return *this;
+
+        this->clear();
+
+        Node* tgt = other.head;
+        while (tgt)
+        {
+            this->push_back(tgt->data);
+            tgt = tgt->next;
+        }
+
+        return *this;
     }
 };
 
