@@ -57,19 +57,20 @@ void custom_list2_entry()
 void custom_vector_entry()
 {
     CustomVector<int> arr;
+    std::vector<int> inputs = { 1, 2, 3, 4, 5, 6 };
 
-    arr.push_back(1);
-    arr.push_back(2);
-    arr.push_back(3);
+    for (int input : inputs)
+        arr.push_back(input);
 
     arr.resize(5);
+    std::cout << "arr.nsert_at(): " << arr.insert_at(10, 5) << "\n";
 
     int index = 0;
     while(true)
     {
         auto ret = arr.get(index++);
         if (ret.first)
-            std::cout << "arr[" << index << "] = " << ret.second << "\n";
+            std::cout << "arr[" << index - 1 << "] = " << ret.second << "\n";
         else
             break;
     }
