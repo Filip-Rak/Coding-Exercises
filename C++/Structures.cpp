@@ -92,3 +92,81 @@ void custom_vector_entry()
             break;
     }
 }
+
+CustomPriorityQueue::Item::Item(int value, int priority, int insertion_order)
+    : value(value), priority(priority), insertion_order(insertion_order) {}
+
+CustomPriorityQueue::CustomPriorityQueue(int capacity)
+    : capacity(capacity) {}
+
+void CustomPriorityQueue::enqueue(int val, int priority)
+{
+    if (this->queue.size() < this->capacity)
+    {
+        Item new_item(val, priority, this->insert_order++);
+        this->queue.push_back(new_item);
+        this->is_sorted = false;
+    }
+    else if (this->queue.size() == this->capacity)
+    {
+        auto max =  std::min_element(this->queue.begin(), this->queue.end(), CustomPriorityQueue::item_comparator);
+        if (max->priority < priority)
+        {
+            max->priority = priority;
+            max->value = val;
+            max->insertion_order = this->insert_order++;
+
+            this->is_sorted = false;
+        }
+    }
+}
+
+void CustomPriorityQueue::dequeue()
+{
+    if (this->queue.size() == 0)
+        return;
+
+    if (!this->is_sorted)
+    {
+        std::sort(this->queue.begin(), this->queue.end(), CustomPriorityQueue::item_comparator);
+        this->is_sorted = true;
+    }
+
+    this->queue.pop_back();
+}
+
+void CustomPriorityQueue::print_queue()
+{
+    if (!is_sorted)
+    {
+        std::sort(this->queue.begin(), this->queue.end(), CustomPriorityQueue::item_comparator);
+        this->is_sorted = true;
+    }
+
+    for (int i = this->queue.size() - 1; i >= 0; i--)
+        std::cout << queue[i].value << " ";
+}
+
+bool CustomPriorityQueue::item_comparator(const Item& a, const Item& b)
+{
+    if (a.priority != b.priority)
+        return a.priority < b.priority;
+
+    return b.insertion_order < a.insertion_order;
+}
+
+void cpq_test_entry()
+{
+    CustomPriorityQueue queue(5);
+
+    queue.enqueue(1, 1); 
+    queue.enqueue(5, 5);    
+    queue.enqueue(2, 2);
+    queue.enqueue(3, 3);
+    queue.enqueue(4, 4);    // 1, 2, 3, 4, 5
+    queue.enqueue(6, 6);    // 2, 3, 4, 5, 6
+    queue.enqueue(60, 6);   // 3, 4, 5, 60, 6
+
+    queue.dequeue();    // 3, 4, 5, 60
+    queue.print_queue();
+}

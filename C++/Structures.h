@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 template <typename T>
 class CustomList2
@@ -402,3 +403,36 @@ private:
 };
 
 void custom_vector_entry();
+
+class CustomPriorityQueue
+{
+    /* Types */
+    struct Item
+    {
+        int value;
+        int priority;
+        int insertion_order;
+
+        Item(int value, int priority, int insertion_order);
+    };
+
+    /* Attributes */
+    std::vector<Item> queue;
+    const int capacity;
+    int insert_order = 0;
+    bool is_sorted = true;
+
+public:
+    /* Csontructor */
+    CustomPriorityQueue(int capacity);
+
+    /* Public Methods */
+    void enqueue(int val, int priority);
+    void dequeue();
+    void print_queue();
+
+    /* Private Methods */
+    static bool item_comparator(const Item& a, const Item& b);
+};
+
+void cpq_test_entry();

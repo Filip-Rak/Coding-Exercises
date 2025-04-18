@@ -3,5 +3,5 @@
 
 int main()
 {
-	custom_vector_entry();
+	cpq_test_entry();
 }
