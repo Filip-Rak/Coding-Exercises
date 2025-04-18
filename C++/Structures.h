@@ -3,6 +3,8 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <string>
+#include <sstream>
 
 template <typename T>
 class CustomList2
@@ -436,3 +438,5 @@ public:
 };
 
 void cpq_test_entry();
+
+void cpq_input_entry();

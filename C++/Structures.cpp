@@ -170,3 +170,38 @@ void cpq_test_entry()
     queue.dequeue();    // 3, 4, 5, 60
     queue.print_queue();
 }
+
+void cpq_input_entry()
+{
+    int N;
+    std::cin >> N;
+    CustomPriorityQueue queue(N);
+    std::cin.ignore();
+
+    std::string line;
+    while (std::getline(std::cin, line))
+    {
+        std::stringstream ss(line);
+
+        std::string op;
+        ss >> op;
+
+        if (op == "enqueue")
+        {
+            int val, priority;
+            ss >> val >> priority;
+
+            queue.enqueue(val, priority);
+        }
+        else if (op == "dequeue")
+        {
+            queue.dequeue();
+        }
+        else
+        {
+            queue.print_queue();
+            break;
+        }
+
+    }
+}

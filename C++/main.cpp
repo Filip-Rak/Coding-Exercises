@@ -3,5 +3,5 @@
 
 int main()
 {
-	cpq_test_entry();
+	cpq_input_entry();
 }
