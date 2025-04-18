@@ -63,11 +63,28 @@ public class ExerciseEntry
         for (int input : inputs)
             arr.put(input);
 
-        arr.put(50, 0);
+        arr.put(10, 0);
+        arr.insert_at(20, 2);
+        arr.insert_at(30, 4);
+        arr.insert_at(40, 6);
 
-        Pair<Boolean, Integer> pop = arr.pop(1);
-        System.out.println("arr.pop(): " + pop.first + ", " + pop.second);
+        System.out.print("arr.pop(): ");
+        for (int i = 0; i < 3; i++)
+        {
+            Pair<Boolean, Integer> ret = arr.pop(0);
+            if (ret.first)
+            {
+                System.out.print(ret.second + ", ");
+            }
+            else
+            {
+                System.out.print("False on return - Stopping");
+                break;
+            }
 
+        }
+
+        System.out.print("\narr.get(): ");
         int index = 0;
         while(true)
         {

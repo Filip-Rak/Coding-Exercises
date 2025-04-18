@@ -32,6 +32,22 @@ public class CustomArrayList<T>
         return true;
     }
 
+    public Boolean insert_at(T data, int index)
+    {
+        if (index < 0 || index > this.size)
+            return false;
+
+        if (this.capacity < this.size + 1)
+            this.smart_resize(true);
+
+        this.size += 1;
+        for (int i = this.size - 1; i > index; i--)
+            this.arr[i] = this.arr[i - 1];
+
+        this.arr[index] = data;
+        return true;
+    }
+
     public Pair<Boolean, T> get(int index)
     {
         if (index < 0 || index >= size)
@@ -51,6 +67,8 @@ public class CustomArrayList<T>
             this.arr[i] = this.arr[i + 1];
 
         this.size -= 1;
+        this.smart_resize(false);
+
         return new Pair<>(true, data);
     }
 
