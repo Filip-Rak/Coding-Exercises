@@ -1,6 +1,5 @@
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.Scanner;
 
 public class ExerciseEntry
 {
@@ -107,7 +106,7 @@ public class ExerciseEntry
         System.out.println("arr.get_capacity(): " + arr.get_capacity());
     }
 
-    public static void pq_entry2()
+    public static void pq_entry_test()
     {
         CustomPriorityQueue2 queue = new CustomPriorityQueue2(4);
 
@@ -126,5 +125,32 @@ public class ExerciseEntry
         queue.dequeue();
 
         queue.print_state();
+    }
+
+    public static void pq_entry_input()
+    {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        CustomPriorityQueue2 queue = new CustomPriorityQueue2(N);
+
+        while(scanner.hasNext())
+        {
+            String op = scanner.next();
+            if (op.equals("enqueue"))
+            {
+                int val = scanner.nextInt();
+                int priority = scanner.nextInt();
+                queue.enqueue(val, priority);
+            }
+            else if (op.equals("dequeue"))
+            {
+                queue.dequeue();
+            }
+            else
+            {
+                queue.print_state();
+                break;
+            }
+        }
     }
 }
