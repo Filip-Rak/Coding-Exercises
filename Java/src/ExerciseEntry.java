@@ -63,7 +63,10 @@ public class ExerciseEntry
         for (int input : inputs)
             arr.put(input);
 
-        arr.put(50, 2);
+        arr.put(50, 0);
+
+        Pair<Boolean, Integer> pop = arr.pop(1);
+        System.out.println("arr.pop(): " + pop.first + ", " + pop.second);
 
         int index = 0;
         while(true)

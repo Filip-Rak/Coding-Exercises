@@ -22,7 +22,7 @@ public class CustomArrayList<T>
     {
         if (index == this.capacity)
             this.smart_resize(true);
-        else if (index > this.capacity)
+        else if (index > this.capacity || index < 0)
             return false;
 
         if (index >= this.size)
@@ -38,6 +38,20 @@ public class CustomArrayList<T>
             return new Pair<>(false, null);
 
         return new Pair<>(true, this.arr[index]);
+    }
+
+    public Pair<Boolean, T> pop(int index)
+    {
+        if (index < 0 || index >= this.size)
+            return new Pair<>(false, null);
+
+        T data = this.arr[index];
+
+        for (int i = index; i < this.size - 1; i++)
+            this.arr[i] = this.arr[i + 1];
+
+        this.size -= 1;
+        return new Pair<>(true, data);
     }
 
     /* Getter */
