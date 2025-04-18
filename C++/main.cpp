@@ -3,5 +3,5 @@
 
 int main()
 {
-	cpq_input_entry();
+	custom_queue_entry();
 }

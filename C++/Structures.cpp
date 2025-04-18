@@ -205,3 +205,49 @@ void cpq_input_entry()
 
     }
 }
+
+void custom_queue_entry()
+{
+    CustomQueue<int> queue;
+    std::vector<int> inputs = { 1, 2, 3, 4, 5, 6 };
+
+    for (auto input : inputs)
+        queue.push(input);
+
+    queue.clear();
+
+    for (int i = inputs.size() - 1; i >= 0; i--)
+        queue.push(inputs[i]);
+
+    {
+        auto [f_success, f_data] = queue.front();
+        std::cout << "queue.first(): " << f_success << " " << f_data << "\n";
+        auto [b_success, b_data] = queue.back();
+        std::cout << "queue.back(): " << b_success << " " << b_data << "\n";
+    }
+
+    while (true)
+    {
+        auto ret = queue.pop();
+        if (ret.first)
+        {
+            std::cout << ret.second << " ";
+        }
+        else
+        {
+            std::cout << "False on return - Stopping.\n";
+            break;
+        }
+    }
+
+    {
+        auto [f_success, f_data] = queue.front();
+        std::cout << "queue.first(): " << f_success << " " << f_data << "\n";
+        auto [b_success, b_data] = queue.back();
+        std::cout << "queue.back(): " << b_success << " " << b_data << "\n";
+    }
+
+    std::cout << "\nDEBUG:\n";
+    std::cout << "queue.get_alive(): " << queue.get_alive() << "\n";
+    std::cout << "queue.empty(): " << queue.empty() << "\n";
+}

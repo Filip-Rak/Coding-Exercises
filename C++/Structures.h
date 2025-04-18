@@ -440,3 +440,122 @@ public:
 void cpq_test_entry();
 
 void cpq_input_entry();
+
+template <typename T>
+class CustomQueue 
+{
+    /* Types */
+    struct Node
+    {
+        /* Attributes */
+        static int alive;
+
+        T data;
+        Node* next;
+
+        /* Constructor & Destrucor */
+        Node(T data, Node* next = nullptr)
+            : data(data), next(next)
+        {
+            this->alive += 1;
+        }
+
+        ~Node()
+        {
+            this->alive -= 1;
+        }
+    };
+
+    /* Attributes */
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+public:
+    /* Constructor & Destructor */
+    CustomQueue(){}
+
+    ~CustomQueue()
+    {
+        this->clear();
+    }
+
+    /* Public Methods */
+    void clear()
+    {
+        Node* tgt = this->head;
+        while (tgt)
+        {
+            Node* to_remove = tgt;
+            tgt = tgt->next;
+
+            delete to_remove;
+        }
+
+        this->head = nullptr;
+        this->tail = nullptr;
+    }
+
+    void push(T data)
+    {
+        Node* new_node = new Node(data);
+
+        if (!this->tail)
+        {
+            this->head = new_node;
+            this->tail = new_node;
+            return;
+        }
+
+        this->tail->next = new_node;
+        this->tail = new_node;
+    }
+
+    std::pair<bool, T> pop()
+    {
+        if (!this->head)
+            return std::make_pair(false, T());
+
+        Node* to_pop = this->head;
+        this->head = this->head->next;
+
+        T data = to_pop->data;
+        delete to_pop;
+
+        if (!this->head)
+            this->tail = nullptr;
+
+        return std::make_pair(true, data);
+    }
+
+    std::pair<bool, T> front() const
+    {
+        if (!this->head)
+            return std::make_pair(false, T());
+
+        return std::make_pair(true, this->head->data);
+    }
+
+    std::pair<bool, T> back() const
+    {
+        if (!this->tail)
+            return std::make_pair(false, T());
+
+        return std::make_pair(true, this->tail->data);
+    }
+
+    /* Getters */
+    int get_alive() const
+    {
+        return Node::alive;
+    }
+
+    bool empty() const
+    {
+        return !this->head;
+    }
+};
+
+template <typename T>
+int CustomQueue<T>::Node::alive = 0;
+
+void custom_queue_entry();
