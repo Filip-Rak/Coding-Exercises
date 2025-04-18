@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 public class ExerciseEntry
@@ -104,5 +105,26 @@ public class ExerciseEntry
         System.out.println("\nDEBUG:");
         System.out.println("arr.get_size(): " + arr.get_size());
         System.out.println("arr.get_capacity(): " + arr.get_capacity());
+    }
+
+    public static void pq_entry2()
+    {
+        CustomPriorityQueue2 queue = new CustomPriorityQueue2(4);
+
+        queue.enqueue(3, 3);
+        queue.enqueue(1, 1);
+        queue.enqueue(4, 4);
+        queue.enqueue(2, 2);    // 4, 3, 2, 1
+
+        queue.dequeue();    // 3, 2, 1
+        queue.enqueue(5, 5);    // 5, 3, 2, 1
+        queue.enqueue(6, 6);    // 6, 5, 3, 2
+        queue.enqueue(1, 1);    // 6, 5, 3, 2
+        queue.dequeue();  // 5, 3, 2
+        queue.dequeue();  // 3, 2
+        queue.enqueue(30, 3);
+        queue.dequeue();
+
+        queue.print_state();
     }
 }
