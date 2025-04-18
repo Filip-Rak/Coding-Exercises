@@ -54,4 +54,35 @@ public class ExerciseEntry
 
         System.out.println("\nDebug:\nlist.get_list_size(): " + list.get_list_size());
     }
+
+    public static void custom_array_list_entry()
+    {
+        CustomArrayList<Integer> arr = new CustomArrayList<>(4);
+        List<Integer> inputs = List.of(1, 2, 3, 4, 5, 6);
+
+        for (int input : inputs)
+            arr.put(input);
+
+        arr.put(50, 2);
+
+        int index = 0;
+        while(true)
+        {
+            Pair<Boolean, Integer> ret = arr.get(index);
+            if (ret.first)
+            {
+                System.out.print(ret.second + ", ");
+                index += 1;
+            }
+            else
+            {
+                System.out.print("False on return - Stopping.\n");
+                break;
+            }
+        }
+
+        System.out.println("\nDEBUG:");
+        System.out.println("arr.get_size(): " + arr.get_size());
+        System.out.println("arr.get_capacity(): " + arr.get_capacity());
+    }
 }
