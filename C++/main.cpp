@@ -3,5 +3,5 @@
 
 int main()
 {
-	custom_queue_entry();
+	custom_stack_entry();
 }

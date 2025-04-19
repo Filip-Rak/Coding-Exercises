@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <string>
 #include <sstream>
+#include <optional>
 
 template <typename T>
 class CustomList2
@@ -559,3 +560,41 @@ template <typename T>
 int CustomQueue<T>::Node::alive = 0;
 
 void custom_queue_entry();
+
+class CustomStack
+{
+    /* Types */
+    struct Node
+    {
+        /* Attributes */
+        static int active;
+
+        int data;
+        Node* next;
+
+        /* Constructor */
+        Node(int data, Node* next = nullptr);
+
+        ~Node();
+    };
+
+    /* Attributes */
+    Node* head = nullptr;
+
+public:
+    /* Constructor & Destructor */
+    CustomStack();
+
+    ~CustomStack();
+
+    /* Public Methods */
+    void push(int data);
+    std::optional<int> pop();
+
+    void clear();
+
+    /* Getters */
+    int get_alive();
+};
+
+void custom_stack_entry();

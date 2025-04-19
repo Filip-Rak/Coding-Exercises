@@ -251,3 +251,91 @@ void custom_queue_entry()
     std::cout << "queue.get_alive(): " << queue.get_alive() << "\n";
     std::cout << "queue.empty(): " << queue.empty() << "\n";
 }
+
+int CustomStack::Node::active = 0;
+
+CustomStack::Node::Node(int data, Node* next)
+    : data(data), next(next) 
+{
+    this->active += 1;
+}
+
+CustomStack::Node::~Node()
+{
+    this->active -= 1;
+}
+
+CustomStack::CustomStack(){}
+
+CustomStack::~CustomStack()
+{
+    this->clear();
+}
+
+void CustomStack::push(int data)
+{
+    Node* new_node = new Node(data, this->head);
+    this->head = new_node;
+}
+
+std::optional<int> CustomStack::pop()
+{
+    if (!this->head)
+        return std::nullopt;
+
+    Node* next = this->head->next;
+    int data = this->head->data;
+    
+    delete this->head;
+    this->head = next;
+
+    return std::make_optional(data);
+}
+
+void CustomStack::clear()
+{
+    while (this->head)
+    {
+        Node* next = this->head->next;
+        delete this->head;
+
+        this->head = next;
+    }
+}
+
+int CustomStack::get_alive()
+{
+    return Node::active;
+}
+
+void custom_stack_entry()
+{
+    CustomStack stack;
+
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+
+    stack.clear();
+
+    stack.push(3);
+    stack.push(2);
+    stack.push(1);
+
+    while (true)
+    {
+        auto ret = stack.pop();
+        if (ret.has_value())
+        {
+            std::cout << ret.value() << ", ";
+        }
+        else
+        {
+            std::cout << "False on return - Stopping.";
+            break;
+        }
+    }
+
+    std::cout << "\n\nDEBUG:\n";
+    std::cout << "stack.get_alive(): " << stack.get_alive() << "\n";
+}
