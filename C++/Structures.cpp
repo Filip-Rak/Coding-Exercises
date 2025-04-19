@@ -431,7 +431,7 @@ void CustomMaxHeap::heapify_up(size_t index)
         return;
 
     size_t parent = (index - 1) / 2;
-    if (heap[parent] < heap[index])
+    if (heap[index] > heap[parent])
     {
         std::swap(heap[parent], heap[index]);
         heapify_up(parent);
@@ -444,10 +444,10 @@ void CustomMaxHeap::heapify_down(size_t index)
     size_t right = index * 2 + 2;
     size_t max = index;
 
-    if (left < heap.size() && heap[max] < heap[left])
+    if (left < heap.size() && heap[left] > heap[max])
         max = left;    
     
-    if (right < heap.size() && heap[max] < heap[right])
+    if (right < heap.size() && heap[right] > heap[max])
         max = right;
 
     if (max != index)
@@ -506,4 +506,85 @@ void custom_max_heap_entry()
 
     std::cout << "\nDEBUG:\n";
     std::cout << "heap.get_size(): " << heap.get_size() << "\n";
+}
+
+void CustomMinStack::push(int val)
+{
+    main.push(val);
+    
+    if (min.empty() || val <= min.top())
+        min.push(val);
+}
+
+void CustomMinStack::pop()
+{
+    if (main.empty())
+        return;
+
+    int top = main.top();
+    main.pop();
+
+    if (top == min.top())
+        min.pop();
+}
+
+std::optional<int> CustomMinStack::get_top() const
+{
+    if (main.empty())
+        return std::nullopt;
+
+    return std::make_optional(main.top());
+}
+
+std::optional<int> CustomMinStack::get_min() const
+{
+    if (min.empty())
+        return std::nullopt;
+
+    return std::make_optional(min.top());
+}
+
+size_t CustomMinStack::get_min_size()
+{
+    return min.size();
+}
+
+size_t CustomMinStack::get_main_size()
+{
+    return main.size();
+}
+
+void custom_min_stack_entry()
+{
+    CustomMinStack stack;
+
+    stack.push(1);
+    stack.push(-1);
+    stack.push(4);
+    stack.push(-3);
+    stack.push(-2);
+    stack.push(-2);
+    stack.push(6);
+
+    while (true)
+    {
+        auto ret = stack.get_top();
+        if (ret.has_value())
+        {
+            auto min = stack.get_min();
+            std::string min_str = "no value";
+            if (min.has_value())
+                min_str = std::to_string(min.value());
+
+            std::cout << "top: " << ret.value() << "\tmin: " << min_str << "\tmin_size: " << stack.get_min_size() 
+                << "\tmain size: " << stack.get_main_size() << "\n";
+
+            stack.pop();
+        }
+        else
+        {
+            std::cout << "False on return - Stopping.\n";
+            break;
+        }
+    }
 }

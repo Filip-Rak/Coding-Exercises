@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <optional>
+#include <stack>
 
 template <typename T>
 class CustomList2
@@ -639,3 +640,24 @@ public:
 };
 
 void custom_max_heap_entry();
+
+class CustomMinStack
+{
+    /* Attributes */
+    std::stack<int> main;
+    std::stack<int> min;
+
+public:
+    /* Public Methods */
+    void push(int val);
+    void pop();
+
+    /* Getters */
+    std::optional<int> get_top() const;
+    std::optional<int> get_min() const;
+    
+    size_t get_min_size();
+    size_t get_main_size();
+};
+
+void custom_min_stack_entry();
