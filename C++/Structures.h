@@ -598,3 +598,44 @@ public:
 };
 
 void custom_stack_entry();
+
+class CustomMinHeap
+{
+    /* Attributes */
+    std::vector<int> heap;
+
+    /* Private Methods */
+    void heapify_up(size_t index);
+    void heapify_down(size_t index);
+
+public:
+    /* Constructor */
+    CustomMinHeap();
+
+    /* Public Methdos */
+    void push(int data);
+    std::optional<int> pop();
+
+    /* Getters */
+    int get_size();
+};
+
+void custom_min_heap_entry();
+
+class CustomMaxHeap
+{
+    /* Attributes */
+    std::vector<int> heap;
+
+    /* Private Methods */
+    void heapify_up(size_t index);
+    void heapify_down(size_t index);
+
+public:
+    /* Public Methods */
+    void push(int val);
+    std::optional<int> pop();
+    size_t get_size();
+};
+
+void custom_max_heap_entry();

@@ -339,3 +339,171 @@ void custom_stack_entry()
     std::cout << "\n\nDEBUG:\n";
     std::cout << "stack.get_alive(): " << stack.get_alive() << "\n";
 }
+
+void CustomMinHeap::heapify_up(size_t index)
+{
+    if (index == 0)
+        return;
+
+    int parent = (index - 1) / 2;
+    if (heap[index] < heap[parent])
+    {
+        std::swap(heap[index], heap[parent]);
+        heapify_up(parent);
+    }
+}
+
+void CustomMinHeap::heapify_down(size_t index)
+{
+    size_t left = index * 2 + 1;
+    size_t right = index * 2 + 2;
+    size_t smallest = index;
+
+    if (left < heap.size() && heap[left] < heap[smallest])
+        smallest = left;    
+    
+    if (right < heap.size() && heap[right] < heap[smallest])
+        smallest = right;
+
+    if (smallest != index)
+    {
+        std::swap(heap[smallest], heap[index]);
+        heapify_down(smallest);
+    }
+}
+
+CustomMinHeap::CustomMinHeap(){}
+
+void CustomMinHeap::push(int data)
+{
+    heap.push_back(data);
+    heapify_up(heap.size() - 1);
+}
+
+std::optional<int> CustomMinHeap::pop()
+{
+    if (heap.empty())
+        return std::nullopt;
+
+    int root = heap[0];
+    heap[0] = heap.back();
+    heap.pop_back();
+    heapify_down(0);
+
+    return root;
+}
+
+int CustomMinHeap::get_size()
+{
+    return heap.size();
+}
+
+void custom_min_heap_entry()
+{
+    CustomMinHeap heap;
+
+    heap.push(-1);
+    heap.push(10);
+    heap.push(-15);
+    heap.push(8);
+
+    while (true)
+    {
+        auto ret = heap.pop();
+        if (ret.has_value())
+        {
+            std::cout << ret.value() << " ";
+        }
+        else
+        {
+            std::cout << "False on return - Stopping.\n";
+            break;
+        }
+    }
+
+    std::cout << "\nDEBUG:\n";
+    std::cout << "heap.get_size(): " << heap.get_size() << "\n";
+}
+
+void CustomMaxHeap::heapify_up(size_t index)
+{
+    if (index == 0)
+        return;
+
+    size_t parent = (index - 1) / 2;
+    if (heap[parent] < heap[index])
+    {
+        std::swap(heap[parent], heap[index]);
+        heapify_up(parent);
+    }
+}
+
+void CustomMaxHeap::heapify_down(size_t index)
+{
+    size_t left = index * 2 + 1;
+    size_t right = index * 2 + 2;
+    size_t max = index;
+
+    if (left < heap.size() && heap[max] < heap[left])
+        max = left;    
+    
+    if (right < heap.size() && heap[max] < heap[right])
+        max = right;
+
+    if (max != index)
+    {
+        std::swap(heap[max], heap[index]);
+        heapify_down(max);
+    }
+}
+
+void CustomMaxHeap::push(int val)
+{
+    heap.push_back(val);
+    heapify_up(heap.size() - 1);
+}
+
+std::optional<int> CustomMaxHeap::pop()
+{
+    if (heap.empty())
+        return std::nullopt;
+
+    int root_data = heap[0];
+    heap[0] = heap.back();
+    heap.pop_back();
+    heapify_down(0);
+
+    return std::make_optional(root_data);
+}
+
+size_t CustomMaxHeap::get_size()
+{
+    return heap.size();
+}
+
+void custom_max_heap_entry()
+{
+    CustomMaxHeap heap;
+    
+    heap.push(6);
+    heap.push(-2);
+    heap.push(8);
+    heap.push(4);
+
+    while (true)
+    {
+        auto ret = heap.pop();
+        if (ret.has_value())
+        {
+            std::cout << ret.value() << " ";
+        }
+        else
+        {
+            std::cout << "False on return - Stopping.\n";
+            break;
+        }
+    }
+
+    std::cout << "\nDEBUG:\n";
+    std::cout << "heap.get_size(): " << heap.get_size() << "\n";
+}

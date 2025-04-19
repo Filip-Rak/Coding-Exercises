@@ -3,5 +3,5 @@
 
 int main()
 {
-	custom_stack_entry();
+	custom_max_heap_entry();
 }
