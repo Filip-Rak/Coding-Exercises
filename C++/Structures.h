@@ -661,3 +661,62 @@ public:
 };
 
 void custom_min_stack_entry();
+
+class CustomStack2
+{
+    /* Types */
+    struct Node
+    {
+        /* Attributes */
+        static int alive;
+
+        int val;
+        Node* next;
+
+        /* Constructor & Destructor */
+        Node(int val, Node* next = nullptr);
+        ~Node();
+    };
+
+    /* Attributes */
+    Node* head = nullptr;
+    size_t size = 0;
+
+public:
+    /* Destructor */
+    ~CustomStack2();
+
+    /* Public Methods */
+    void push(int val);
+    std::optional<int> pop();
+    std::optional<int> top() const;
+
+    /* Getters */
+    int get_alive() const;
+    bool empty() const;
+    size_t get_size() const;
+};
+
+class CustomMaxStack
+{
+    /* Attributes */
+    CustomStack2 main;
+    CustomStack2 max;
+
+public:
+    /* Public Methods */
+    void push(int val);
+    void pop();
+
+    /* Getters */
+    std::optional<int> get_top() const;
+    std::optional<int> get_max() const;
+
+    size_t get_max_size() const;
+    size_t get_main_size() const;
+    int get_alive() const;
+};
+
+void custom_stack2_test_entry();
+
+void custom_max_stack_entry();

@@ -3,5 +3,5 @@
 
 int main()
 {
-	custom_min_stack_entry();
+	custom_max_stack_entry();
 }

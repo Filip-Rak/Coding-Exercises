@@ -588,3 +588,188 @@ void custom_min_stack_entry()
         }
     }
 }
+
+int CustomStack2::Node::alive = 0;
+
+CustomStack2::Node::Node(int val, Node* next)
+    : val(val), next(next) 
+{
+    Node::alive += 1;
+}
+
+CustomStack2::Node::~Node()
+{
+    Node::alive -= 1;
+}
+
+CustomStack2::~CustomStack2()
+{
+    while (head)
+    {
+        Node* next = head->next;
+        delete head;
+        head = head->next;
+    }
+}
+
+void CustomStack2::push(int val)
+{
+    Node* new_node = new Node(val, head);
+    head = new_node;
+    size += 1;
+}
+
+std::optional<int> CustomStack2::pop()
+{
+    if (!head)
+        return std::nullopt;
+
+    Node* next = head->next;
+    int val = head->val;
+
+    delete head;
+    head = next;
+    size -= 1;
+
+    return std::make_optional(val);
+}
+
+std::optional<int> CustomStack2::top() const
+{
+    if (!head)
+        return std::nullopt;
+
+    return std::make_optional(head->val);
+}
+
+int CustomStack2::get_alive() const
+{
+    return Node::alive;
+}
+
+bool CustomStack2::empty() const
+{
+    return size == 0;
+}
+
+size_t CustomStack2::get_size() const
+{
+    return size;
+}
+
+void custom_stack2_test_entry()
+{
+    CustomStack2 stack;
+
+    stack.push(1);
+    stack.push(2);
+
+    stack.pop();
+    stack.pop();
+
+    stack.push(3);
+    stack.push(4);
+
+    while (true)
+    {
+        auto ret_top = stack.top();
+        auto ret_pop = stack.pop();
+
+        if (ret_pop.has_value())
+        {
+            std::string top_str = "false";
+            if (ret_top.has_value())
+                top_str = std::to_string(ret_top.value());
+
+            std::cout << "Pop: " << ret_pop.value() 
+                << " Top: " << top_str 
+                << " Alive: " << stack.get_alive()
+                << "\n";
+        }
+        else
+        {
+            std::cout << "False on return - Stopping.\n";
+            break;
+        }
+    }
+}
+
+void CustomMaxStack::push(int val)
+{
+    main.push(val);
+
+    if (max.empty() || val >= max.top().value())
+        max.push(val);
+}
+
+void CustomMaxStack::pop()
+{
+    auto pop_main = main.pop();
+    if (!pop_main.has_value())
+        return;
+
+    if (pop_main.value() == max.top().value())
+        max.pop();
+}
+
+std::optional<int> CustomMaxStack::get_top() const
+{
+    return main.top();
+}
+
+std::optional<int> CustomMaxStack::get_max() const
+{
+    return max.top();
+}
+
+size_t CustomMaxStack::get_max_size() const
+{
+    return max.get_size();
+}
+
+size_t CustomMaxStack::get_main_size() const
+{
+    return main.get_size();
+}
+
+int CustomMaxStack::get_alive() const
+{
+    return main.get_alive();
+}
+
+void custom_max_stack_entry()
+{
+    CustomMaxStack stack;
+
+    stack.push(1);
+    stack.push(-1);
+    stack.push(4);
+    stack.push(6);
+    stack.push(-3);
+    stack.push(-2);
+    stack.push(-2);
+
+    while (true)
+    {
+        auto ret = stack.get_top();
+        if (ret.has_value())
+        {
+            auto min = stack.get_max();
+            std::string min_str = "no value";
+            if (min.has_value())
+                min_str = std::to_string(min.value());
+
+            std::cout << "top: " << ret.value() << "\tmax: " << min_str << "\tmax_size: " << stack.get_max_size()
+                << "\tmain size: " << stack.get_main_size() << "\n";
+
+            stack.pop();
+        }
+        else
+        {
+            std::cout << "False on return - Stopping.\n";
+            break;
+        }
+    }
+
+    std::cout << "get_alive(): " << stack.get_alive() << "\n";
+}
