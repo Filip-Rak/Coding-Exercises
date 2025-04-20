@@ -744,3 +744,19 @@ public:
 };
 
 void LRU_entry();
+
+class LRUCache2
+{
+    /* Attributes */
+    const int CAPACITY;
+    std::list<std::pair<int, int>> usage_order;
+    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> cache;
+
+public:
+    /* Constructor */
+    LRUCache2(int capacity);
+
+    /* Public Methods */
+    void put(int key, int val);
+    std::optional<int> get(int key);
+};

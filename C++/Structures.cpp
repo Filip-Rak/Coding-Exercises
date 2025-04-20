@@ -828,11 +828,54 @@ size_t LRUCache::get_cache_size() const
 
 void LRU_entry() 
 {
-    LRUCache cache(2);
+    LRUCache2 cache(2);
 
     cache.put(1, 10);  // [1]
     cache.put(2, 20);  // [2, 1]
     std::cout << cache.get(1).value_or(-1) << "\n";  // 10 → [1, 2]
     cache.put(3, 30);  // evicts 2 → [3, 1]
     std::cout << cache.get(2).value_or(-1) << "\n";  // -1
+}
+
+LRUCache2::LRUCache2(int capacity)
+    : CAPACITY(capacity){}
+
+void LRUCache2::put(int key, int val)
+{
+    // Check if key is present
+    if (cache.contains(key))
+    {
+        // Update the key and refresh usage order
+        auto it = cache[key];
+        it->second = val;
+
+        usage_order.splice(usage_order.begin(), usage_order, it);
+    }
+    else
+    {
+        // Remove the last used key if the cache is full
+        if (cache.size() == CAPACITY)
+        {
+            int key_to_delete = usage_order.back().first;
+            cache.erase(key_to_delete);
+            usage_order.pop_back();
+        }
+
+        // Insert a new key
+        usage_order.emplace_front(key, val);
+        auto it = usage_order.begin();
+        cache[key] = it;
+    }
+}
+
+std::optional<int> LRUCache2::get(int key)
+{
+    if (!cache.contains(key))
+        return std::nullopt;
+
+    // Move the usage order to the front
+    auto it = cache[key];
+    usage_order.splice(usage_order.begin(), usage_order, it);
+
+    return std::make_optional(it->second);
 }
