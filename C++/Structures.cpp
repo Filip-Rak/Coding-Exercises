@@ -1023,7 +1023,7 @@ bool CustomHashSet::remove(const std::string& key)
 
 void custom_set_entry()
 {
-    const int NUM_KEYS = 100;
+    const int NUM_KEYS = 10000;
     std::vector<std::string> keys(NUM_KEYS);
 
     for (int i = 0; i < NUM_KEYS; i++)
