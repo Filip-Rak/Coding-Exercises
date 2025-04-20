@@ -879,3 +879,95 @@ std::optional<int> LRUCache2::get(int key)
 
     return std::make_optional(it->second);
 }
+
+CustomHashMap::Item::Item(std::string key, int val)
+    : key(key), val(val) {}
+
+size_t CustomHashMap::get_index(std::string key) const
+{
+    std::hash<std::string> hasher;
+    return hasher(key) % NUM_BUCKETS;
+}
+
+CustomHashMap::CustomHashMap()
+    : buckets(NUM_BUCKETS){}
+
+void CustomHashMap::put(std::string key, int val)
+{
+    size_t index = get_index(key);
+
+    // If the key is already in the map
+    for (Item& item : buckets[index])
+    {
+        if (key == item.key)
+        {
+            item.val = val;
+            return;
+        }
+    }
+
+    // There is no key in the map
+    Item new_item(key, val);
+    buckets[index].push_back(new_item);
+}
+
+std::optional<int> CustomHashMap::get(std::string key)
+{
+    size_t index = get_index(key);
+    for (const Item& item : buckets[index])
+    {
+        if (item.key == key)
+            return std::make_optional(item.val);
+    }
+
+    return std::nullopt;
+}
+
+void CustomHashMap::remove(std::string key)
+{
+    size_t index = get_index(key);
+    for (auto it = buckets[index].begin(); it != buckets[index].end(); it++)
+    {
+        if (it->key == key)
+        {
+            buckets[index].erase(it);
+            return;
+        }
+    }
+}
+
+void hash_map_entry()
+{
+    const int KEYS = 100;
+    CustomHashMap map;
+
+    for (int i = 0; i < KEYS; i++)
+    {
+        std::string key = std::to_string(i);
+        map.put(key, i);
+    }
+
+    map.remove("70");
+    map.remove("30");
+    map.remove("12");
+    map.remove("4");
+
+    int not_found = 0;
+    for (int i = 0; i < KEYS; i++)
+    {
+        std::string key = std::to_string(i);
+        
+        auto ret = map.get(key);
+        if (ret.has_value())
+        {
+            std::cout << "Key: " << key << " val: " << ret.value() << "\n";
+        }
+        else
+        {
+            std::cout << "VAL NOT FOUND FOR: " << key << "\n";
+            not_found += 1;
+        }
+    }
+
+    std::cout << "\nNot found: " << not_found << "\n";
+}

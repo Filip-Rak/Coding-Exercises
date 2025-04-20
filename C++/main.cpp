@@ -3,5 +3,5 @@
 
 int main()
 {
-	LRU_entry();
+	hash_map_entry();
 }

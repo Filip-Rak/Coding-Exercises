@@ -760,3 +760,35 @@ public:
     void put(int key, int val);
     std::optional<int> get(int key);
 };
+
+class CustomHashMap
+{
+    /* Types */
+    struct Item
+    {
+        /* Attributes */
+        std::string key;
+        int val;
+
+        /* Csontructor */
+        Item(std::string key, int val);
+    };
+
+    /* Attributes */
+    const int NUM_BUCKETS = 16;
+    std::vector<std::list<Item>> buckets;
+
+    /* Private Methods */
+    size_t get_index(std::string key) const;
+
+public:
+    /* Constructor */
+    CustomHashMap();
+
+    /* Public Methods */
+    void put(std::string key, int val);
+    std::optional<int> get(std::string key);
+    void remove(std::string key);
+};
+
+void hash_map_entry();
