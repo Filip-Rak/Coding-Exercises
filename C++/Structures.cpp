@@ -1,4 +1,4 @@
-#include "Structures.h"
+﻿#include "Structures.h"
 
 void custom_list2_entry()
 {
@@ -772,4 +772,67 @@ void custom_max_stack_entry()
     }
 
     std::cout << "get_alive(): " << stack.get_alive() << "\n";
+}
+
+LRUCache::LRUCache(int capacity)
+: CAPACITY(capacity){}
+
+void LRUCache::put(int key, int val)
+{
+    // Check if the key is in the cache
+    if (cache.contains(key))
+    {
+        // Key present -> Update value
+        auto it = cache[key];
+        it->second = val;
+
+        // Move usage to front
+        usage_order.splice(usage_order.begin(), usage_order, it);
+    }
+    else  // Key not present -> Add it
+    {
+        if (cache.size() == CAPACITY)
+        {
+            // Cache is full -> Remove oldest key
+            auto last_key = usage_order.back();
+            usage_order.pop_back();
+            cache.erase(last_key.first);
+        }
+
+        // Insert new key
+        usage_order.emplace_front(key, val);
+        cache[key] = usage_order.begin();
+    }
+}
+
+std::optional<int> LRUCache::get(int key)
+{
+    if (!cache.contains(key))
+        return std::nullopt;
+
+    auto it = cache[key];
+    usage_order.splice(usage_order.begin(), usage_order, it);
+
+    return std::make_optional(it->second);
+}
+
+size_t LRUCache::get_usage_order_size() const
+{
+    return usage_order.size();
+}
+
+size_t LRUCache::get_cache_size() const
+{
+    return cache.size();
+}
+
+void LRU_entry() 
+{
+    LRUCache cache(2);
+
+    cache.put(1, 10);  // [1]
+    cache.put(2, 20);  // [2, 1]
+    std::cout << cache.get(1).value_or(-1) << "\n";  // 10 → [1, 2]
+    cache.put(3, 30);  // evicts 2 → [3, 1]
+    std::cout << cache.get(2).value_or(-1) << "\n";  // -1
 }

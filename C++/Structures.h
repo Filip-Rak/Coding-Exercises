@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unordered_map>
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -7,6 +8,7 @@
 #include <sstream>
 #include <optional>
 #include <stack>
+#include <list>
 
 template <typename T>
 class CustomList2
@@ -720,3 +722,25 @@ public:
 void custom_stack2_test_entry();
 
 void custom_max_stack_entry();
+
+class LRUCache
+{
+    /* Attributes */
+    const int CAPACITY;
+    std::list<std::pair<int, int>> usage_order;
+    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> cache;
+
+public:
+    /* Constructor */
+    LRUCache(int cpacity);
+
+    /* Public Methods */
+    void put(int key, int val);
+    std::optional<int> get(int key);
+
+    /* Getters */
+    size_t get_usage_order_size() const;
+    size_t get_cache_size() const;
+};
+
+void LRU_entry();

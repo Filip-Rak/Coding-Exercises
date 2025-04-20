@@ -3,5 +3,5 @@
 
 int main()
 {
-	custom_max_stack_entry();
+	LRU_entry();
 }
