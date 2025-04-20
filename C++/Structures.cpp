@@ -971,3 +971,108 @@ void hash_map_entry()
 
     std::cout << "\nNot found: " << not_found << "\n";
 }
+
+size_t CustomHashSet::get_index(const std::string& key) const
+{
+    std::hash<std::string> hasher;
+    return hasher(key) % NUM_BUCKETS;
+}
+
+CustomHashSet::CustomHashSet()
+    : buckets(NUM_BUCKETS){}
+
+bool CustomHashSet::put(const std::string& key)
+{
+    size_t index = get_index(key);
+    for (const auto& bucket_key : buckets[index])
+    {
+        if (bucket_key == key)
+            return false;
+    }
+
+    buckets[index].push_back(key);
+    return true;
+}
+
+bool CustomHashSet::contains(const std::string& key) const
+{
+    size_t index = get_index(key);
+    for (const auto& bucket_key : buckets[index])
+    {
+        if (bucket_key == key)
+            return true;
+    }
+
+    return false;
+}
+
+bool CustomHashSet::remove(const std::string& key)
+{
+    size_t index = get_index(key);
+    for (auto it = buckets[index].begin(); it != buckets[index].end(); it++)
+    {
+        if (*it == key)
+        {
+            buckets[index].erase(it);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void custom_set_entry()
+{
+    const int NUM_KEYS = 100;
+    std::vector<std::string> keys(NUM_KEYS);
+
+    for (int i = 0; i < NUM_KEYS; i++)
+        keys[i] = std::to_string(i);
+
+    CustomHashSet set;
+    
+    int check = 0;
+    for (const auto& key : keys)
+    {
+        if (set.put(key))
+            check += 1;
+    }
+
+    std::cout << "First insertion: " << check << "\n";
+
+    check = 0;
+    for (const auto& key : keys)
+    {
+        if (set.contains(key))
+            check += 1;
+    }
+
+    std::cout << "Contains: " << check << "\n";
+
+    check = 0;
+    for (const auto& key : keys)
+    {
+        if (set.put(key))
+            check += 1;
+    }
+
+    std::cout << "Second insertion: " << check << "\n";
+
+    check = 0;
+    for (const auto& key : keys)
+    {
+        if (set.remove(key))
+            check += 1;
+    }
+
+    std::cout << "Removal: " << check << "\n";
+
+    check = 0;
+    for (const auto& key : keys)
+    {
+        if (set.put(key))
+            check += 1;
+    }
+
+    std::cout << "Second insertion: " << check << "\n";
+}

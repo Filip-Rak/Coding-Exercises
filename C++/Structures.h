@@ -792,3 +792,24 @@ public:
 };
 
 void hash_map_entry();
+
+class CustomHashSet
+{
+    /* Attributes */
+    const size_t NUM_BUCKETS = 16;
+    std::vector<std::list<std::string>> buckets;
+
+    /* Private Methods */
+    size_t get_index(const std::string& key) const;
+
+public:
+    /* Constructor */
+    CustomHashSet();
+
+    /* Private Methods */
+    bool put(const std::string& key);
+    bool contains(const std::string& key) const;
+    bool remove(const std::string& key);
+};
+
+void custom_set_entry();

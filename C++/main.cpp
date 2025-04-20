@@ -3,5 +3,5 @@
 
 int main()
 {
-	hash_map_entry();
+	custom_set_entry();
 }
