@@ -855,3 +855,55 @@ public:
 };
 
 void dequeue_entry();
+
+class CustomPriorityQueue2
+{
+    /* Types */
+    struct Node
+    {
+        /* Attributes */
+        int val;
+        int priority;
+        int insertion_order;
+
+        /* Constructor */
+        Node(int val, int priority, int insertion_order);
+
+        /* Methods */
+        static bool node_comparator(const Node& a, const Node& b);
+    };
+
+    /* Attributes */
+    size_t insertion_order = 0;
+    std::vector<Node> queue;
+    const size_t CAPACITY;
+    bool is_sorted = false;
+
+public:
+    /* Constructor */
+    CustomPriorityQueue2(size_t capacity);
+
+    /* Public Methods */
+    void enqueue(int val, int priority);
+    void dequeue();
+
+    void print_queue();
+};
+
+void custom_pq_entry();
+
+class LRUCache3
+{
+    /* Attributes */
+    const size_t CAPACITY;
+    std::list<std::pair<int, int>> usage_order;
+    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> cache;
+
+public:
+    /* Constructor */
+    LRUCache3(size_t capacity);
+
+    /* Public Methods */
+    void put(int key, int value);
+    std::optional<int> get(int key);
+};

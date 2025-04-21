@@ -828,7 +828,7 @@ size_t LRUCache::get_cache_size() const
 
 void LRU_entry() 
 {
-    LRUCache2 cache(2);
+    LRUCache3 cache(2);
 
     cache.put(1, 10);  // [1]
     cache.put(2, 20);  // [2, 1]
@@ -1217,4 +1217,137 @@ void dequeue_entry()
     std::cout << dequeue.front().value_or(-1) << "\n";
     std::cout << dequeue.back().value_or(-1) << "\n";
     std::cout << dequeue.get_alive() << "\n";
+}
+
+CustomPriorityQueue2::Node::Node(int val, int priority, int insertion_order)
+    : val(val), priority(priority), insertion_order(insertion_order){}
+
+bool CustomPriorityQueue2::Node::node_comparator(const Node& a, const Node& b)
+{
+    if (a.priority != b.priority)
+        return a.priority < b.priority;
+
+    return a.insertion_order > b.insertion_order;
+}
+
+CustomPriorityQueue2::CustomPriorityQueue2(size_t capacity)
+    : CAPACITY(capacity){}
+
+void CustomPriorityQueue2::enqueue(int val, int priority)
+{
+    if (queue.size() == CAPACITY)
+    {
+        auto min = std::min_element(queue.begin(), queue.end(), Node::node_comparator);
+        if (min->priority < priority)
+        {
+            min->val = val;
+            min->priority = priority;
+            min->insertion_order = insertion_order++;
+
+            is_sorted = false;
+        }
+    }
+    else
+    {
+        Node new_node(val, priority, insertion_order++);
+        queue.push_back(new_node);
+        is_sorted = false;
+    }
+}
+
+void CustomPriorityQueue2::dequeue()
+{
+    if (queue.empty())
+        return;
+
+    if (!is_sorted)
+    {
+        std::sort(queue.begin(), queue.end(), Node::node_comparator);
+        is_sorted = true;
+    }
+
+    queue.pop_back();
+}
+
+void CustomPriorityQueue2::print_queue()
+{
+    if (!is_sorted)
+    {
+        std::sort(queue.begin(), queue.end(), Node::node_comparator);
+        is_sorted = true;
+    }
+
+    for (auto it = queue.rbegin(); it != queue.rend(); it++)
+        std::cout << it->val << " " << it->priority << "\n";
+}
+
+void custom_pq_entry()
+{
+    size_t N;
+    std::cin >> N;
+    std::cin.ignore();
+
+    CustomPriorityQueue2 queue(N);
+
+    std::string line;
+    while (std::getline(std::cin, line))
+    {
+        std::stringstream ss(line);
+
+        std::string op;
+        ss >> op;
+
+        if (op == "enqueue")
+        {
+            int val, priority;
+            ss >> val >> priority;
+            queue.enqueue(val, priority);
+        }
+        else if (op == "dequeue")
+        {
+            queue.dequeue();
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    queue.print_queue();
+}
+
+LRUCache3::LRUCache3(size_t capacity)
+    : CAPACITY(capacity) {}
+
+void LRUCache3::put(int key, int value)
+{
+    if (cache.contains(key))
+    {
+        auto it = cache[key];
+        it->second = value;
+
+        usage_order.splice(usage_order.begin(), usage_order, it);
+        return;
+    }
+
+    if (cache.size() == CAPACITY)
+    {
+        const auto& last_used = usage_order.back();
+        cache.erase(last_used.first);
+        usage_order.pop_back();
+    }
+
+    usage_order.emplace_front(key, value);
+    cache[key] = usage_order.begin();
+}
+
+std::optional<int> LRUCache3::get(int key)
+{
+    if (!cache.contains(key))
+        return std::nullopt;
+
+    auto it = cache[key];
+    usage_order.splice(usage_order.begin(), usage_order, it);
+
+    return std::make_optional(it->second);
 }

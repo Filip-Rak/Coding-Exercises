@@ -3,5 +3,5 @@
 
 int main()
 {
-	dequeue_entry();
+	LRU_entry();
 }

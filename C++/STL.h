@@ -98,7 +98,6 @@ void parse_tokens(std::unordered_map<std::string, std::string>& attribute_map, s
 
 void parse_attributes_entry();
 
-
 /*
  * Create two classes to compute the area of a rectangle using inheritance.
  *
