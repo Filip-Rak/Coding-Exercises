@@ -1076,3 +1076,145 @@ void custom_set_entry()
 
     std::cout << "Second insertion: " << check << "\n";
 }
+
+int CustomDequeue::Node::debug_alive = 0;
+
+CustomDequeue::Node::Node(int val, Node* next, Node* prev)
+    : val(val), next(next), prev(prev)
+{
+    Node::debug_alive += 1;
+}
+
+CustomDequeue::Node::~Node()
+{
+    Node::debug_alive -= 1;
+}
+
+CustomDequeue::~CustomDequeue()
+{
+    while (head)
+    {
+        Node* next = head->next;
+        delete head;
+
+        head = next;
+    }
+}
+
+void CustomDequeue::push_front(int val)
+{
+    if (!head)
+    {
+        Node* new_node = new Node(val);
+        head = tail = new_node;
+        return;
+    }
+
+    Node* new_node = new Node(val, head);
+    head->prev = new_node;
+
+    head = new_node;
+}
+
+void CustomDequeue::push_back(int val)
+{
+    if (!tail)
+    {
+        Node* new_node = new Node(val);
+        tail = head = new_node;
+        return;
+    }
+
+    Node* new_node = new Node(val, nullptr, tail);
+    tail->next = new_node;
+
+    tail = new_node;
+}
+
+void CustomDequeue::pop_front()
+{
+    if (!head)
+        return;
+
+    if (head == tail)
+    {
+        delete head;
+
+        head = nullptr;
+        tail = nullptr;
+
+        return;
+    }
+
+    Node* to_delete = head;
+    head = head->next;
+    head->prev = nullptr;
+
+    delete to_delete;
+}
+
+void CustomDequeue::pop_back()
+{
+    if (!tail)
+        return;
+
+    if (tail == head)
+    {
+        delete tail;
+
+        tail = nullptr;
+        head = nullptr;
+
+        return;
+    }
+
+    Node* to_delete = tail;
+    tail = tail->prev;
+    head->next = nullptr;
+
+    delete to_delete;
+}
+
+std::optional<int> CustomDequeue::front() const
+{
+    if (!head)
+        return std::nullopt;
+
+    return std::make_optional(head->val);
+}
+
+std::optional<int> CustomDequeue::back() const
+{
+    if (!tail)
+        return std::nullopt;
+
+    return std::make_optional(tail->val);
+}
+
+int CustomDequeue::get_alive()
+{
+    return Node::debug_alive;
+}
+
+void dequeue_entry()
+{
+    CustomDequeue dequeue;
+
+    dequeue.push_front(1);
+    dequeue.push_back(2);
+    dequeue.pop_front();
+
+    std::cout << dequeue.front().value_or(-1) << "\n";
+    std::cout << dequeue.back().value_or(-1) << "\n";
+
+    dequeue.pop_back();
+
+    std::cout << dequeue.front().value_or(-1) << "\n";
+    std::cout << dequeue.back().value_or(-1) << "\n";
+
+    dequeue.push_back(4);
+
+    std::cout << dequeue.front().value_or(-1) << "\n";
+    std::cout << dequeue.back().value_or(-1) << "\n";
+    std::cout << dequeue.get_alive() << "\n";
+}

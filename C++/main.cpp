@@ -3,5 +3,5 @@
 
 int main()
 {
-	custom_set_entry();
+	dequeue_entry();
 }

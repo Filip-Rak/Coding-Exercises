@@ -813,3 +813,45 @@ public:
 };
 
 void custom_set_entry();
+
+class CustomDequeue
+{
+    /* Types */
+    struct Node 
+    {
+        /* Attributes */
+        static int debug_alive;
+
+        int val;
+        Node* next;
+        Node* prev;
+
+        /* Constructor & Destructor */
+        Node(int val, Node* next = nullptr, Node* prev = nullptr);
+
+        ~Node();
+    };
+
+    /* Attributes */
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+public:
+    /* Destructor */
+    ~CustomDequeue();
+
+    /* Public Methods */
+    void push_front(int val);
+    void push_back(int val);
+
+    void pop_front();
+    void pop_back();
+
+    /* Getters */
+    std::optional<int> front() const;
+    std::optional<int> back() const;
+
+    int get_alive();
+};
+
+void dequeue_entry();
