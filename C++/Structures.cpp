@@ -1351,3 +1351,128 @@ std::optional<int> LRUCache3::get(int key)
 
     return std::make_optional(it->second);
 }
+
+CustomHashMap2::Node::Node(std::string key, int val)
+    : key(key), value(val){}
+
+size_t CustomHashMap2::get_index(std::string key)
+{
+    std::hash<std::string> hasher;
+    return hasher(key) % NUM_BUCKETS;
+}
+
+CustomHashMap2::CustomHashMap2()
+    : buckets(NUM_BUCKETS){}
+
+void CustomHashMap2::put(std::string key, int value)
+{
+    size_t index = get_index(key);
+    for (Node& node : buckets[index])
+    {
+        if (node.key == key)
+        {
+            node.value = value;
+            return;
+        }
+    }
+
+    buckets[index].emplace_back(key, value);
+}
+
+std::optional<int> CustomHashMap2::get(std::string key)
+{
+    size_t index = get_index(key);
+    for (Node node : buckets[index])
+    {
+        if (node.key == key)
+            return std::make_optional(node.value);
+    }
+
+    return std::nullopt;
+}
+
+bool CustomHashMap2::remove(std::string key)
+{
+    size_t index = get_index(key);
+    for (auto it = buckets[index].begin(); it != buckets[index].end(); it++)
+    {
+        if (it->key == key)
+        {
+            buckets[index].erase(it);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void chm_entry()
+{
+    const int NUM_KEYS = 100;
+    std::vector<std::string> keys(NUM_KEYS);
+    CustomHashMap2 map;
+    
+    // Convert to string
+    for (int i = 0; i < NUM_KEYS; i++)
+        keys[i] = std::to_string(i);
+
+    // Input keys and coresponding nums
+    for (int i = 0; i < NUM_KEYS; i++)
+        map.put(keys[i], i);
+
+    // Check if the keys are present
+    int check = 0;
+    for (int i = 0; i < NUM_KEYS; i++)
+    {
+        auto ret = map.get(keys[i]);
+
+        if (ret.value_or(-1) == i)
+            check += 1;
+    }
+
+    std::cout << "1st. get: " << check << "\n";
+    
+    // Change vals to (int)key * 2
+    for (int i = 0; i < NUM_KEYS; i++)
+    {
+        map.put(keys[i], i * 2);
+    }
+
+    // Check validity of vals
+    check = 0;
+    for (int i = 0; i < NUM_KEYS; i++)
+    {
+        auto ret = map.get(keys[i]);
+
+        if (ret.value_or(-1) == i * 2)
+            check += 1;
+    }
+
+    std::cout << "2nd. get: " << check << "\n";
+
+    // Remove vals
+    check = 0;
+    for (int i = 0; i < NUM_KEYS; i++)
+    {
+        if (map.remove(keys[i]))
+            check += 1;
+    }
+
+    std::cout << "remove: " << check << "\n";
+
+    // Second insert
+    for (int i = 0; i < NUM_KEYS; i++)
+        map.put(keys[i], i * 3);
+
+    // Check validity of vals
+    check = 0;
+    for (int i = 0; i < NUM_KEYS; i++)
+    {
+        auto ret = map.get(keys[i]);
+
+        if (ret.value_or(-1) == i * 3)
+            check += 1;
+    }
+
+    std::cout << "2nd. get: " << check << "\n";
+}

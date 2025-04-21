@@ -907,3 +907,35 @@ public:
     void put(int key, int value);
     std::optional<int> get(int key);
 };
+
+class CustomHashMap2
+{
+    /* Types */
+    struct Node
+    {
+        /* Atrributes */
+        std::string key;
+        int value;
+
+        /* Constructor */
+        Node(std::string key, int val);
+    };
+
+    /* Attributes */
+    const int NUM_BUCKETS = 16;
+    std::vector<std::list<Node>> buckets;
+
+    /* Private Methods */
+    size_t get_index(std::string key);
+
+public:
+    /* Constructor */
+    CustomHashMap2();
+
+    /* Public Methods */
+    void put(std::string key, int value);
+    std::optional<int> get(std::string key);
+    bool remove(std::string key);
+};
+
+void chm_entry();

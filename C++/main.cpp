@@ -3,5 +3,5 @@
 
 int main()
 {
-	LRU_entry();
+	chm_entry();
 }
