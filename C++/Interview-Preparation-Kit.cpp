@@ -94,3 +94,79 @@ long repeatedString(std::string s, long n)
 
     return total_count;
 }
+
+std::vector<int> tokenize(const std::string& str)
+{
+    std::vector<int> tokens;
+    std::stringstream ss(str);
+
+    int buffer;
+    while (ss >> buffer)
+        tokens.push_back(buffer);
+
+    return tokens;
+}
+
+bool process_line(const std::string& line, int current_light, std::unordered_map<int, bool>& map)
+{
+    bool color = false;
+    if (map.contains(current_light))
+        color = map[current_light];
+
+    auto lights = tokenize(line);
+    for (int light : lights)
+    {
+        if (map.contains(light) && light != !color)
+        {
+            return false;
+        }
+
+        map[light] = !color;
+    }
+
+    return true;
+}
+
+void problem_entry()
+{
+    std::unordered_map<int, bool> map;
+    std::string line;
+    int current_light = 0;
+
+    while (std::getline(std::cin, line))
+    {
+        if (!process_line(line, current_light, map))
+        {
+            std::cout << "False\n";
+            return;
+        }
+
+        current_light += 1;
+    }
+
+    std::cout << "True\n";
+}
+
+void rot_left(std::vector<int>& arr, int k)
+{
+    if (arr.empty())
+        return;
+
+    int size = arr.size();
+    int norm_k = ((k % size) + size) % size;
+
+    std::reverse(arr.begin(), arr.end());
+    std::reverse(arr.begin(), arr.begin() + k);
+    std::reverse(arr.begin() + k, arr.end());
+}
+
+void reverse3_rot_left_entry()
+{
+    std::vector<int> arr = { 1, 2, 3, 4, 5, 6 };
+    rot_left(arr, 3);
+
+    for (auto num : arr)
+        std::cout << num << " ";
+
+    std::cout << "\n";
+}

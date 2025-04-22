@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <unordered_map>
 
 /*
  * Problem: Sales by Match
@@ -77,3 +79,13 @@ int jumpingOnClouds(std::vector<int> c);
  */
 
 long repeatedString(std::string s, long n);
+
+std::vector<int> tokenize(const std::string& str);
+
+bool process_line(const std::string& line, int current_light, std::unordered_map<int, bool>& map);
+
+void problem_entry();
+
+void rot_left(const std::vector<int>& arr, int k);
+
+void reverse3_rot_left_entry();

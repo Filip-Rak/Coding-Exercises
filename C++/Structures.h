@@ -939,3 +939,22 @@ public:
 };
 
 void chm_entry();
+
+class MinHeap2
+{
+    /* Attributes */
+    std::vector<int> heap;
+
+    /* Private Methods */
+    void heapify_up(size_t index);
+    void heapify_down(size_t index);
+
+public:
+    /* Public Methods */
+    void push(int value);
+    bool pop();
+
+    std::optional<int> get_min() const;
+};
+
+void mh2_test_entry();

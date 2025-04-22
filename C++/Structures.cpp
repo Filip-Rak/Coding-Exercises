@@ -1476,3 +1476,75 @@ void chm_entry()
 
     std::cout << "2nd. get: " << check << "\n";
 }
+
+void MinHeap2::heapify_up(size_t index)
+{
+    if (index == 0)
+        return;
+
+    size_t parent = (index - 1) / 2;
+    if (heap[index] < heap[parent])
+    {
+        std::swap(heap[index], heap[parent]);
+        heapify_up(parent);
+    }
+}
+
+void MinHeap2::heapify_down(size_t index)
+{
+    size_t left = index * 2 + 1;
+    size_t right = index * 2 + 2;
+    size_t smallest = index;
+
+    if (left < heap.size() && heap[left] < heap[smallest])
+        smallest = left;    
+    
+    if (right < heap.size() && heap[right] < heap[smallest])
+        smallest = right;
+
+    if (smallest != index)
+    {
+        std::swap(heap[smallest], heap[index]);
+        heapify_down(smallest);
+    }
+}
+
+void MinHeap2::push(int value)
+{
+    heap.push_back(value);
+    heapify_up(heap.size() - 1);
+}
+
+bool MinHeap2::pop()
+{
+    if (heap.empty())
+        return false;
+
+    heap[0] = heap.back();
+    heap.pop_back();
+    heapify_down(0);
+    return true;
+}
+
+std::optional<int> MinHeap2::get_min() const
+{
+    if (heap.empty())
+        return std::nullopt;
+
+    return std::make_optional(heap.front());
+}
+
+void mh2_test_entry()
+{
+    MinHeap2 heap;
+
+    heap.push(3);
+    heap.push(-1);
+    heap.push(-2);
+    heap.push(6);
+    heap.push(-4);
+
+    heap.pop();
+
+    std::cout << heap.get_min().value_or(-42);
+}
