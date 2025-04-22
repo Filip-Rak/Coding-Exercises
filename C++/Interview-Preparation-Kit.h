@@ -2,6 +2,7 @@
 #include <vector>
 #include <sstream>
 #include <unordered_map>
+#include <stack>
 
 /*
  * Problem: Sales by Match
@@ -89,3 +90,7 @@ void problem_entry();
 void rot_left(const std::vector<int>& arr, int k);
 
 void reverse3_rot_left_entry();
+
+bool valid_parentheses(const std::string& line);
+
+void valid_parentheses_entry();

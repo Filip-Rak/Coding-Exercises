@@ -170,3 +170,57 @@ void reverse3_rot_left_entry()
 
     std::cout << "\n";
 }
+
+bool valid_parentheses(const std::string& line)
+{
+    std::unordered_map<char, char> brackets =
+    {
+        {'}', '{'},
+        {']', '['},
+        {')', '('},
+    };
+
+    std::stack<char> opened;
+    for (char c : line)
+    {
+        if (brackets.contains(c))
+        {
+            if (!opened.empty() && opened.top() == brackets[c])
+                opened.pop();
+            else
+                return false;
+        }
+        else
+        {
+            opened.push(c);
+        }
+    }
+
+    return opened.empty();
+}
+
+void valid_parentheses_entry()
+{
+    std::unordered_map<std::string, bool> tests =
+    {
+        {"{[()]}", true},
+        {"{[(]}", false},
+        {"{[)]}", false},
+        {"{}()[]", true},
+        {"{{{{{{([])}}}}}}", true},
+        {"", true},
+        {"]", false},
+        {"[", false},
+    };
+
+    int passed = 0;
+    for (const auto& [test, expected_res] : tests)
+    {
+        if (expected_res == valid_parentheses(test))
+            passed += 1;
+        else
+            std::cout << "Failed for: " << test << "\n";
+    }
+
+    std::cout << "Passed " << passed << " out of " << tests.size() << " tests\n";
+}
