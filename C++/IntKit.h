@@ -102,4 +102,6 @@ void dfs_vo_entry();
 
 bool dfs_is_reachable(int start, int target, const std::unordered_map<int, std::vector<int>>& graph);
 
+bool dfs_is_reachable_recursive(int start, int tgt, const std::unordered_map<int, std::vector<int>>& graph);
+
 void is_reachable_entry();

@@ -294,6 +294,27 @@ bool dfs_is_reachable(int start, int target, const std::unordered_map<int, std::
     return false;
 }
 
+bool dfs_is_reachable_recursive(int current, int tgt, 
+                                const std::unordered_map<int, std::vector<int>>& graph,
+                                std::unordered_set<int>& visited)
+{
+    if (current = tgt)
+        return true;
+
+    visited.insert(current);
+
+    for (int neighbor : graph.at(current))
+    {
+        if (!visited.contains(neighbor))
+        {
+            if (dfs_is_reachable_recursive(current, tgt, graph, visited))
+                return true;
+        }
+    }
+
+    return false;
+}
+
 void is_reachable_entry()
 {
     std::unordered_map<int, std::vector<int>> graph = {
@@ -304,5 +325,10 @@ void is_reachable_entry()
         {4, {}},
     };
 
-    std::cout << dfs_is_reachable(0, 4, graph) << "\n";
+    std::cout << "Iterative: " << dfs_is_reachable(0, 4, graph) << "\n";
+
+    std::unordered_set<int> visited;
+    std::cout << "Recursive: " << dfs_is_reachable_recursive(0, 4, graph, visited) << "\n";
+
+
 }
