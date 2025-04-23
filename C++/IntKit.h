@@ -99,3 +99,7 @@ void valid_parentheses_entry();
 std::vector<int> dfs_visit_order(int node, const std::unordered_map<int, std::vector<int>>& graph);
 
 void dfs_vo_entry();
+
+bool dfs_is_reachable(int start, int target, const std::unordered_map<int, std::vector<int>>& graph);
+
+void is_reachable_entry();

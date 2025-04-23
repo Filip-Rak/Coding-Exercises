@@ -265,3 +265,44 @@ void dfs_vo_entry()
 
     std::cout << "\n";
 }
+
+bool dfs_is_reachable(int start, int target, const std::unordered_map<int, std::vector<int>>& graph)
+{
+    std::unordered_set<int> visited;
+    std::stack<int> stack;
+    stack.push(start);
+
+    while (!stack.empty())
+    {
+        int node = stack.top();
+        stack.pop();
+
+        if (visited.contains(node))
+            continue;
+
+        if (node == target)
+            return true;
+
+        auto neighbours = graph.at(node);
+        for (int neighbor : neighbours)
+        {
+            if (!visited.contains(neighbor))
+                stack.push(neighbor);
+        }
+    }
+
+    return false;
+}
+
+void is_reachable_entry()
+{
+    std::unordered_map<int, std::vector<int>> graph = {
+        {0, {1, 2}},
+        {1, {3}},
+        {2, {}},
+        {3, {4}},
+        {4, {}},
+    };
+
+    std::cout << dfs_is_reachable(0, 4, graph) << "\n";
+}
