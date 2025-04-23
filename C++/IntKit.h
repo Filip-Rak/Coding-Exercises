@@ -2,6 +2,7 @@
 #include <vector>
 #include <sstream>
 #include <unordered_map>
+#include <unordered_set>
 #include <stack>
 
 /*
@@ -94,3 +95,7 @@ void reverse3_rot_left_entry();
 bool valid_parentheses(const std::string& line);
 
 void valid_parentheses_entry();
+
+std::vector<int> dfs_visit_order(int node, const std::unordered_map<int, std::vector<int>>& graph);
+
+void dfs_vo_entry();

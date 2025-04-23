@@ -1,4 +1,4 @@
-#include "Interview-Preparation-Kit.h"
+#include "IntKit.h"
 
 int sockMerchant(int n, std::vector<int> ar)
 {
@@ -223,4 +223,45 @@ void valid_parentheses_entry()
     }
 
     std::cout << "Passed " << passed << " out of " << tests.size() << " tests\n";
+}
+
+std::vector<int> dfs_visit_order(int start, const std::unordered_map<int, std::vector<int>>& graph)
+{
+    std::vector<int> order;
+    std::unordered_set<int> visited;
+    std::stack<int> stack;
+    stack.push(start);
+
+    while (!stack.empty())
+    {
+        int node = stack.top();
+        stack.pop();
+
+        if (visited.contains(node))
+            continue;
+
+        visited.insert(node);
+        order.push_back(node);
+
+        auto children = graph.at(node);
+        for (auto it = children.rbegin(); it != children.rend(); it += 1)
+            stack.push(*it);
+    }
+
+    return order;
+}
+
+void dfs_vo_entry()
+{
+    std::unordered_map<int, std::vector<int>> graph = {
+        {0, {1, 2}},
+        {1, {3}},
+        {2, {}},
+        {3, {}}
+    };
+
+    for (auto node : dfs_visit_order(0, graph))
+        std::cout << node << " ";
+
+    std::cout << "\n";
 }

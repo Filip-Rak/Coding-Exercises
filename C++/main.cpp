@@ -1,8 +1,8 @@
 #include "STL.h"
 #include "Structures.h"
-#include "Interview-Preparation-Kit.h"
+#include "IntKit.h"
 
 int main()
 {
-	remove_duplicates_entry();
+	dfs_vo_entry();
 }
