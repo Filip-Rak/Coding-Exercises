@@ -280,7 +280,36 @@ public:
         }
 
         for (T entry : unique)
-            push_back(entry);
+            push_front(entry);
+    }
+
+    void remove_duplicates_keep_order()
+    {
+        std::unordered_set<T> seen;
+
+        Node* tgt = this->head;
+        Node* prev = nullptr;
+
+        while (tgt)
+        {
+            bool unique = seen.insert(tgt->data).second;
+            if (!unique)
+            {
+                Node* to_delete = tgt;
+                tgt = tgt->next;
+
+                if (prev) 
+                    prev->next = tgt;
+
+                delete to_delete;
+                this->list_size -= 1;
+            }
+            else
+            {
+                prev = tgt;
+                tgt = tgt->next;
+            }
+        }
     }
 
     /* Getters */
