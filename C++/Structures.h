@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -259,6 +260,29 @@ public:
         return arr;
     }
 
+    void remove_duplicates()
+    {
+        Node* tgt = this->head;
+        this->head = nullptr;
+        list_size = 0;
+
+        std::unordered_set<T> unique;
+        while (tgt)
+        {
+            // Verify uniqueness
+            unique.insert(tgt->data);
+
+            // Delete & advance tgt
+            Node* to_delete = tgt;
+            tgt = tgt->next;
+
+            delete to_delete;
+        }
+
+        for (T entry : unique)
+            push_back(entry);
+    }
+
     /* Getters */
     int get_size()
     {
@@ -288,6 +312,8 @@ public:
         return *this;
     }
 };
+
+void remove_duplicates_entry();
 
 template <typename T>
 int CustomList2<T>::Node::active_nodes = 0;

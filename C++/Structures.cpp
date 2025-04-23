@@ -1,5 +1,22 @@
 ﻿#include "Structures.h"
 
+void remove_duplicates_entry()
+{
+    CustomList2<int> list;
+    std::vector<int> inputs = { 1, 1, 1, 2, 3, 4, 4, 5, 6, 6, 7, 8, 9, 9, 10 };
+
+    for (auto input : inputs)
+        list.push_front(input);
+
+    list.remove_duplicates();
+
+    for (auto entry : list.to_vector())
+        std::cout << entry << "\n";
+
+    std::cout << "\nTracked size: " << list.get_size() << "\n";
+    std::cout << "True size: " << list.get_debug_active_nodes() << "\n";
+}
+
 void custom_list2_entry()
 {
     CustomList2<int> list;

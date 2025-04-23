@@ -4,5 +4,5 @@
 
 int main()
 {
-	valid_parentheses_entry();
+	remove_duplicates_entry();
 }
