@@ -387,7 +387,6 @@ void dfs_explore(int current, const std::vector<std::vector<int>>& graph, std::u
     }
 }
 
-// Wrapper for the recursive function
 std::unordered_set<int> get_connections(int start_node, const std::vector<std::vector<int>>& graph)
 {
     // Create result set and start recursion
@@ -397,7 +396,29 @@ std::unordered_set<int> get_connections(int start_node, const std::vector<std::v
     return visited;
 }
 
-std::vector<std::vector<int>> load_graph_verts(const std::string& filename)
+std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::vector<std::vector<int>>& graph)
+{
+    std::unordered_set<int> visited;
+    std::stack<int> stack;
+    stack.push(start_node);
+
+    while (!stack.empty())
+    {
+        int current = stack.top();
+        stack.pop();
+
+        visited.insert(current);
+        for (int neighbor = 0; neighbor < graph[current].size(); neighbor++)
+        {
+            if (visited.find(neighbor) == visited.end() && graph[current][neighbor] == 1)
+                stack.push(neighbor);
+        }
+    }
+
+    return visited;
+}
+
+std::vector<std::vector<int>> load_adjency_matrix(const std::string& filename)
 {
     std::vector<std::vector<int>> graph;
     std::ifstream file(filename);
@@ -425,13 +446,13 @@ std::vector<std::vector<int>> load_graph_verts(const std::string& filename)
 void dfs_connect_to_all_entry()
 {
     /* Load The Graph */
-    std::cout << "Filename (including extension): ";
+    std::cout << "Filename with extension: ";
     std::string filename; std::cin >> filename;
 
     std::vector<std::vector<int>> graph;
     try
     {
-        graph = load_graph_verts(filename);
+        graph = load_adjency_matrix(filename);
     }
     catch (std::exception& ex)
     {
@@ -440,14 +461,13 @@ void dfs_connect_to_all_entry()
     }
 
     /* Find & Print all fully valid entry nodes */
-    std::cout << "Nodes with connections to every other node: ";
+    std::cout << "Nodes that can reach all other nodes: ";
     for (int i = 0; i < graph.size(); i++)
     {
-        auto res = get_connections(i, graph);
+        auto res = dfs_reachable_nodes(i, graph);
         if (res.size() == graph.size())
             std::cout << i << " ";
     }
 
     std::cout << "\n";
 }
-
