@@ -376,8 +376,10 @@ void dfs_entry()
 
 void dfs_explore(int current, const std::vector<std::vector<int>>& graph, std::unordered_set<int>& visited)
 {
+    // Save the node as visited
     visited.insert(current);
 
+    // Further explore other neighbors
     for (int node = 0; node < graph[current].size(); node++)
     {
         if (!visited.contains(node) && graph[current][node] == 1)
@@ -385,8 +387,10 @@ void dfs_explore(int current, const std::vector<std::vector<int>>& graph, std::u
     }
 }
 
+// Wrapper for the recursive function
 std::unordered_set<int> get_connections(int start_node, const std::vector<std::vector<int>>& graph)
 {
+    // Create result set and start recursion
     std::unordered_set<int> visited;
     dfs_explore(start_node, graph, visited);
 
@@ -398,8 +402,10 @@ std::vector<std::vector<int>> load_graph_verts(const std::string& filename)
     std::vector<std::vector<int>> graph;
     std::ifstream file(filename);
 
-    std::string line;
+    if (!file.good())
+        throw std::runtime_error("Failed to open file: " + filename);
 
+    std::string line;
     while (std::getline(file, line))
     {
         std::vector<int> connections;
@@ -413,32 +419,33 @@ std::vector<std::vector<int>> load_graph_verts(const std::string& filename)
     }
 
     file.close();
-
     return graph;
 }
 
 void dfs_connect_to_all_entry()
 {
-    std::vector<std::vector<int>> graph = load_graph_verts("vertices.txt");
-    std::vector<int> good_entrances;
+    /* Load The Graph */
+    std::cout << "Filename (including extension): ";
+    std::string filename; std::cin >> filename;
 
-    /*for (auto path_node : get_connections(3, graph))
+    std::vector<std::vector<int>> graph;
+    try
     {
-        std::cout << path_node << " ";
-    }*/
+        graph = load_graph_verts(filename);
+    }
+    catch (std::exception& ex)
+    {
+        std::cerr << ex.what() << "\n";
+        return;
+    }
 
+    /* Find & Print all fully valid entry nodes */
+    std::cout << "Nodes with connections to every other node: ";
     for (int i = 0; i < graph.size(); i++)
     {
         auto res = get_connections(i, graph);
         if (res.size() == graph.size())
-            good_entrances.push_back(i);
-    }
-
-    std::cout << "Startting nodes with connections to every other node:\n";
-    for (auto entry : good_entrances)
-    {
-        char node_name = char('a') + entry;
-        std::cout << node_name << " ";
+            std::cout << i << " ";
     }
 
     std::cout << "\n";
