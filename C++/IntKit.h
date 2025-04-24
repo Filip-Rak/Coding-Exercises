@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <stack>
+#include <fstream>
 
 /*
  * Problem: Sales by Match
@@ -114,3 +115,11 @@ bool dfs_rec_path(int current, int tgt,
 std::vector<int> dfs_find_path(int start, int tgt, const std::unordered_map<int, std::vector<int>>& graph);
 
 void dfs_entry();
+
+void dfs_explore(int current, const std::vector<std::vector<int>>& graph, std::unordered_set<int>& visited);
+
+std::unordered_set<int> get_connections(int start_node, const std::vector<std::vector<int>>& graph);
+
+std::vector<std::vector<int>> load_graph_verts(const std::string& filename);
+
+void dfs_connect_to_all_entry();

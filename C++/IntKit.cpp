@@ -373,3 +373,74 @@ void dfs_entry()
 
     std::cout << "\n";
 }
+
+void dfs_explore(int current, const std::vector<std::vector<int>>& graph, std::unordered_set<int>& visited)
+{
+    visited.insert(current);
+
+    for (int node = 0; node < graph[current].size(); node++)
+    {
+        if (!visited.contains(node) && graph[current][node] == 1)
+            dfs_explore(node, graph, visited);
+    }
+}
+
+std::unordered_set<int> get_connections(int start_node, const std::vector<std::vector<int>>& graph)
+{
+    std::unordered_set<int> visited;
+    dfs_explore(start_node, graph, visited);
+
+    return visited;
+}
+
+std::vector<std::vector<int>> load_graph_verts(const std::string& filename)
+{
+    std::vector<std::vector<int>> graph;
+    std::ifstream file(filename);
+
+    std::string line;
+
+    while (std::getline(file, line))
+    {
+        std::vector<int> connections;
+        std::stringstream ss(line);
+
+        int buffer;
+        while (ss >> buffer)
+            connections.push_back(buffer);
+
+        graph.push_back(connections);
+    }
+
+    file.close();
+
+    return graph;
+}
+
+void dfs_connect_to_all_entry()
+{
+    std::vector<std::vector<int>> graph = load_graph_verts("vertices.txt");
+    std::vector<int> good_entrances;
+
+    /*for (auto path_node : get_connections(3, graph))
+    {
+        std::cout << path_node << " ";
+    }*/
+
+    for (int i = 0; i < graph.size(); i++)
+    {
+        auto res = get_connections(i, graph);
+        if (res.size() == graph.size())
+            good_entrances.push_back(i);
+    }
+
+    std::cout << "Startting nodes with connections to every other node:\n";
+    for (auto entry : good_entrances)
+    {
+        char node_name = char('a') + entry;
+        std::cout << node_name << " ";
+    }
+
+    std::cout << "\n";
+}
+
