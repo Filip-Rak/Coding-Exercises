@@ -4,5 +4,5 @@
 
 int main()
 {
-	is_reachable_entry();
+	dfs_entry();
 }

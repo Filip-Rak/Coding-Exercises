@@ -102,6 +102,15 @@ void dfs_vo_entry();
 
 bool dfs_is_reachable(int start, int target, const std::unordered_map<int, std::vector<int>>& graph);
 
-bool dfs_is_reachable_recursive(int start, int tgt, const std::unordered_map<int, std::vector<int>>& graph);
+bool dfs_is_reachable_recursive(int current, int tgt,
+                                const std::unordered_map<int, std::vector<int>>& graph,
+                                std::unordered_set<int>& visited);
 
-void is_reachable_entry();
+bool dfs_rec_path(int current, int tgt,
+    const std::unordered_map<int, std::vector<int>>& graph,
+    std::unordered_set<int>& visited,
+    std::vector<int>& path);
+
+std::vector<int> dfs_find_path(int start, int tgt, const std::unordered_map<int, std::vector<int>>& graph);
+
+void dfs_entry();

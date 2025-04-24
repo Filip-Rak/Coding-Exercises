@@ -315,7 +315,44 @@ bool dfs_is_reachable_recursive(int current, int tgt,
     return false;
 }
 
-void is_reachable_entry()
+bool dfs_rec_path(int current, int tgt, 
+    const std::unordered_map<int, std::vector<int>>& graph, 
+    std::unordered_set<int>& visited, 
+    std::vector<int>& path)
+{
+    path.push_back(current);
+    visited.insert(current);
+
+    if (current == tgt)
+        return true;
+
+    for (int neighbor : graph.at(current))
+    {
+        if (!visited.contains(neighbor))
+        {
+            if (dfs_rec_path(neighbor, tgt, graph, visited, path))
+                return true;
+        }
+    }
+
+    path.pop_back();
+    return false;
+}
+
+std::vector<int> dfs_find_path(int start, int tgt, 
+    const std::unordered_map<int, 
+    std::vector<int>>& graph)
+{
+    std::unordered_set<int> visited;
+    std::vector<int> path;
+
+    if (dfs_rec_path(start, tgt, graph, visited, path))
+        return path;
+
+    return {};
+}
+
+void dfs_entry()
 {
     std::unordered_map<int, std::vector<int>> graph = {
         {0, {1, 2}},
@@ -330,5 +367,9 @@ void is_reachable_entry()
     std::unordered_set<int> visited;
     std::cout << "Recursive: " << dfs_is_reachable_recursive(0, 4, graph, visited) << "\n";
 
+    std::cout << "\n/* Find the Path */\n";
+    for (int node : dfs_find_path(0, 4, graph))
+        std::cout << node << " ";
 
+    std::cout << "\n";
 }
