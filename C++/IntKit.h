@@ -126,3 +126,11 @@ std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::vector<st
 std::vector<std::vector<int>> load_adjency_matrix(const std::string& filename);
 
 void dfs_connect_to_all_entry();
+
+std::vector<int> dfs_find_path(int start_node, int tgt_node, const std::vector<std::vector<int>>& graph);
+
+bool dfs_find_path_rec();
+
+std::vector<int> find_path_rec(int start_node, int tgt_node, const std::vector<std::vector<int>>& path);
+
+void find_path_entry();

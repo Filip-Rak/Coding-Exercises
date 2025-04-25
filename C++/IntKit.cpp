@@ -471,3 +471,66 @@ void dfs_connect_to_all_entry()
 
     std::cout << "\n";
 }
+
+std::vector<int> dfs_find_path(int start_node, int tgt_node, const std::vector<std::vector<int>>& graph)
+{
+    std::unordered_set<int> visited;
+    std::unordered_map<int, int> parent;
+    std::stack<int> stack;
+    stack.push(start_node);
+
+    while (!stack.empty())
+    {
+        int current = stack.top();
+        stack.pop();
+
+        if (visited.contains(current))
+            continue;
+
+        if (current == tgt_node)
+        {
+            std::vector<int> path;
+            int node = tgt_node;
+            
+            while (node != start_node)
+            {
+                path.push_back(node);
+                node = parent[node];
+            }
+            
+            path.push_back(start_node);
+            std::reverse(path.begin(), path.end());
+            return path;
+        }
+
+        for (int child = graph[current].size() - 1; child >= 0; child--)
+        {
+            if (!visited.contains(child) && graph[current][child] == 1)
+            {
+                stack.push(child);
+                parent[child] = current;
+            }
+        }
+    }
+
+    return {};
+}
+
+void find_path_entry()
+{
+    std::vector<std::vector<int>> graph =
+    {
+        {0, 1, 0, 0}, // Node 0 connects to 1 and 2
+        {0, 0, 1, 0}, // Node 1 connects to 3
+        {0, 0, 0, 1}, // Node 2 connects to 3
+        {0, 0, 0, 0}  // Node 3 has no outgoing edges
+    };
+
+    auto ret = dfs_find_path(0, 3, graph);
+    for (auto node : ret)
+    {
+        std::cout << node << " ";
+    }
+
+    std::cout << "\n";
+}

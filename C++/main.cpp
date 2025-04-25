@@ -4,5 +4,5 @@
 
 int main()
 {
-	dfs_connect_to_all_entry();
+	find_path_entry();
 }
