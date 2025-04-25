@@ -516,6 +516,45 @@ std::vector<int> dfs_find_path(int start_node, int tgt_node, const std::vector<s
     return {};
 }
 
+bool dfs_find_path_rec(int current_node, int tgt_node, 
+    const std::vector<std::vector<int>>& graph, 
+    std::unordered_set<int>& visited, 
+    std::vector<int>& path)
+{
+    if (!visited.insert(current_node).second)
+        return false;
+
+    path.push_back(current_node);
+
+    if (current_node == tgt_node)
+        return true;
+
+    for (int neighbor = 0; neighbor < graph[current_node].size(); neighbor++)
+    {
+        if (!visited.contains(neighbor) && graph[current_node][neighbor] == 1)
+        {
+            if (dfs_find_path_rec(neighbor, tgt_node, graph, visited, path))
+            {
+                return true;
+            }
+        }
+    }
+
+    path.pop_back();
+    return false;
+}
+
+std::vector<int> find_path_rec(int start_node, int tgt_node, const std::vector<std::vector<int>>& graph)
+{
+    std::unordered_set<int> visited;
+    std::vector<int> path;
+
+    if (dfs_find_path_rec(start_node, tgt_node, graph, visited, path))
+        return path;
+
+    return {};
+}
+
 void find_path_entry()
 {
     std::vector<std::vector<int>> graph =
@@ -526,7 +565,7 @@ void find_path_entry()
         {0, 0, 0, 0}  // Node 3 has no outgoing edges
     };
 
-    auto ret = dfs_find_path(0, 3, graph);
+    auto ret = find_path_rec(0, 3, graph);
     for (auto node : ret)
     {
         std::cout << node << " ";

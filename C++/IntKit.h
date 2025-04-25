@@ -129,8 +129,11 @@ void dfs_connect_to_all_entry();
 
 std::vector<int> dfs_find_path(int start_node, int tgt_node, const std::vector<std::vector<int>>& graph);
 
-bool dfs_find_path_rec();
+bool dfs_find_path_rec(int current_node, int tgt_node,
+    const std::vector<std::vector<int>>& graph, 
+    std::unordered_set<int>& visited,
+    std::vector<int>& path);
 
-std::vector<int> find_path_rec(int start_node, int tgt_node, const std::vector<std::vector<int>>& path);
+std::vector<int> find_path_rec(int start_node, int tgt_node, const std::vector<std::vector<int>>& graph);
 
 void find_path_entry();
