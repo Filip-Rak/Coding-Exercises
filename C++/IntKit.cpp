@@ -374,20 +374,20 @@ void dfs_entry()
     std::cout << "\n";
 }
 
-void dfs_explore(int current, const std::vector<std::vector<int>>& graph, std::unordered_set<int>& visited)
+void dfs_explore(int current, const std::unordered_map<int, std::vector<int>> graph, std::unordered_set<int>& visited)
 {
     // Save the node as visited
     visited.insert(current);
 
     // Further explore other neighbors
-    for (int node = 0; node < graph[current].size(); node++)
+    for (int node : graph.at(current))
     {
-        if (!visited.contains(node) && graph[current][node] == 1)
+        if (!visited.contains(node))
             dfs_explore(node, graph, visited);
     }
 }
 
-std::unordered_set<int> get_connections(int start_node, const std::vector<std::vector<int>>& graph)
+std::unordered_set<int> get_connections(int start_node, const std::unordered_map<int, std::vector<int>> graph)
 {
     // Create result set and start recursion
     std::unordered_set<int> visited;
@@ -396,7 +396,7 @@ std::unordered_set<int> get_connections(int start_node, const std::vector<std::v
     return visited;
 }
 
-std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::vector<std::vector<int>>& graph)
+std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::unordered_map<int, std::vector<int>> graph)
 {
     std::unordered_set<int> visited;
     std::stack<int> stack;
@@ -408,9 +408,9 @@ std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::vector<st
         stack.pop();
 
         visited.insert(current);
-        for (int neighbor = 0; neighbor < graph[current].size(); neighbor++)
+        for (int neighbor : graph.at(current))
         {
-            if (visited.find(neighbor) == visited.end() && graph[current][neighbor] == 1)
+            if (!visited.contains(neighbor))
                 stack.push(neighbor);
         }
     }
@@ -418,25 +418,32 @@ std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::vector<st
     return visited;
 }
 
-std::vector<std::vector<int>> load_adjency_matrix(const std::string& filename)
+std::unordered_map<int, std::vector<int>> load_matrix_as_map(const std::string& filename)
 {
-    std::vector<std::vector<int>> graph;
+    std::unordered_map<int, std::vector<int>> graph;
     std::ifstream file(filename);
 
     if (!file.good())
         throw std::runtime_error("Failed to open file: " + filename);
 
+    int outer_index = 0;
     std::string line;
     while (std::getline(file, line))
     {
         std::vector<int> connections;
         std::stringstream ss(line);
 
+        int inner_index = 0;
         int buffer;
         while (ss >> buffer)
-            connections.push_back(buffer);
+        {
+            if (buffer == 1)
+                connections.push_back(inner_index);
 
-        graph.push_back(connections);
+            inner_index++;
+        }
+
+        graph[outer_index++] = connections;
     }
 
     file.close();
@@ -449,10 +456,10 @@ void dfs_connect_to_all_entry()
     std::cout << "Filename with extension: ";
     std::string filename; std::cin >> filename;
 
-    std::vector<std::vector<int>> graph;
+    std::unordered_map<int, std::vector<int>> graph;
     try
     {
-        graph = load_adjency_matrix(filename);
+        graph = load_matrix_as_map(filename);
     }
     catch (std::exception& ex)
     {
@@ -464,6 +471,7 @@ void dfs_connect_to_all_entry()
     std::cout << "Nodes that can reach all other nodes: ";
     for (int i = 0; i < graph.size(); i++)
     {
+        // auto res = get_connections(i, graph);
         auto res = dfs_reachable_nodes(i, graph);
         if (res.size() == graph.size())
             std::cout << i << " ";

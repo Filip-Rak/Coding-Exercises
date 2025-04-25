@@ -116,14 +116,14 @@ std::vector<int> dfs_find_path(int start, int tgt, const std::unordered_map<int,
 
 void dfs_entry();
 
-void dfs_explore(int current, const std::vector<std::vector<int>>& graph, std::unordered_set<int>& visited);
+void dfs_explore(int current, const std::unordered_map<int, std::vector<int>> graphh, std::unordered_set<int>& visited);
 
 // Wrapper for recursive dfs_explore
-std::unordered_set<int> get_connections(int start_node, const std::vector<std::vector<int>>& graph);
+std::unordered_set<int> get_connections(int start_node, const std::unordered_map<int, std::vector<int>> graph);
 
-std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::vector<std::vector<int>>& graph);
+std::unordered_set<int> dfs_reachable_nodes(int start_node, const std::unordered_map<int, std::vector<int>> graph);
 
-std::vector<std::vector<int>> load_adjency_matrix(const std::string& filename);
+std::unordered_map<int, std::vector<int>> load_matrix_as_map(const std::string& filename);
 
 void dfs_connect_to_all_entry();
 
