@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <stack>
+#include <algorithm>
 #include <fstream>
 
 /*
@@ -139,5 +140,7 @@ std::vector<int> find_path_rec(int start_node, int tgt_node, const std::vector<s
 void find_path_entry();
 
 std::vector<std::vector<int>> group_graph_components(const std::unordered_map<int, std::vector<int>>& graph);
+
+void make_graph_undirected(std::unordered_map<int, std::vector<int>>& graph);
 
 void group_components_entry();

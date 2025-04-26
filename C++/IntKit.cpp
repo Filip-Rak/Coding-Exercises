@@ -594,6 +594,7 @@ std::vector<std::vector<int>> group_graph_components(const std::unordered_map<in
 
         std::vector<int> group;
         std::stack<int> stack;
+
         stack.push(entry);
         visited.insert(entry);
 
@@ -624,16 +625,31 @@ std::vector<std::vector<int>> group_graph_components(const std::unordered_map<in
     return groups;
 }
 
+void make_graph_undirected(std::unordered_map<int, std::vector<int>>& graph)
+{
+    for (auto& [node, neighbors] : graph)
+    {
+        for (int neighbor : neighbors)
+        {
+            auto not_found = std::find(neighbors.begin(), neighbors.end(), node) == neighbors.end();
+            if (not_found)
+                graph[neighbor].push_back(node);
+        }
+    }
+}
+
 void group_components_entry()
 {
     std::unordered_map<int, std::vector<int>> graph =
     {
-        {0, {1}},
-        {1, {0, 2}},
+        {0, {}},
+        {1, {0}},
         {2, {1}},
-        {3, {4}},
+        {3, {}},
         {4, {3}},
     };
+
+    make_graph_undirected(graph);
 
     for (auto group : group_graph_components(graph))
     {
