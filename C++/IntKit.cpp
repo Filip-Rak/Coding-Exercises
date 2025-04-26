@@ -587,38 +587,38 @@ std::vector<std::vector<int>> group_graph_components(const std::unordered_map<in
     std::vector<std::vector<int>> groups;
     std::unordered_set<int> visited;
 
-    while (visited.size() < graph.size())
+    for (const auto& [entry, _] : graph)
     {
+        if (visited.contains(entry))
+            continue;
+
         std::vector<int> group;
         std::stack<int> stack;
-        
-        for (const auto& [entry, _] : graph)
-        {
-            if (!visited.contains(entry))
-            {
-                stack.push(entry);
-                break;
-            }
-        }
+        stack.push(entry);
+        visited.insert(entry);
 
         while (!stack.empty())
         {
             int current = stack.top();
             stack.pop();
 
-            visited.insert(current);
             group.push_back(current);
 
-            for (auto neighbor : graph.at(current))
+            auto it = graph.find(current);
+            if (it == graph.end())
+                continue;
+
+            for (int neighbor : it->second)
             {
                 if (!visited.contains(neighbor))
                 {
                     stack.push(neighbor);
+                    visited.insert(neighbor);
                 }
             }
         }
 
-        groups.push_back(group);
+        groups.push_back(std::move(group));
     }
 
     return groups;
