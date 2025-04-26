@@ -581,3 +581,65 @@ void find_path_entry()
 
     std::cout << "\n";
 }
+
+std::vector<std::vector<int>> group_graph_components(const std::unordered_map<int, std::vector<int>>& graph)
+{
+    std::vector<std::vector<int>> groups;
+    std::unordered_set<int> visited;
+
+    while (visited.size() < graph.size())
+    {
+        std::vector<int> group;
+        std::stack<int> stack;
+        
+        for (const auto& [entry, _] : graph)
+        {
+            if (!visited.contains(entry))
+            {
+                stack.push(entry);
+                break;
+            }
+        }
+
+        while (!stack.empty())
+        {
+            int current = stack.top();
+            stack.pop();
+
+            visited.insert(current);
+            group.push_back(current);
+
+            for (auto neighbor : graph.at(current))
+            {
+                if (!visited.contains(neighbor))
+                {
+                    stack.push(neighbor);
+                }
+            }
+        }
+
+        groups.push_back(group);
+    }
+
+    return groups;
+}
+
+void group_components_entry()
+{
+    std::unordered_map<int, std::vector<int>> graph =
+    {
+        {0, {1}},
+        {1, {0, 2}},
+        {2, {1}},
+        {3, {4}},
+        {4, {3}},
+    };
+
+    for (auto group : group_graph_components(graph))
+    {
+        for (auto member : group)
+            std::cout << member << " ";
+
+        std::cout << "\n";
+    }
+}

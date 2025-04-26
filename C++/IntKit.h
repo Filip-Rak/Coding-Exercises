@@ -137,3 +137,7 @@ bool dfs_find_path_rec(int current_node, int tgt_node,
 std::vector<int> find_path_rec(int start_node, int tgt_node, const std::vector<std::vector<int>>& graph);
 
 void find_path_entry();
+
+std::vector<std::vector<int>> group_graph_components(const std::unordered_map<int, std::vector<int>>& graph);
+
+void group_components_entry();
