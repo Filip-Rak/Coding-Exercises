@@ -2,11 +2,13 @@
 #include <vector>
 #include <sstream>
 #include <unordered_map>
+#include <map>
 #include <unordered_set>
 #include <stack>
 #include <algorithm>
 #include <fstream>
 #include <optional>
+#include <queue>
 
 /*
  * Problem: Sales by Match
@@ -183,4 +185,10 @@ void dfs_flood_fill(
 
 void flood_cell(int cell_x, int cell_y, int new_color, std::vector<std::vector<int>>& matrix);
 
+void flood_cell_iterative(int cell_x, int cell_y, int new_color, std::vector<std::vector<int>>& matrix);
+
 void flood_cell_entry();
+
+std::vector<std::pair<int, int>> bfs_shortest_path(int start_x, int start_y, int target_x, int target_y, const std::vector<std::vector<int>>& grid);
+
+void grid_shortest_path_entry();

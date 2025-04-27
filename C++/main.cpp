@@ -4,5 +4,5 @@
 
 int main()
 {
-	flood_cell_entry();
+	grid_shortest_path_entry();
 }

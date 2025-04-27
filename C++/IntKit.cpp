@@ -839,6 +839,42 @@ void flood_cell(int cell_x, int cell_y, int new_color, std::vector<std::vector<i
     dfs_flood_fill(cell_x, cell_y, matrix[cell_x][cell_y], new_color, matrix, visited);
 }
 
+void flood_cell_iterative(int start_x, int start_y, int new_color, std::vector<std::vector<int>>& matrix)
+{
+    // Validate the starting cell
+    if (start_x < 0 || start_x >= matrix.size()) return;
+    if (start_y < 0 || start_y >= matrix[start_x].size()) return;
+
+    const int tgt_color = matrix[start_x][start_y];
+    const std::vector<std::pair<int, int>> directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
+
+    std::vector<std::vector<bool>> visited(matrix.size(), std::vector<bool>(matrix[0].size(), false));
+    std::stack<std::pair<int, int>> stack; // {x, y}
+    stack.emplace(start_x, start_y);
+
+    while (!stack.empty())
+    {
+        auto [current_x, current_y] = stack.top();
+        stack.pop();
+
+        // Validate current cell
+        if (current_x < 0 || current_x >= matrix.size()) continue;
+        if (current_y < 0 || current_y >= matrix[current_x].size()) continue;
+        if (visited[current_x][current_y]) continue;
+        if (matrix[current_x][current_y] != tgt_color) continue;
+
+        // Mark as visited
+        visited[current_x][current_y] = true;
+
+        // Modify the color
+        matrix[current_x][current_y] = new_color;
+
+        // Expand towards other directions
+        for (auto [dir_x, dir_y] : directions)
+            stack.emplace(current_x + dir_x, current_y + dir_y);
+    }
+}
+
 void flood_cell_entry()
 {
     std::vector<std::vector<int>> matrix =
@@ -848,7 +884,7 @@ void flood_cell_entry()
         {0, 0, 0}
     };
 
-    flood_cell(0, 2, 7, matrix);
+    flood_cell_iterative(0, 2, 7, matrix);
 
     for (auto row : matrix)
     {
@@ -856,5 +892,86 @@ void flood_cell_entry()
             std::cout << element << " ";
 
         std::cout << "\n";
+    }
+}
+
+std::vector<std::pair<int, int>> bfs_shortest_path(int start_x, int start_y, int tgt_x, int tgt_y, const std::vector<std::vector<int>>& grid)
+{
+    // Validate nodes
+    if (start_x < 0 || start_x >= grid.size() ||
+        start_y < 0 || start_y >= grid[start_x].size() ||
+        tgt_x < 0 || tgt_x >= grid.size() ||
+        tgt_y < 0 || tgt_y >= grid[tgt_x].size())
+        return {};
+
+    std::map<std::pair<int, int>, std::pair<int, int>> parent;
+    std::vector<std::vector<bool>> visited(grid.size(), std::vector<bool>(grid[0].size(), false));
+    std::queue<std::pair<int, int>> queue;
+
+    queue.emplace(start_x, start_y);
+    visited[start_x][start_y] = true;
+
+    while (!queue.empty())
+    {
+        // Retrieve the node
+        auto [current_x, current_y] = queue.front();
+        queue.pop();
+
+        if (current_x == tgt_x && current_y == tgt_y)
+        {
+            // Reconstruct the path
+            std::vector<std::pair<int, int>> path;
+            path.emplace_back(current_x, current_y);
+
+            auto [node_x, node_y] = parent[{current_x, current_y}];
+            while (node_x != start_x || node_y != start_y)
+            {
+                path.emplace_back(node_x, node_y);
+                auto [n_x, n_y] = parent[{node_x, node_y}];
+                node_x = n_x;
+                node_y = n_y;
+            }
+
+            path.emplace_back(start_x, start_y);
+            std::reverse(path.begin(), path.end());
+
+            return path;
+        }
+        
+        std::vector<std::pair<int, int>> directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
+        for (auto [dir_x, dir_y] : directions)
+        {
+            int n_x = current_x + dir_x;
+            int n_y = current_y + dir_y;
+
+            // Validate the node
+            if (n_x < 0 || n_x >= grid.size()) continue;
+            if (n_y < 0 || n_y >= grid[n_x].size()) continue;
+            if (visited[n_x][n_y]) continue;
+            if (grid[n_x][n_y] != 1) continue;
+
+            queue.emplace(n_x, n_y);
+            visited[n_x][n_y] = true;
+            parent[{n_x, n_y}] = { current_x, current_y };
+        }
+    }
+
+    return {};
+}
+
+void grid_shortest_path_entry()
+{
+    std::vector<std::vector<int>> grid =
+    {
+        {1, 1, 1, 0},
+        {0, 1, 0, 1},
+        {1, 1, 1, 1},
+        {0, 0, 1, 0}
+    };
+
+    auto path = bfs_shortest_path(0, 0, 3, 2, grid);
+    for (auto [x, y] : path)
+    {
+        std::cout << x << " " << y << "\n";
     }
 }
