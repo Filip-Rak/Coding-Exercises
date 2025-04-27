@@ -171,3 +171,16 @@ void explore_islands(int i, int j, std::vector<std::vector<int>>& matrix);
 int number_of_islands(const std::vector<std::vector<int>>& matrix);
 
 void island_num_entry();
+
+void dfs_flood_fill(
+    int current_x, 
+    int current_y, 
+    int old_color, 
+    int new_color, 
+    std::vector<std::vector<int>>& matrix, 
+    std::vector<std::vector<bool>>& visited
+);
+
+void flood_cell(int cell_x, int cell_y, int new_color, std::vector<std::vector<int>>& matrix);
+
+void flood_cell_entry();

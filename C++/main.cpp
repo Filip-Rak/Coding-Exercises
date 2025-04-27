@@ -4,5 +4,5 @@
 
 int main()
 {
-	island_num_entry();
+	flood_cell_entry();
 }

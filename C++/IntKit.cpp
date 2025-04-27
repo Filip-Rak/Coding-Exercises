@@ -802,3 +802,59 @@ void island_num_entry()
 
     std::cout << number_of_islands(matrix);
 }
+
+void dfs_flood_fill(int x, int y, int old_color, int new_color, std::vector<std::vector<int>>& matrix, std::vector<std::vector<bool>>& visited)
+{
+    // Verify if the cell is valid
+    if (x < 0 || x >= matrix.size()) return;
+    if (y < 0 || y >= matrix[x].size()) return;
+    if (visited[x][y]) return;
+    if (matrix[x][y] != old_color) return;
+
+    // Add the cell to the list of visited cells
+    visited[x][y] = true;
+
+    // Color the cell
+    matrix[x][y] = new_color;
+
+    // Explore neighboring cells
+    std::vector<std::pair<int, int>> directions =
+    {
+        {0, -1},
+        {1, 0},
+        {0, 1},
+        {-1, 0},
+    };
+
+    for (const auto& [dir_x, dir_y] : directions)
+        dfs_flood_fill(x + dir_x, y + dir_y, old_color, new_color, matrix, visited);
+}
+
+void flood_cell(int cell_x, int cell_y, int new_color, std::vector<std::vector<int>>& matrix)
+{
+    if (matrix.size() <= cell_x || matrix[cell_x].size() <= cell_y)
+        return;
+
+    std::vector<std::vector<bool>> visited(matrix.size(), std::vector<bool>(matrix[0].size(), false));
+    dfs_flood_fill(cell_x, cell_y, matrix[cell_x][cell_y], new_color, matrix, visited);
+}
+
+void flood_cell_entry()
+{
+    std::vector<std::vector<int>> matrix =
+    {
+        {1, 1, 0},
+        {1, 0, 0},
+        {0, 0, 0}
+    };
+
+    flood_cell(0, 2, 7, matrix);
+
+    for (auto row : matrix)
+    {
+        for (int element : row)
+            std::cout << element << " ";
+
+        std::cout << "\n";
+    }
+}
