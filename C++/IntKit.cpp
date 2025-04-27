@@ -659,3 +659,58 @@ void group_components_entry()
         std::cout << "\n";
     }
 }
+
+bool dfs_has_cycles(const std::unordered_map<int, std::vector<int>>& graph)
+{
+    std::unordered_set<int> visited;
+
+    for (const auto& [start_node, _] : graph)
+    {
+        if (visited.contains(start_node))
+            continue;
+
+        visited.insert(start_node);
+
+        std::stack<std::pair<int, int>> stack;
+        stack.emplace(start_node, -1);
+
+        while (!stack.empty())
+        {
+            auto [current, parent] = stack.top();
+            stack.pop();
+
+            auto it = graph.find(current);
+            if (it == graph.end())
+                continue;
+
+            for (int neighbor : it->second)
+            {
+                if (!visited.contains(neighbor))
+                {
+                    stack.emplace(neighbor, current);
+                    visited.insert(neighbor);
+                }
+                else if (neighbor != parent)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+void detect_cycles_entry()
+{
+    std::unordered_map<int, std::vector<int>> graph =
+    {
+        {0, {1}},
+        {1, {0}},
+        {2, {3, 4}},
+        {3, {2, 4}},
+        {4, {2, 3}}
+    };
+
+   std::cout << dfs_has_cycles(graph) << "\n";
+}

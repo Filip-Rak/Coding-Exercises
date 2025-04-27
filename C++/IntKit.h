@@ -144,3 +144,7 @@ std::vector<std::vector<int>> group_graph_components(const std::unordered_map<in
 void make_graph_undirected(std::unordered_map<int, std::vector<int>>& graph);
 
 void group_components_entry();
+
+bool dfs_has_cycles(const std::unordered_map<int, std::vector<int>>& graph);
+
+void detect_cycles_entry();

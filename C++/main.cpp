@@ -4,5 +4,5 @@
 
 int main()
 {
-	group_components_entry();
+	detect_cycles_entry();
 }
