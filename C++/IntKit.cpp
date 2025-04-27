@@ -752,3 +752,53 @@ void LRUCacher::put(int key, int value)
         usage_order.splice(usage_order.begin(), usage_order, usage_iterator);
     }
 }
+
+void explore_islands(int i, int j, std::vector<std::vector<int>>& matrix)
+{
+    // Verify if valid
+    if (i < 0 || i >= matrix.size()) return;
+    if (j < 0 || j >= matrix[i].size()) return;
+    if (matrix[i][j] == 0) return;
+
+    // Mark as visited -> sink.
+    matrix[i][j] = 0;
+
+    // Further explore neighbors in 4 directions
+    explore_islands(i, j + 1, matrix);
+    explore_islands(i + 1, j, matrix);
+    explore_islands(i, j - 1, matrix);
+    explore_islands(i - 1, j, matrix);
+}
+
+int number_of_islands(const std::vector<std::vector<int>>& matrix)
+{
+    auto matrix_copy(matrix);
+    int island_num = 0;
+
+    for (int i = 0; i < matrix.size(); i++)
+    {
+        for (int j = 0; j < matrix[i].size(); j++)
+        {
+            if (matrix_copy[i][j] == 1)
+            {
+                explore_islands(i, j, matrix_copy);
+                island_num += 1;
+            }
+        }
+    }
+
+    return island_num;
+}
+
+void island_num_entry()
+{
+    std::vector<std::vector<int>> matrix =
+    {
+        {1, 1, 0, 0},
+        {1, 1, 0, 0},
+        {0, 0, 1, 1},
+        {0, 0, 1, 1}
+    };
+
+    std::cout << number_of_islands(matrix);
+}

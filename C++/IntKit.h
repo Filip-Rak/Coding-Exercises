@@ -165,3 +165,9 @@ public:
     std::optional<int> get(int key);
     void put(int key, int value);
 };
+
+void explore_islands(int i, int j, std::vector<std::vector<int>>& matrix);
+
+int number_of_islands(const std::vector<std::vector<int>>& matrix);
+
+void island_num_entry();

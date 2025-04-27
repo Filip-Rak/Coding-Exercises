@@ -4,5 +4,5 @@
 
 int main()
 {
-	detect_cycles_entry();
+	island_num_entry();
 }
