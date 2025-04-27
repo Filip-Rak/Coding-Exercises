@@ -6,6 +6,7 @@
 #include <stack>
 #include <algorithm>
 #include <fstream>
+#include <optional>
 
 /*
  * Problem: Sales by Match
@@ -148,3 +149,19 @@ void group_components_entry();
 bool dfs_has_cycles(const std::unordered_map<int, std::vector<int>>& graph);
 
 void detect_cycles_entry();
+
+class LRUCacher 
+{
+    // Attributes
+    std::list<std::pair<int, int>> usage_order; // { key, value }
+    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> cache; // { key, iterator to usage_order }
+    const int CAPACITY;
+
+public:
+    /* Constructor */
+    LRUCacher(int capacity);
+
+    /* Public Methods */
+    std::optional<int> get(int key);
+    void put(int key, int value);
+};

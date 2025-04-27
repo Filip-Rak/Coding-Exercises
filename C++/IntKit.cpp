@@ -6,7 +6,7 @@ int sockMerchant(int n, std::vector<int> ar)
     const int MAX_ID = 100;
     std::vector<int> freq(MAX_ID, 0);
 
-    // Map all numbers to vector
+    // Count sockes per color
     for (int i = 0; i < n; i++)
     {
         freq[ar[i] - 1] += 1;
@@ -713,4 +713,42 @@ void detect_cycles_entry()
     };
 
    std::cout << dfs_has_cycles(graph) << "\n";
+}
+
+LRUCacher::LRUCacher(int capacity)
+    : CAPACITY(capacity){}
+
+std::optional<int> LRUCacher::get(int key)
+{
+    auto it = cache.find(key);
+    if (it == cache.end())
+        return std::nullopt;
+
+    usage_order.splice(usage_order.begin(), usage_order, it->second);
+    return std::make_optional(usage_order.front().second);
+}
+
+void LRUCacher::put(int key, int value)
+{
+    auto cache_iterator = cache.find(key);
+    if (cache_iterator == cache.end())
+    {
+        if (cache.size() == CAPACITY)
+        {
+            int key_to_delete = usage_order.back().first;
+            usage_order.pop_back();
+            cache.erase(key_to_delete);
+        }
+
+        usage_order.emplace_front(key, value);
+        auto usage_iterator = usage_order.begin();
+        cache[key] = usage_iterator;
+    }
+    else
+    {
+        auto usage_iterator = cache_iterator->second;
+        usage_iterator->second = value;
+
+        usage_order.splice(usage_order.begin(), usage_order, usage_iterator);
+    }
 }
