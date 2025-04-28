@@ -1566,3 +1566,106 @@ void mh2_test_entry()
 
     std::cout << heap.get_min().value_or(-42);
 }
+
+int Dequeue::Node::alive = 0;
+
+Dequeue::Node::Node(int val, Node* next, Node* prev)
+    : value(val), next(next), prev(prev)
+{
+    Node::alive += 1;
+}
+
+Dequeue::Node::~Node() 
+{
+    Node::alive -= 1;
+};
+
+Dequeue::~Dequeue()
+{
+    clear();
+}
+
+void Dequeue::push_front(int val)
+{
+    if (!head)
+    {
+        head = tail = new Node(val);
+        return;
+    }
+
+    Node* new_node = new Node(val, head);
+    head->prev = new_node;
+    head = new_node;
+}
+
+void Dequeue::push_back(int val)
+{
+    if (!tail)
+    {
+        tail = head = new Node(val);
+        return;
+    }
+    
+    Node* new_node = new Node(val, nullptr, tail);
+    tail->next = new_node;
+    tail = new_node;
+}
+
+std::optional<int> Dequeue::front() const
+{
+    if (!head)
+        return std::nullopt;
+
+    return std::make_optional(head->value);
+}
+
+std::optional<int> Dequeue::back() const
+{
+    if (!tail)
+        return std::nullopt;
+
+    return std::make_optional(tail->value);
+}
+
+void Dequeue::pop_front()
+{
+    if (!head)
+        return;
+
+    Node* to_delete = head;
+    head = head->next;
+    delete to_delete;
+
+    if (!head)
+        tail = nullptr;
+    else
+        head->prev = nullptr;
+}
+
+void Dequeue::pop_back()
+{
+    if (!tail)
+        return;
+
+    Node* to_delete = tail;
+    tail = tail->prev;
+    delete to_delete;
+
+    if (!tail)
+        head = nullptr;
+    else
+        tail->next = nullptr;
+}
+
+void Dequeue::clear()
+{
+    while (head)
+    {
+        Node* to_delete = head;
+        head = head->next;
+
+        delete to_delete;
+    }
+
+    tail = nullptr;
+}

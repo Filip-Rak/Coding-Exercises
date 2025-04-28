@@ -1013,3 +1013,41 @@ public:
 };
 
 void mh2_test_entry();
+
+class Dequeue
+{
+    /* Types */
+    struct Node
+    {
+        /* Attributes */
+        static int alive;
+        
+        int value;
+        Node* next;
+        Node* prev;
+
+        /* Constructor & Destructor */
+        Node(int val, Node* next = nullptr, Node* prev = nullptr);
+        ~Node();
+    };
+
+    /* Attributes */
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+public:
+    /* Destructor */
+    ~Dequeue();
+
+    /* Public Methods */
+    void push_front(int val);
+    void push_back(int val);
+
+    std::optional<int> front() const;
+    std::optional<int> back() const;
+
+    void pop_front();
+    void pop_back();
+
+    void clear();
+};
