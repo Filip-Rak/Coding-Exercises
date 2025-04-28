@@ -4,5 +4,5 @@
 
 int main()
 {
-	rotting_oranges_entry();
+	word_ladder_entry();
 }

@@ -1131,3 +1131,130 @@ void rotting_oranges_entry()
 
     std::cout << bfs_mins_to_rot2(matrix) << "\n";
 }
+
+int least_word_transformations(std::string start_word, std::string end_word, std::vector<std::string> words)
+{
+    std::unordered_set<std::string> word_set(words.begin(), words.end());
+    if (words.size() == 0 || !word_set.contains(end_word)) return 0;
+
+    std::queue<std::pair<std::string, int>> queue;
+
+    queue.emplace(start_word, 1);
+    word_set.erase(start_word);
+
+    while (!queue.empty())
+    {
+        auto [current_word, level] = queue.front();
+        queue.pop();
+
+        if (current_word == end_word)
+        {
+            return level;
+        }
+
+        for (int i = 0; i < current_word.size(); i++)
+        {
+            std::string new_word = current_word;
+            for (char c = 'a'; c <= 'z'; c++)
+            {
+                new_word[i] = c;
+                if (word_set.contains(new_word))
+                {
+                    queue.emplace(new_word, level + 1);
+                    word_set.erase(new_word);
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+std::optional<std::vector<std::string>> shortest_word_ladder(const std::string& start_word, const std::string& tgt_word, const std::vector<std::string>& words)
+{
+    if (words.empty()) 
+        return std::nullopt;
+
+    std::unordered_set<std::string> word_set(words.begin(), words.end());
+    if (!word_set.contains(tgt_word))
+        return std::nullopt;
+
+    std::unordered_map<std::string, std::string> parent;
+    std::queue<std::string> queue;
+
+    queue.push(start_word);
+    word_set.erase(start_word);
+
+    while (!queue.empty())
+    {
+        std::string current_word = queue.front();
+        queue.pop();
+
+        if (current_word == tgt_word)
+        {
+            std::vector<std::string> path;
+            
+            std::string word = tgt_word;
+            while (word != start_word)
+            {
+                path.push_back(word);
+                word = parent[word];
+            }
+
+            path.push_back(start_word);
+            std::reverse(path.begin(), path.end());
+
+            return std::make_optional(path);
+        }
+
+        for (int i = 0; i < current_word.size(); i++)
+        {
+            std::string new_word = current_word;
+            for (char c = 'a'; c <= 'z'; c++)
+            {
+                if (c == current_word[i]) continue;
+                new_word[i] = c;
+
+                if (word_set.contains(new_word))
+                {
+                    parent[new_word] = current_word;
+                    queue.push(new_word);
+                    word_set.erase(new_word);
+                }
+            }
+        }
+    }
+
+    return std::nullopt;
+}
+
+void word_ladder_entry()
+{
+    std::string start_word = "cold";
+    std::string end_word = "warm";
+
+    std::vector<std::string> words = {
+        "cold", "cord", "card", "ward", "warm", "worm", "word",
+        "sold", "told", "bold", "bald", "gold", "goad", "load", "loan",
+        "loon", "look", "book", "back", "pack", "puck", "luck", "duck",
+        "suck", "sock", "sick", "pick", "pock", "dock", "dork", "dark",
+        "lark", "bark", "barn", "born", "corn", "porn", "form", "farm",
+        "harm", "harp", "hard", "card", "care", "cane", "lane", "lame",
+        "came", "camp", "lamp"
+    };
+
+
+    // std::cout << least_word_transformations(start_word, end_word, word_list);
+
+    auto ret = shortest_word_ladder(start_word, end_word, words);
+    if (ret.has_value())
+    {
+        for (auto word : ret.value())
+            std::cout << word << " ";
+    }
+    else
+        std::cout << "No value on return";
+
+
+    std::cout << "\n";
+}

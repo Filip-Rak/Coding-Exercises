@@ -197,3 +197,13 @@ int bfs_mins_to_rot(std::vector<std::vector<int>>& matrix);
 int bfs_mins_to_rot2(std::vector<std::vector<int>>& matrix);
 
 void rotting_oranges_entry();
+
+int least_word_transformations(std::string start_word, std::string end_word, std::vector<std::string> words);
+
+std::optional<std::vector<std::string>> shortest_word_ladder(
+    const std::string& start_word,
+    const std::string& end_word,
+    const std::vector<std::string>& words
+);
+
+void word_ladder_entry();
