@@ -1259,7 +1259,7 @@ void word_ladder_entry()
     std::cout << "\n";
 }
 
-int number_of_lock_moves(const std::string& target_lock, const std::vector<std::string>& deadends)
+std::optional<int> number_of_lock_moves(const std::string& target_lock, const std::vector<std::string>& deadends)
 {
     const std::string START = "0000";
     const std::vector<int> DIRECTIONS = { 1, -1 };
@@ -1268,7 +1268,7 @@ int number_of_lock_moves(const std::string& target_lock, const std::vector<std::
     std::unordered_set<std::string> visited(deadends.begin(), deadends.end());
 
     if (visited.contains(START))
-        return -1;
+        return std::nullopt;
 
     std::queue<std::pair<std::string, int>> queue; // [current, level]
     queue.emplace(START, 0);
@@ -1281,7 +1281,7 @@ int number_of_lock_moves(const std::string& target_lock, const std::vector<std::
 
         if (current_lock == target_lock)
         {
-            return level;
+            return std::make_optional(level);
         }
 
         for (int i = 0; i < current_lock.size(); i++)
@@ -1303,7 +1303,7 @@ int number_of_lock_moves(const std::string& target_lock, const std::vector<std::
         }
     }
 
-    return -1;
+    return std::nullopt;
 }
 
 void open_the_lock_entry()
@@ -1313,5 +1313,9 @@ void open_the_lock_entry()
     };
     std::string target = "8888";
 
-    std::cout << number_of_lock_moves(target, deadends) << "\n";
+    auto ret = number_of_lock_moves(target, deadends);
+    if (ret.has_value())
+        std::cout << ret.value() << "\n";
+    else
+        std::cout << "Combination unattainable\n";
 }

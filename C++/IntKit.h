@@ -208,6 +208,6 @@ std::optional<std::vector<std::string>> shortest_word_ladder(
 
 void word_ladder_entry();
 
-int number_of_lock_moves(const std::string& target_lock, const std::vector<std::string>& deadends);
+std::optional<int> number_of_lock_moves(const std::string& target_lock, const std::vector<std::string>& deadends);
 
 void open_the_lock_entry();
