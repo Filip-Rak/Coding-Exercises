@@ -4,5 +4,5 @@
 
 int main()
 {
-	grid_shortest_path_entry();
+	rotting_oranges_entry();
 }

@@ -975,3 +975,90 @@ void grid_shortest_path_entry()
         std::cout << x << " " << y << "\n";
     }
 }
+
+int bfs_mins_to_rot(std::vector<std::vector<int>>& matrix)
+{
+    if (matrix.size() == 0)
+        return -1;
+
+    std::vector<std::vector<bool>> visited(matrix.size(), std::vector<bool>(matrix[0].size(), false));
+    std::queue<std::pair<int, int>> spread_queue;
+    std::queue<std::pair<int, int>> rotting_queue;
+
+    /* Find all rotten oranges */
+    for (int i = 0; i < matrix.size(); i++)
+    {
+        for (int j = 0; j < matrix[i].size(); j++)
+        {
+            if (matrix[i][j] == 2)
+            {
+                spread_queue.emplace(i, j);
+                visited[i][j] = true;
+            }
+        }
+    }
+
+    int minutes_passed = 0; // Result
+
+    /* Main loop */
+    while (!spread_queue.empty() || !rotting_queue.empty())
+    {
+        /* Spread the rot to neighbors */
+        while (!spread_queue.empty())
+        {
+            // Retrieve front node
+            auto [current_x, current_y] = spread_queue.front();
+            spread_queue.pop();
+
+            // Feed rotting queue with neighbor nodes
+            std::vector<std::pair<int, int>> directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
+            for (auto [dir_x, dir_y] : directions)
+            {
+                int n_x = current_x + dir_x;
+                int n_y = current_y + dir_y;
+
+                // Validate the neighbor
+                if (n_x < 0 || n_x >= matrix.size()) continue;
+                if (n_y < 0 || n_y >= matrix[n_x].size()) continue;
+                if (visited[n_x][n_y]) continue;
+                if (matrix[n_x][n_y] != 1) continue;
+
+                // Add to stack & mark as visited
+                rotting_queue.emplace(n_x, n_y);
+                visited[n_x][n_y] = true;
+
+                // Mark as rotten
+                matrix[n_x][n_y] = 2;
+            }
+        }
+
+        /* Move rotting fruits to spread queue */
+        spread_queue = std::move(rotting_queue);
+
+        /* Increase the timer */
+        if (!spread_queue.empty())
+            minutes_passed += 1;
+    }
+
+    // Find if every fruit has rotten
+    for (auto row : matrix)
+    {
+        for (int fruit : row)
+            if (fruit == 1)
+                return -1;
+    }
+
+    return minutes_passed;
+}
+
+void rotting_oranges_entry()
+{
+    std::vector<std::vector<int>> matrix =
+    {
+        {1,1,1},
+        {1,2,1},
+        {1,1,1}
+    };
+
+    std::cout << bfs_mins_to_rot(matrix) << "\n";
+}

@@ -192,3 +192,7 @@ void flood_cell_entry();
 std::vector<std::pair<int, int>> bfs_shortest_path(int start_x, int start_y, int target_x, int target_y, const std::vector<std::vector<int>>& grid);
 
 void grid_shortest_path_entry();
+
+int bfs_mins_to_rot(std::vector<std::vector<int>>& matrix);
+
+void rotting_oranges_entry();
