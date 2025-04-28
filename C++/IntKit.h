@@ -194,5 +194,6 @@ std::vector<std::pair<int, int>> bfs_shortest_path(int start_x, int start_y, int
 void grid_shortest_path_entry();
 
 int bfs_mins_to_rot(std::vector<std::vector<int>>& matrix);
+int bfs_mins_to_rot2(std::vector<std::vector<int>>& matrix);
 
 void rotting_oranges_entry();

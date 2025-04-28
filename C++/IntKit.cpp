@@ -1051,6 +1051,75 @@ int bfs_mins_to_rot(std::vector<std::vector<int>>& matrix)
     return minutes_passed;
 }
 
+int bfs_mins_to_rot2(std::vector<std::vector<int>>& matrix)
+{
+    // Make sure the matrix isn't empty
+    if (matrix.empty() || matrix[0].empty())
+        return -1;
+
+    const int rows = matrix.size();
+    const int cols = matrix[0].size();
+
+    std::vector<std::vector<bool>> visited(rows, std::vector<bool>(cols, false));
+    std::queue<std::pair<int, int>> queue;
+    int fresh_oranges = 0;
+
+    // Find all rotting oranges and get the number of fresh ones
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            if (matrix[i][j] == 2)
+            {
+                queue.emplace(i, j);
+                visited[i][j] = true;
+            }
+               
+            if (matrix[i][j] == 1) 
+                fresh_oranges += 1;
+        }
+    }
+
+    const std::vector<std::pair<int, int>> directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
+
+    int minutes_passed = 0;
+    while (!queue.empty())
+    {
+        // Save the number of elements in the queue before new oranges are added
+        int size = queue.size();
+        bool has_rotten = false;
+
+        // Spread rot to new ornages
+        for (int i = 0; i < size; i++)
+        {
+            auto [current_x, current_y] = queue.front();
+            queue.pop();
+
+            for (auto [dir_x, dir_y] : directions)
+            {
+                int n_x = current_x + dir_x;
+                int n_y = current_y + dir_y;
+
+                if (n_x < 0 || n_x >= rows) continue;
+                if (n_y < 0 || n_y >= cols) continue;
+                if (visited[n_x][n_y]) continue;
+                if (matrix[n_x][n_y] != 1) continue;
+
+                visited[n_x][n_y] = true;
+                matrix[n_x][n_y] = 2;
+                queue.emplace(n_x, n_y);
+                fresh_oranges -= 1;
+                has_rotten = true;
+            }
+        }
+
+        if (has_rotten)
+            minutes_passed += 1;
+    }
+
+    return (fresh_oranges > 0) ? -1 : minutes_passed;
+}
+
 void rotting_oranges_entry()
 {
     std::vector<std::vector<int>> matrix =
@@ -1060,5 +1129,5 @@ void rotting_oranges_entry()
         {1,1,1}
     };
 
-    std::cout << bfs_mins_to_rot(matrix) << "\n";
+    std::cout << bfs_mins_to_rot2(matrix) << "\n";
 }
