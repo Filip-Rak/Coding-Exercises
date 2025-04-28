@@ -1258,3 +1258,60 @@ void word_ladder_entry()
 
     std::cout << "\n";
 }
+
+int number_of_lock_moves(const std::string& target_lock, const std::vector<std::string>& deadends)
+{
+    const std::string START = "0000";
+    const std::vector<int> DIRECTIONS = { 1, -1 };
+    const int RANGE = 10;
+
+    std::unordered_set<std::string> visited(deadends.begin(), deadends.end());
+
+    if (visited.contains(START))
+        return -1;
+
+    std::queue<std::pair<std::string, int>> queue; // [current, level]
+    queue.emplace(START, 0);
+    visited.insert(START);
+
+    while (!queue.empty())
+    {
+        auto [current_lock, level] = queue.front();
+        queue.pop();
+
+        if (current_lock == target_lock)
+        {
+            return level;
+        }
+
+        for (int i = 0; i < current_lock.size(); i++)
+        {
+            std::string new_lock = current_lock;
+            int current_digit = new_lock[i] - char('0');
+
+            for (int direction : DIRECTIONS)
+            {
+                int new_digit = ((current_digit + direction) % RANGE + RANGE) % RANGE;
+                new_lock[i] = new_digit + char('0');
+
+                if (!visited.contains(new_lock))
+                {
+                    visited.insert(new_lock);
+                    queue.emplace(new_lock, level + 1);
+                }
+            }
+        }
+    }
+
+    return -1;
+}
+
+void open_the_lock_entry()
+{
+    std::vector<std::string> deadends = {
+        "8887","8889","8878","8898","8788","8988","7888","9888"
+    };
+    std::string target = "8888";
+
+    std::cout << number_of_lock_moves(target, deadends) << "\n";
+}

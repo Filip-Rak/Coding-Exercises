@@ -4,5 +4,5 @@
 
 int main()
 {
-	word_ladder_entry();
+	open_the_lock_entry();
 }
