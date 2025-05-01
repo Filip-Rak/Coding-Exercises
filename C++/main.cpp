@@ -4,5 +4,5 @@
 
 int main()
 {
-	open_the_lock_entry();
+	compress_string_entry();
 }

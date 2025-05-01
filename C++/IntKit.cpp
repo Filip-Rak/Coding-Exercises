@@ -1319,3 +1319,37 @@ void open_the_lock_entry()
     else
         std::cout << "Combination unattainable\n";
 }
+
+std::string compress_string(const std::string& str)
+{
+    if (str.empty())
+        return "";
+    
+    std::string result;
+    char prev = str[0];
+    int count = 1;
+
+    for (int i = 1; i < str.size(); i++)
+    {
+        if (str[i] == prev)
+        {
+            count += 1;
+        }
+        else
+        {
+            result += prev + std::to_string(count);
+            prev = str[i];
+            count = 1;
+        }
+    }
+
+    result += prev + std::to_string(count);
+
+    return result;
+}
+
+void compress_string_entry()
+{
+    std::string str = "aabcccccaaa";
+    std::cout << compress_string(str) << "\n";
+}

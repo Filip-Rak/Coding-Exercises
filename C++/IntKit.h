@@ -211,3 +211,7 @@ void word_ladder_entry();
 std::optional<int> number_of_lock_moves(const std::string& target_lock, const std::vector<std::string>& deadends);
 
 void open_the_lock_entry();
+
+std::string compress_string(const std::string& str);
+
+void compress_string_entry();
