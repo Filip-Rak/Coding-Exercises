@@ -4,5 +4,5 @@
 
 int main()
 {
-	compress_string_entry();
+	is_a_rot_entry();
 }

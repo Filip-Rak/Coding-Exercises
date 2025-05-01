@@ -215,3 +215,9 @@ void open_the_lock_entry();
 std::string compress_string(const std::string& str);
 
 void compress_string_entry();
+
+std::string rot_str(const std::string& str, int left);
+
+bool is_str_a_rot(const std::string& str1, const std::string& str2);
+
+void is_a_rot_entry();

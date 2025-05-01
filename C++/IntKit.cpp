@@ -1353,3 +1353,35 @@ void compress_string_entry()
     std::string str = "aabcccccaaa";
     std::cout << compress_string(str) << "\n";
 }
+
+std::string rot_str(const std::string& str, int left)
+{
+    int size = str.size();
+    int norm_left = (left % size + size) % size;
+    std::string result = str;
+
+    for (int i = 0; i < size; i++)
+    {
+        int new_index = ((i - norm_left) % size + size) % size;
+        result[new_index] = str[i];
+    }
+
+    return result;
+}
+
+bool is_str_a_rot(const std::string& str1, const std::string& str2)
+{
+    if (str1.size() != str2.size() || str1.size() == 0 || str1 == str2)
+        return false;
+
+    std::string total = str1 + str1;
+    return (total.find(str2) != std::string::npos);
+}
+
+void is_a_rot_entry()
+{
+    std::string str1 = "string";
+    std::string str2 = rot_str(str1, 0);
+
+    std::cout << is_str_a_rot(str1, str2);
+}
