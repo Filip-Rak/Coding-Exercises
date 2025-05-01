@@ -221,3 +221,7 @@ std::string rot_str(const std::string& str, int left);
 bool is_str_a_rot(const std::string& str1, const std::string& str2);
 
 void is_a_rot_entry();
+
+std::string longest_distinct_subs(const std::string str);
+
+void longest_distinct_sub_entry();

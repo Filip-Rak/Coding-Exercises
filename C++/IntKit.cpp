@@ -1385,3 +1385,47 @@ void is_a_rot_entry()
 
     std::cout << is_str_a_rot(str1, str2);
 }
+
+std::string longest_distinct_subs(const std::string str)
+{
+    if (str.empty())
+        return "";
+
+    std::unordered_map<char, int> last_seen;
+    int max_start = 0, max_length = 0;
+    int start = 0;
+
+    int end;
+    for (end = 0; end < str.size(); end++)
+    {
+        char c = str[end];
+        if (last_seen.contains(c) && last_seen[c] >= start)
+        {
+            int length = end - start;
+            if (length > max_length)
+            {
+                max_start = start;
+                max_length = length;
+            }
+
+            start = last_seen[c] + 1;
+        }
+
+        last_seen[c] = end;
+    }
+
+    int length = end - start;
+    if (length > max_length)
+    {
+        max_start = start;
+        max_length = length;
+    }
+
+    return str.substr(max_start, max_length);
+}
+
+void longest_distinct_sub_entry()
+{
+    std::string str("abccbad");
+    std::cout << longest_distinct_subs(str) << "\n";
+}

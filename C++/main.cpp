@@ -4,5 +4,5 @@
 
 int main()
 {
-	is_a_rot_entry();
+	longest_distinct_sub_entry();
 }
