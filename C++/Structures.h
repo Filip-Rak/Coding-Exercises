@@ -157,8 +157,8 @@ public:
         {
             Node* next = tgt->next;
             tgt->next = prev;
-            prev = tgt;
 
+            prev = tgt;
             tgt = next;
         }
 
@@ -1050,4 +1050,12 @@ public:
     void pop_back();
 
     void clear();
+    void reverse();
+
+    /* Getters */
+    Dequeue get_reversed() const;
 };
+
+void dequeue_entry2();
+
+void list_reversal_entry();

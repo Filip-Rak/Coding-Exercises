@@ -1627,6 +1627,20 @@ std::optional<int> Dequeue::back() const
     return std::make_optional(tail->value);
 }
 
+Dequeue Dequeue::get_reversed() const
+{
+    Dequeue dequeue;
+
+    Node* tgt = head;
+    while (tgt)
+    {
+        dequeue.push_front(tgt->value);
+        tgt = tgt->next;
+    }
+
+    return dequeue;
+}
+
 void Dequeue::pop_front()
 {
     if (!head)
@@ -1668,4 +1682,86 @@ void Dequeue::clear()
     }
 
     tail = nullptr;
+}
+
+void Dequeue::reverse()
+{
+    Node* tgt = this->head;
+    Node* prev = nullptr;
+
+    while (tgt)
+    {
+        Node* next = tgt->next;
+        tgt->next = prev;
+        tgt->prev = next;
+        prev = tgt;
+
+        tgt = next;
+    }
+
+    this->tail = this->head;
+    this->head = prev;
+}
+
+void dequeue_entry2()
+{
+    Dequeue queue;
+
+    int start = 1, range = 5;
+    for (int i = start; i < start + range; i++)
+        queue.push_back(i);
+
+    Dequeue new_queue = queue.get_reversed();
+
+    auto ret = new_queue.front();
+    while (ret.has_value())
+    {
+        std::cout << ret.value() << "\n";
+
+        new_queue.pop_front();
+        ret = new_queue.front();
+    }
+
+    std::cout << "\n";
+}
+
+void list_reversal_entry()
+{
+    CustomList2<int> single_list;
+    Dequeue double_list;
+
+    // Feed with example data
+    int start = 1, range = 5;
+    for (int i = start; i < start + range; i++)
+    {
+        single_list.push_back(i);
+        double_list.push_back(i);
+    }
+
+    // Reverse
+    single_list.reverse();
+    double_list.reverse();
+
+    // Print result
+    std::cout << "Single list: ";
+
+    auto sl_ret = single_list.pop_front();
+    while (sl_ret.first)
+    {
+        std::cout << sl_ret.second << " ";
+        sl_ret = single_list.pop_front();
+    }
+
+    std::cout << "\nDouble list: ";
+
+    auto dl_ret = double_list.front();
+    while (dl_ret.has_value())
+    {
+        std::cout << dl_ret.value() << " ";
+
+        double_list.pop_front();
+        dl_ret = double_list.front();
+    }
+
+    std::cout << "\n";
 }

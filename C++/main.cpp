@@ -4,5 +4,5 @@
 
 int main()
 {
-	distinct_subs_k_entry();
+	list_reversal_entry();
 }
