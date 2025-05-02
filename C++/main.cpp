@@ -4,5 +4,5 @@
 
 int main()
 {
-	list_reversal_entry();
+	get_mid_list_element_entry();
 }

@@ -1054,8 +1054,11 @@ public:
 
     /* Getters */
     Dequeue get_reversed() const;
+    std::optional<int> get_middle_val() const;
 };
 
 void dequeue_entry2();
 
 void list_reversal_entry();
+
+void get_mid_list_element_entry();

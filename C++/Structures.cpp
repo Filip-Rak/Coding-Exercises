@@ -1641,6 +1641,23 @@ Dequeue Dequeue::get_reversed() const
     return dequeue;
 }
 
+std::optional<int> Dequeue::get_middle_val() const
+{
+    if (!head)
+        return std::nullopt;
+
+    Node* slow_pointer = this->head;
+    Node* fast_pointer = this->head;
+
+    while (fast_pointer && fast_pointer->next)
+    {
+        slow_pointer = slow_pointer->next;
+        fast_pointer = fast_pointer->next->next;
+    }
+
+    return std::make_optional(slow_pointer->value);
+}
+
 void Dequeue::pop_front()
 {
     if (!head)
@@ -1764,4 +1781,17 @@ void list_reversal_entry()
     }
 
     std::cout << "\n";
+}
+
+void get_mid_list_element_entry()
+{
+    Dequeue list;
+
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    list.push_back(5);
+
+    std::cout << list.get_middle_val().value_or(-1) << "\n";
 }
