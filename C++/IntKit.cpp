@@ -1477,3 +1477,29 @@ void distinct_subs_k_entry()
 
     std::cout << "Count: " << ret.size() << "\n";
 }
+
+int min_num_of_jumps(std::vector<int> arr)
+{
+    const int size = arr.size();
+    int jumps = 0;
+    int index = 0;
+
+    for (int i = 0; i < size - 1; i++)
+    {
+        if (i + 2 < size)
+        {
+            if (arr[i + 2] != 1)
+                i += 1;
+        }
+        
+        jumps += 1;
+    }
+
+    return jumps;
+}
+
+void cloud_jumper_entry()
+{
+    std::vector<int> arr = { 0, 1, 0, 0, 0, 1, 0 };
+    std::cout << min_num_of_jumps(arr) << "\n";
+}

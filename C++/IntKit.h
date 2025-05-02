@@ -230,3 +230,7 @@ void longest_distinct_sub_entry();
 std::vector<std::string> distinct_subs_k(const std::string& str, int k);
 
 void distinct_subs_k_entry();
+
+int min_num_of_jumps(std::vector<int> arr);
+
+void cloud_jumper_entry();
