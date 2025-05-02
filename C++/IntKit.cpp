@@ -1429,3 +1429,51 @@ void longest_distinct_sub_entry()
     std::string str("abccbad");
     std::cout << longest_distinct_subs(str) << "\n";
 }
+
+std::vector<std::string> distinct_subs_k(const std::string& str, int k)
+{
+    int size = str.size();
+    if (size <= 0 || k <= 0)
+        return {};
+
+    const int offset = 1;
+    std::unordered_map<char, int> last_seen;
+    std::unordered_set<std::string> result_set;
+    std::vector<std::string> results;
+
+    int start = 0;
+    for (int end = 0; end < size; end++)
+    {
+        char c = str[end];
+        int last_index = last_seen[c] - offset;
+        if (last_index >= start)
+            start = last_index + 1;
+
+        last_seen[c] = end + offset;
+
+        int length = end - start + 1;
+        if (length == k)
+        {
+            std::string substr = str.substr(start, k);
+            bool inserted = result_set.insert(substr).second;
+
+            if (inserted) results.push_back(substr);
+
+            start += 1;
+        }
+    }
+
+    return results;
+}
+
+void distinct_subs_k_entry()
+{
+    std::string str = "awaglknagawunagwkwagl";
+    int k = 4;
+
+    auto ret = distinct_subs_k(str, k);
+    for (auto str : ret)
+        std::cout << str << "\n";
+
+    std::cout << "Count: " << ret.size() << "\n";
+}

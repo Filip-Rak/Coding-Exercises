@@ -4,5 +4,5 @@
 
 int main()
 {
-	longest_distinct_sub_entry();
+	distinct_subs_k_entry();
 }

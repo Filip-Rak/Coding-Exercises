@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <map>
 #include <unordered_set>
+#include <set>
 #include <stack>
 #include <algorithm>
 #include <fstream>
@@ -225,3 +226,7 @@ void is_a_rot_entry();
 std::string longest_distinct_subs(const std::string str);
 
 void longest_distinct_sub_entry();
+
+std::vector<std::string> distinct_subs_k(const std::string& str, int k);
+
+void distinct_subs_k_entry();
