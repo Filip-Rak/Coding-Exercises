@@ -1662,3 +1662,44 @@ void generate_subsets_entry()
 
     std::cout << "\n";
 }
+
+std::vector<std::string> generate_all_permutations(const std::string& str)
+{
+    std::vector<std::string> result;
+    std::unordered_set<std::string> visited;
+    std::stack<std::pair<std::string, std::string>> stack; // [current, remainder]
+    stack.emplace("", str);
+
+    while (!stack.empty())
+    {
+        auto [current, remainder] = stack.top();
+        stack.pop();
+
+        if (remainder.empty())
+        {
+            bool inserted = visited.insert(current).second;
+            if (inserted) result.push_back(current);
+        }
+
+        for (size_t i = 0; i < remainder.size(); i++)
+        {
+            std::string new_current = current + remainder[i];
+            std::string new_remainder = remainder;
+            new_remainder.erase(i, 1);
+
+            stack.emplace(new_current, new_remainder);
+        }
+    }
+
+    return result;
+}
+
+void generate_permutations_entry()
+{
+    std::string str = "abc";
+
+    for (std::string entry : generate_all_permutations(str))
+    {
+        std::cout << entry << "\n";
+    }
+}

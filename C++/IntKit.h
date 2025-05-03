@@ -247,3 +247,7 @@ void lus_entry();
 std::vector<std::vector<int>> generate_all_subsets(const std::vector<int>& arr);
 
 void generate_subsets_entry();
+
+std::vector<std::string> generate_all_permutations(const std::string& str);
+
+void generate_permutations_entry();
