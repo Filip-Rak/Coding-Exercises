@@ -4,5 +4,5 @@
 
 int main()
 {
-	comparators_entry();
+	generate_subsets_entry();
 }

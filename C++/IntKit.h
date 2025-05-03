@@ -239,3 +239,11 @@ void cloud_jumper_entry();
 bool custom_greater_comp(int a, int b);
 
 void comparators_entry();
+
+std::string longest_unique_substr(const std::string& str);
+
+void lus_entry();
+
+std::vector<std::vector<int>> generate_all_subsets(const std::vector<int>& arr);
+
+void generate_subsets_entry();

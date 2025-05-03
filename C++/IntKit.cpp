@@ -1544,3 +1544,121 @@ void comparators_entry()
 
     std::cout << "\n";
 }
+
+std::string longest_unique_substr(const std::string& str)
+{
+    std::unordered_map<char, int> last_seen;
+    int max_start = 0, max_length = 0;
+    int start = 0;
+
+    for (int end = 0; end < str.size(); end++)
+    {
+        char c = str[end];
+
+        if (last_seen.contains(c) && last_seen[c] >= start)
+        {
+            int length = end - start;
+            if (length > max_length)
+            {
+                max_length = length;
+                max_start = start;
+            }
+
+            start = last_seen[c] + 1;
+        }
+
+        last_seen[c] = end;
+    }
+
+    int length = str.size() - start;
+    if (length > max_length)
+    {
+        max_length = length;
+        max_start = start;
+    }
+
+    return str.substr(max_start, max_length);
+}
+
+void lus_entry()
+{
+    std::string str = "abccdfgc";
+    std::cout << longest_unique_substr(str) << "\n";
+}
+
+std::vector<std::vector<int>> generate_all_subsets(const std::vector<int>& arr)
+{
+    std::vector<std::vector<int>> result;
+    std::unordered_set<std::string> seen;
+
+    std::vector<int> nums(arr);
+    std::sort(nums.begin(), nums.end());
+
+    std::stack<std::pair<int, std::vector<int>>> stack;
+    stack.push({0, {}});
+
+    while (!stack.empty())
+    {
+        auto [index, subset] = stack.top();
+        stack.pop();
+
+        if (index <= nums.size())
+        {
+            std::string key;
+            for (int num : subset)
+                key += std::to_string(num) + ";";
+
+            bool inserted = seen.insert(key).second;
+            if (inserted) result.push_back(subset);
+        }
+
+        if (index < nums.size())
+        {
+            // Exclude value under current index
+            stack.push({index + 1, subset});
+
+            // Include value under current index
+            std::vector<int> included(subset);
+            included.push_back(nums[index]);
+            stack.push({index + 1, included});
+        }
+    }
+
+    return result;
+}
+
+void generate_subsets_entry()
+{
+    std::vector<int> arr = { 1, 2, 2, 2 };
+    
+    auto ret = generate_all_subsets(arr);
+    auto comp = [](const std::vector<int>& a, const std::vector<int>& b) 
+        { 
+            if (a.size() == b.size())
+            {
+                for (int i = 0; i < a.size(); i++)
+                {
+                    if (a[i] < b[i])
+                        return true;
+
+                    else if (a[i] > b[i])
+                        return false;
+                }
+            }
+
+            return a.size() > b.size(); 
+        };
+
+    std::sort(ret.begin(), ret.end(), comp);
+
+    for (auto set : ret)
+    {
+        std::cout << "Set: ";
+        for (auto num : set)
+            std::cout << num << " ";
+
+        std::cout << "\n";
+    }
+
+    std::cout << "\n";
+}
