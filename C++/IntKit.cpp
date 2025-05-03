@@ -1503,3 +1503,44 @@ void cloud_jumper_entry()
     std::vector<int> arr = { 0, 1, 0, 0, 0, 1, 0 };
     std::cout << min_num_of_jumps(arr) << "\n";
 }
+
+bool custom_greater_comp(int a, int b)
+{
+    return a > b;
+}
+
+void comparators_entry()
+{
+    auto comp = [](int a, int b) { return a > b; };
+
+    std::vector<int> arr1 = { 1, 3, 2, 5, 4 };
+    std::sort(arr1.begin(), arr1.end(), comp);
+
+    for (int num : arr1)
+        std::cout << num << " ";
+
+    std::cout << "\n";
+
+    int arr2[] = { 1, 3, 2, 5, 4 };
+    // std::sort(std::begin(arr2), std::end(arr2), comp);
+    std::sort(std::begin(arr2), std::end(arr2), std::less<int>());
+
+    for (int num : arr2)
+        std::cout << num << " ";
+
+    std::cout << "\n";
+
+    // std::priority_queue<int, std::vector<int>, decltype(comp)> pq(comp);
+    std::priority_queue<int, std::vector<int>, std::less<int>> pq;
+
+    for (int num : arr1)
+        pq.push(num);
+
+    while (!pq.empty())
+    {
+        std::cout << pq.top() << " ";
+        pq.pop();
+    }
+
+    std::cout << "\n";
+}

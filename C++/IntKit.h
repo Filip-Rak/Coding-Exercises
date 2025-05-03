@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <fstream>
 #include <optional>
+#include <functional>
 #include <queue>
 
 /*
@@ -234,3 +235,7 @@ void distinct_subs_k_entry();
 int min_num_of_jumps(std::vector<int> arr);
 
 void cloud_jumper_entry();
+
+bool custom_greater_comp(int a, int b);
+
+void comparators_entry();

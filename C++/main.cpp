@@ -4,5 +4,5 @@
 
 int main()
 {
-	cloud_jumper_entry();
+	comparators_entry();
 }
