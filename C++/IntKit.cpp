@@ -1904,3 +1904,21 @@ std::vector<std::vector<int>> generate_all_subsets2(std::vector<int> arr)
 
     return results;
 }
+
+long fibonacci_tab(int n)
+{
+    std::vector<long> tab(std::max(n + 1, 2));
+    tab[0] = 0;
+    tab[1] = 1;
+
+    for (int i = 2; i <= n; i++)
+        tab[i] = tab[i - 1] + tab[i - 2];
+
+    return tab[n];
+}
+
+void fib_entry()
+{
+    int n = 25;
+    std::cout << "fibonacci_tab(): " << fibonacci_tab(n) << "\n";
+}

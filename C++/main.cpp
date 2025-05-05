@@ -4,5 +4,5 @@
 
 int main()
 {
-	gen_valid_per_entry();
+	fib_entry();
 }

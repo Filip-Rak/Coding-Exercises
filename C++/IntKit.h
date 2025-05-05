@@ -258,3 +258,8 @@ std::vector<std::string> generate_all_valid_parenthese2(int n);
 void gen_valid_per_entry();
 
 std::vector<std::vector<int>> generate_all_subsets2(std::vector<int> arr);
+
+long fibonacci_tab(int n);
+long fib_recursive(long current, long previous)
+
+void fib_entry();
