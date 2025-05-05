@@ -4,5 +4,5 @@
 
 int main()
 {
-	fib_entry();
+	binary_search_entry();
 }

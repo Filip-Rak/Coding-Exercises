@@ -262,5 +262,7 @@ std::vector<std::vector<int>> generate_all_subsets2(std::vector<int> arr);
 long fibonacci_tab(int n);
 long fib_recursive(long current, long previous, int current_n, int n);
 long fib_recursive_wrapper(int n);
-
 void fib_entry();
+
+std::optional<int> binary_search_index(std::vector<int> arr, int target_val);
+void binary_search_entry();
