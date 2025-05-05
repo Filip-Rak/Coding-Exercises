@@ -4,5 +4,5 @@
 
 int main()
 {
-	generate_all_vector_perms_entry();
+	gen_valid_per_entry();
 }

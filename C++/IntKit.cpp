@@ -1809,9 +1809,55 @@ std::vector<std::string> generate_all_valid_parentheses(int n)
     return result;
 }
 
+std::vector<std::string> generate_all_valid_parenthese2(int n)
+{
+    if (n <= 0)
+        return {};
+
+    struct State
+    {
+        std::string string;
+        int opens_remaining;
+        int closes_remaining;
+
+        State(const std::string& str, int opens, int closes)
+            : string(str), opens_remaining(opens), closes_remaining(closes){}
+    };
+
+    std::vector<std::string> results;
+    std::stack<State> stack;
+    stack.emplace("", n, n);
+
+    while (!stack.empty())
+    {
+        State current = stack.top();
+        stack.pop();
+
+        if (current.closes_remaining == 0 && current.opens_remaining == 0)
+        {
+            results.push_back(current.string);
+            continue;
+        }
+
+        if (current.opens_remaining > 0)
+        {
+            State new_state(current.string + "{", current.opens_remaining - 1, current.closes_remaining);
+            stack.push(new_state);
+        }
+
+        if (current.closes_remaining > current.opens_remaining)
+        {
+            State new_state(current.string + "}", current.opens_remaining, current.closes_remaining - 1);
+            stack.push(new_state);
+        }
+    }
+
+    return results;
+}
+
 void gen_valid_per_entry()
 {
-    for (std::string gen : generate_all_valid_parentheses(3))
+    for (std::string gen : generate_all_valid_parenthese2(3))
     {
         std::cout << gen << "\n";
     }

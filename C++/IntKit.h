@@ -254,7 +254,7 @@ void generate_permutations_entry();
 void generate_all_vector_perms_entry();
 
 std::vector<std::string> generate_all_valid_parentheses(int n);
-
+std::vector<std::string> generate_all_valid_parenthese2(int n);
 void gen_valid_per_entry();
 
 std::vector<std::vector<int>> generate_all_subsets2(std::vector<int> arr);
