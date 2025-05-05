@@ -1704,6 +1704,71 @@ void generate_permutations_entry()
     }
 }
 
+std::vector<std::vector<int>> generate_all_permutations(const std::vector<int>& arr)
+{
+    if (arr.empty())
+        return {};
+
+    std::unordered_set<std::string> visited;
+    std::vector<std::vector<int>> result;
+    std::stack<std::pair<std::string, std::string>> stack; // [current, remainder]
+
+    const char DELIMITER = ' ';
+    std::string initial_remainder;
+    for (int num : arr)
+        initial_remainder += std::to_string(num) + DELIMITER;
+
+    stack.push({ "", initial_remainder });
+
+    while (!stack.empty())
+    {
+        auto [current, remainder] = stack.top();
+        stack.pop();
+
+        if (current.size() == arr.size() * 2)
+        {
+            // Retrieve the array
+            std::vector<int> local_result(arr.size());
+            std::stringstream ss(current);
+
+            int index = 0;
+            int buffer;
+            while (ss >> buffer)
+                local_result[index++] = buffer;
+
+            result.push_back(std::move(local_result));
+            continue;
+        }
+
+        for (int i = 0; i < remainder.size(); i++)
+        {
+            if (remainder[i] == DELIMITER) continue;
+
+            std::string next_current = current + DELIMITER + remainder[i];
+            bool unique = visited.insert(next_current).second;
+            if (!unique) continue;
+
+            std::string next_remainder = remainder;
+            next_remainder.erase(i, 1);
+            stack.push({ next_current, next_remainder });
+        }
+    }
+
+    return result;
+}
+
+void generate_all_vector_perms_entry()
+{
+    std::vector<int> arr = { 1, 2, 3 };
+    for (auto sub_vec : generate_all_permutations(arr))
+    {
+        for (int num : sub_vec)
+            std::cout << num << " ";
+
+        std::cout << "\n";
+    }
+}
+
 std::vector<std::string> generate_all_valid_parentheses(int n)
 {
     struct Args
