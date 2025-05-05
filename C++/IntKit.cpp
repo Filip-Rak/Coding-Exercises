@@ -1959,18 +1959,18 @@ void fib_entry()
     std::cout << "all_passed: " << all_passed << "\n";
 }
 
-std::optional<int> binary_search_index(std::vector<int> arr, int target_val)
+std::optional<int> binary_search_index(std::vector<int> arr, int tgt_val)
 {
     std::sort(arr.begin(), arr.end());
     int left = 0, right = arr.size() - 1;
 
     while (left <= right)
     {
-        int mid = ((right - left) / 2) + left;
+        int mid = left + (right - left) / 2;
 
-        if (arr[mid] == target_val)
+        if (arr[mid] == tgt_val)
             return std::make_optional(mid);
-        else if (arr[mid] < target_val)
+        else if (arr[mid] < tgt_val)
             left = mid + 1;
         else
             right = mid - 1;
@@ -1982,11 +1982,14 @@ std::optional<int> binary_search_index(std::vector<int> arr, int target_val)
 void binary_search_entry()
 {
     std::vector<int> arr = { 1, 2, 3, 4, 5 ,6 };
-    int target = 3;
-    
-    auto ret = binary_search_index(arr, target);
-    if (ret.has_value())
-        std::cout << ret.value() << "\n";
-    else
-        std::cout << "Failed to find the index.\n";
+  
+    bool all_passed = true;
+    for (int test_num : arr)
+    {
+        auto ret = binary_search_index(arr, test_num);
+        if (!(ret.has_value() && ret.value() == test_num - 1))
+            all_passed = false;
+    }
+
+    std::cout << "All passed: " << all_passed << "\n";
 }
