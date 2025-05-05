@@ -4,5 +4,5 @@
 
 int main()
 {
-	generate_permutations_entry();
+	generate_subsets_entry();
 }

@@ -1703,3 +1703,93 @@ void generate_permutations_entry()
         std::cout << entry << "\n";
     }
 }
+
+std::vector<std::string> generate_all_valid_parentheses(int n)
+{
+    struct Args
+    {
+        std::string string;
+        int open_remaining;
+        int close_remaining;
+    };
+
+    std::vector<std::string> result;
+    std::stack<Args> stack;
+    stack.emplace("", n, n);
+
+    while (!stack.empty())
+    {
+        Args current = stack.top();
+        stack.pop();
+
+        if (current.open_remaining == 0 && current.close_remaining == 0)
+        {
+            result.push_back(current.string);
+            continue;
+        }
+
+        if (current.open_remaining > 0)
+        {
+            Args new_args = { current.string + "(", current.open_remaining - 1, current.close_remaining };
+            stack.push(new_args);
+        }
+
+        if (current.close_remaining > current.open_remaining)
+        {
+            Args new_args = { current.string + ")", current.open_remaining, current.close_remaining - 1 };
+            stack.push(new_args);
+        }
+    }
+
+    return result;
+}
+
+void gen_valid_per_entry()
+{
+    for (std::string gen : generate_all_valid_parentheses(3))
+    {
+        std::cout << gen << "\n";
+    }
+}
+
+std::vector<std::vector<int>> generate_all_subsets2(std::vector<int> arr)
+{
+    if (arr.empty())
+        return {};
+
+    std::unordered_set<std::string> unique;
+    std::vector<std::vector<int>> results;
+    std::stack<std::pair<int, std::vector<int>>> stack; // [index, subset]
+
+    std::sort(arr.begin(), arr.end());
+    stack.push({ 0, {} });
+
+    while (!stack.empty())
+    {
+        auto [current_index, current_subset] = stack.top();
+        stack.pop();
+
+        if (current_index <= arr.size())
+        {
+            std::string str;
+            for (int num : current_subset)
+                str += std::to_string(num) + ";";
+
+            bool inserted = unique.insert(str).second;
+            if (inserted) results.push_back(current_subset);
+        }
+
+        if (current_index < arr.size())
+        {
+            // Include current index
+            std::vector<int> next_subset(current_subset);
+            next_subset.push_back(arr[current_index]);
+            stack.emplace(current_index + 1, next_subset);
+
+            // Exclude current index
+            stack.emplace(current_index + 1, current_subset);
+        }
+    }
+
+    return results;
+}

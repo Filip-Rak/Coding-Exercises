@@ -251,3 +251,10 @@ void generate_subsets_entry();
 std::vector<std::string> generate_all_permutations(const std::string& str);
 
 void generate_permutations_entry();
+
+std::vector<std::string> generate_all_valid_parentheses(int n);
+
+void gen_valid_per_entry();
+
+std::vector<std::vector<int>> generate_all_subsets2(std::vector<int> arr);
+
