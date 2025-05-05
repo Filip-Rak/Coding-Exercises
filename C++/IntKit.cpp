@@ -1917,8 +1917,44 @@ long fibonacci_tab(int n)
     return tab[n];
 }
 
+long fib_recursive(long current, long previous, int current_n, int n)
+{
+    if (current_n == n)
+        return current;
+
+    long next = current + previous;
+    return fib_recursive(next, current, current_n + 1, n);
+}
+
+long fib_recursive_wrapper(int n)
+{
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    return fib_recursive(1, 0, 0, n - 1);
+}
+
 void fib_entry()
 {
-    int n = 25;
-    std::cout << "fibonacci_tab(): " << fibonacci_tab(n) << "\n";
+    std::vector<std::pair<int, int>> test_arr = { {0, 0}, {1, 1}, {5, 5}, {10, 55}, {25, 75025} };
+    std::vector<std::function<long(int)>> functions = { fibonacci_tab, fib_recursive_wrapper };
+    
+    bool all_passed = true;
+    for (auto [input, expected_output] : test_arr)
+    {
+        std::cout << "n: " << input << "\n";
+        for (int i = 0; i < functions.size(); i++)
+        {
+            bool passed = functions[i](input) == expected_output;
+            if (passed)
+                std::cout << "Function: " << i << " passed\n";
+            else
+            {
+                std::cout << "Function: " << i << " failed\n";
+                all_passed = false;
+            }
+        }
+    }
+
+    std::cout << "all_passed: " << all_passed << "\n";
 }
